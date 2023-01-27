@@ -11,7 +11,7 @@ class RolesController extends CI_Controller {
 	{
 		$roles = $this->modelo->getRoles();
 		$data = [
-					'titulo' => 'Roles',
+					'titulo' => 'Rolesss',
 					'roles' => $roles
 				];
 		$this->load->view('roles/index', $data);
