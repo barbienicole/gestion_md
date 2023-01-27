@@ -27,7 +27,7 @@
                     <!-- main content -->
                     <h4><?php if(!empty($titulo)) echo $titulo;else echo 'Roles';?></h4>
                     <hr>
-                    <button class="btn btn-primary">Agregar</button>
+                    <a class="btn btn-primary" href="<?php echo base_url();?>index.php/RolesController/add">Agregar</a>
                     <hr>
                     <table id="table-roles" class="table table-bordered table-striped">
                         <thead>

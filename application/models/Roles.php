@@ -12,4 +12,8 @@ class Roles extends CI_Model {
         $this->db->order_by('nombre','asc');
         return $this->db->get()->result_array();
     }
+
+    public function addRol($data){
+        $this->db->insert('roles', $data);
+    }
 }
