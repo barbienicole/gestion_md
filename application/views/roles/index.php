@@ -45,7 +45,10 @@
                                 echo '<tr>';
                                 echo '<td>'.$rol['id'].'</td>';
                                 echo '<td>'.$rol['nombre'].'</td>';
-                                echo '<td align="center"><button class="btn btn-xs btn-warning">editar</button> <button class="btn btn-xs btn-danger">eliminar</button></td>';
+                                echo '<td align="center">
+                                            <button class="btn btn-xs btn-warning">editar</button> 
+                                            <button class="btn btn-xs btn-danger">eliminar</button>
+                                      </td>';
                                 echo '</tr>';
                                }
                             }

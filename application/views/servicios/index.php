@@ -27,7 +27,7 @@
                     <!-- main content -->
                     <h4><?php if(!empty($titulo)) echo $titulo;else echo 'Servicios';?></h4>
                     <hr>
-                    <button class="btn btn-primary">Agregar</button>
+                    <a class="btn btn-primary" href="<?php echo base_url();?>index.php/ServiciosController/add">Agregar</a>
                     <hr>
                     <table id="table-servicios" class="table table-bordered table-striped">
                         <thead>
@@ -45,7 +45,10 @@
                                 echo '<tr>';
                                 echo '<td>'.$servicio['id'].'</td>';
                                 echo '<td>'.$servicio['nombre'].'</td>';
-                                echo '<td align="center"><button class="btn btn-xs btn-warning">editar</button> <button class="btn btn-xs btn-danger">eliminar</button></td>';
+                                echo '<td align="center">
+                                            <button class="btn btn-xs btn-warning">editar</button> 
+                                            <button class="btn btn-xs btn-danger">eliminar</button>
+                                      </td>';
                                 echo '</tr>';
                                }
                             }

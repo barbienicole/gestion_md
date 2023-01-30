@@ -12,4 +12,8 @@ class Servicios extends CI_Model {
         $this->db->order_by('nombre','asc');
         return $this->db->get()->result_array();
     }
+
+    public function addServicio($data){
+        $this->db->insert('servicios', $data);
+    }
 }

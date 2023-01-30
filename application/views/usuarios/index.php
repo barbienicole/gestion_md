@@ -27,7 +27,7 @@
                     <!-- main content -->
                     <h4><?php if(!empty($titulo)) echo $titulo;else echo 'Usuarios';?></h4>
                     <hr>
-                    <button class="btn btn-primary">Agregar</button>
+                    <a class="btn btn-primary" href="<?php echo base_url();?>index.php/UsuariosController/add">Agregar</a>
                     <hr>
                     <table id="table-usuarios" class="table table-bordered table-striped">
                         <thead>
@@ -45,7 +45,10 @@
                                 echo '<tr>';
                                 echo '<td>'.$usuario['id'].'</td>';
                                 echo '<td>'.$usuario['nombre'].'</td>';
-                                echo '<td align="center"><button class="btn btn-xs btn-warning">editar</button> <button class="btn btn-xs btn-danger">eliminar</button></td>';
+                                echo '<td align="center">
+                                            <button class="btn btn-xs btn-warning">editar</button> 
+                                            <button class="btn btn-xs btn-danger">eliminar</button>
+                                    </td>';
                                 echo '</tr>';
                                }
                             }

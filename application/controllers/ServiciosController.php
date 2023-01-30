@@ -16,4 +16,18 @@ class ServiciosController extends CI_Controller {
 				];
 		$this->load->view('servicios/index', $data);
 	}
+
+	public function add(){
+		$data = [
+			'titulo' => 'Agregar Servicio'
+		];
+		$this->load->view('servicios/add', $data);
+	}
+
+	public function addServicio(){
+		$servicio = $this->input->post('input-servicio');
+		$data = ['nombre' => $servicio];
+		$this->modelo->addServicio($data);
+		$this->index();
+	}
 }

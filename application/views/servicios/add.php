@@ -24,19 +24,19 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid m-2" style="background-color: #fff; min-height: 500px;">
                     <!-- main content -->
-                    <h4><?php if(!empty($titulo)) echo $titulo;else echo 'Agregar Rol';?></h4>
+                    <h4><?php if(!empty($titulo)) echo $titulo;else echo 'Agregar Servicio';?></h4>
                     <hr>
-                    <form action="<?php echo base_url();?>index.php/RolesController/addRol" method="post">
+                    <form action="<?php echo base_url();?>index.php/ServiciosController/addServicio" method="post">
                         <div class="row">
                             <div class="col-md-12">
-                                <input required class="form-control" name="input-rol" id="input-rol" placeholder="Ingrese Rol">
+                                <input required class="form-control" name="input-servicio" id="input-servicio" placeholder="Ingrese Servicio">
                             </div>
                         </div>
                         <br>
                         <div class="row">
                             <div class="col-md-12">
                                 <button type="submit" class="btn btn-success">Enviar</button>
-                                <a class= "btn btn-xs btn-danger" href="<?php echo base_url();?>index.php/RolesController/index">Cancelar</a>
+                                <a class= "btn btn-xs btn-danger" href="<?php echo base_url();?>index.php/ServiciosController/index">Cancelar</a>
                             </div>
                         </div>
                     </form>
