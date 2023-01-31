@@ -16,4 +16,5 @@ class Roles extends CI_Model {
     public function addRol($data){
         $this->db->insert('roles', $data);
     }
+
 }
