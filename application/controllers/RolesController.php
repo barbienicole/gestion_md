@@ -30,5 +30,4 @@ class RolesController extends CI_Controller {
 		$this->modelo->addRol($data);
 		$this->index();
 	}
-
 }
