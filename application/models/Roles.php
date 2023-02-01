@@ -33,4 +33,13 @@ class Roles extends CI_Model {
         else
             return false;
     }
+
+    public function deleteRol($id){
+        //query = "delete from roles where id = XXX";
+        $this->db->where('id', $id);
+        if($this->db->delete('roles'))
+            return true;
+        else
+            return false;
+    }
 }

@@ -47,7 +47,7 @@
                                 echo '<td>'.$rol['nombre'].'</td>';
                                 echo '<td align="center">
                                             <a class="btn btn-xs btn-warning" href="'.base_url().'index.php/RolesController/edit?id='.$rol['id'].'">editar</a> 
-                                            <button class="btn btn-xs btn-danger">eliminar</button>
+                                            <button class="btn btn-xs btn-danger" onclick="deleteRol('.$rol['id'].');">eliminar</button>
                                       </td>';
                                 echo '</tr>';
                                }
@@ -106,6 +106,24 @@
                 }
             });
         });
+
+        function deleteRol(rol_id){
+            let c = confirm('Confirme la eliminación de este registro.');
+            if(c){
+                $.ajax({
+                    url: '<?php echo base_url();?>index.php/RolesController/deleteRol',
+                    data: {id: rol_id},
+                    type: 'post',
+                    dataType: 'text',
+                    success: function(response){
+                        if(response == '1')
+                            window.location.href = '<?php echo base_url();?>index.php/RolesController/index';
+                        else
+                            alert('Hubo un problema con la eliminación del Rol # '+ id);
+                    }   
+                });
+            }
+        }
     </script>
 </body>
 

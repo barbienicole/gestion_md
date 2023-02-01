@@ -56,4 +56,17 @@ class RolesController extends CI_Controller {
 			echo '0';
 		}
 	}
+
+	public function deleteRol(){
+		$id = trim($this->input->post('id', TRUE));
+		$responseBD = $this->modelo->deleteRol($id);
+		if($responseBD){
+			//true hacer algo
+			echo '1';
+		}
+		else{
+			//false hacer algo
+			echo '0';
+		}
+	}
 }
