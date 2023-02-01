@@ -24,10 +24,36 @@ class RolesController extends CI_Controller {
 		$this->load->view('roles/add', $data);
 	}
 
+	public function edit(){
+		$id = trim($this->input->get('id', TRUE));
+		$rol = $this->modelo->getRol($id);
+		$data = [
+			'id' => $id,
+			'titulo' => 'Editar Rol # '.$id,
+			'data'	=> $rol
+		];
+		$this->load->view('roles/edit', $data);
+	}
+
 	public function addRol(){
 		$rol = $this->input->post('input-rol');
 		$data = ['nombre' => $rol];
 		$this->modelo->addRol($data);
 		$this->index();
+	}
+
+	public function editRol(){
+		$id = trim($this->input->post('id', TRUE));
+		$nombre = trim($this->input->post('nombre', TRUE));
+		$data = ['nombre' => $nombre];
+		$responseBD = $this->modelo->updateRol($id, $data);
+		if($responseBD){
+			//true hacer algo
+			echo '1';
+		}
+		else{
+			//false hacer algo
+			echo '0';
+		}
 	}
 }

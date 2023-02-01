@@ -13,7 +13,24 @@ class Roles extends CI_Model {
         return $this->db->get()->result_array();
     }
 
+    public function getRol($rol_id){
+        $this->db->select('id, nombre');
+        $this->db->from('roles');
+        $this->db->where('id', $rol_id);
+        $this->db->limit(1);
+        return $this->db->get()->result_array();
+    }
+
     public function addRol($data){
         $this->db->insert('roles', $data);
+    }
+
+    public function updateRol($id, $data){
+        //query = "update roles set nombre = 'variable' where id = id_variable ";
+        $this->db->where('id', $id);
+        if($this->db->update('roles', $data))
+            return true;
+        else
+            return false;
     }
 }

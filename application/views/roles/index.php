@@ -46,7 +46,7 @@
                                 echo '<td>'.$rol['id'].'</td>';
                                 echo '<td>'.$rol['nombre'].'</td>';
                                 echo '<td align="center">
-                                            <button class="btn btn-xs btn-warning">editar</button> 
+                                            <a class="btn btn-xs btn-warning" href="'.base_url().'index.php/RolesController/edit?id='.$rol['id'].'">editar</a> 
                                             <button class="btn btn-xs btn-danger">eliminar</button>
                                       </td>';
                                 echo '</tr>';
