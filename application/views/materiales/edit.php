@@ -28,14 +28,14 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-12">
-                            <input required class="form-control" name="input-usuario" id="input-usuario" placeholder="Ingrese Usuario" value="<?php if(!empty($data[0]['nombre'])) echo $data[0]['nombre'];?>">
+                            <input required class="form-control" name="input-nombre" id="input-nombre" placeholder="Ingrese Nombre" value="<?php if(!empty($data[0]['nombre'])) echo $data[0]['nombre'];?>">
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-success" onclick="updateUsuario();">Enviar</button>
-                            <a class= "btn btn-xs btn-danger" href="<?php echo base_url();?>index.php/UsuariosController/index">Cancelar</a>
+                            <button type="button" class="btn btn-success" onclick="updateMaterial();">Enviar</button>
+                            <a class= "btn btn-xs btn-danger" href="<?php echo base_url();?>index.php/MaterialesController/index">Cancelar</a>
                         </div>
                     </div>
                 </div>
@@ -60,26 +60,26 @@
     </a>
     <?php $this->load->view('layout/scripts');?>
     <script>
-        function updateUsuario(){
-            let usuario_id = '<?php echo $data[0]['id'];?>';
-            let usuario_nombre = $('#input-usuario').val();
+        function updateMaterial(){
+            let material_id = '<?php echo $data[0]['id'];?>';
+            let material_nombre = $('#input-material').val();
 
-            if(usuario_nombre.trim() != ''){
+            if(material_nombre.trim() != ''){
                 $.ajax({
-                    url: '<?php echo base_url();?>index.php/UsuariosController/editUsuario',
-                    data: {id: usuario_id, nombre: usuario_nombre},
+                    url: '<?php echo base_url();?>index.php/MaterialesController/editMaterial',
+                    data: {id: material_id, nombre: material_nombre},
                     type: 'post',
                     dataType: 'text',
                     success: function(response){
                         if(response == '1')
-                            window.location.href = '<?php echo base_url();?>index.php/UsuariosController/index';
+                            window.location.href = '<?php echo base_url();?>index.php/MaterialesController/index';
                         else
-                            alert('Hubo un problema con la actualización del Usuario # '+ id);
+                            alert('Hubo un problema con la actualización del Material # '+ id);
                     }   
                 });
             }
             else{
-                alert('Usuario debe tener un valor');
+                alert('Material debe tener un valor');
             }
         }
     </script>

@@ -32,16 +32,14 @@
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
         aria-expanded="true" aria-controls="collapseTwo">
         <i class="fas fa-fw fa-cog"></i>
-        <span>Maestros</span>
+        <span>INTRANET</span>
     </a>
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Maestros:</h6>
+            <h6 class="collapse-header">INTRANET:</h6>
             <a class="collapse-item" href="<?php echo base_url();?>index.php/RolesController/index">Roles</a>
             <a class="collapse-item" href="<?php echo base_url();?>index.php/UsuariosController/index">Usuarios</a>
             <a class="collapse-item" href="<?php echo base_url();?>index.php/ServiciosController/index">Servicios</a>
-            <a class="collapse-item" href="cards.html">Opciones</a>
-            <a class="collapse-item" href="cards.html">Opción / Usuario</a>
 
         </div>
     </div>
@@ -52,16 +50,16 @@
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
         aria-expanded="true" aria-controls="collapseUtilities">
         <i class="fas fa-fw fa-wrench"></i>
-        <span>Utilities</span>
+        <span>GESTIÓN</span>
     </a>
     <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Utilities:</h6>
-            <a class="collapse-item" href="utilities-color.html">Colors</a>
-            <a class="collapse-item" href="utilities-border.html">Borders</a>
-            <a class="collapse-item" href="utilities-animation.html">Animations</a>
-            <a class="collapse-item" href="utilities-other.html">Other</a>
+            <h6 class="collapse-header">GESTIÓN:</h6>
+            <a class="collapse-item" href="<?php echo base_url();?>index.php/MaterialesController/index">Stock Materiales</a>
+            <a class="collapse-item" href="utilities-border.html">Programación Proyectos</a>
+            <a class="collapse-item" href="utilities-animation.html">Tickets</a>
+
         </div>
     </div>
 </li>

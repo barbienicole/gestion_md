@@ -46,8 +46,8 @@
                                 echo '<td>'.$usuario['id'].'</td>';
                                 echo '<td>'.$usuario['nombre'].'</td>';
                                 echo '<td align="center">
-                                            <button class="btn btn-xs btn-warning">editar</button> 
-                                            <button class="btn btn-xs btn-danger">eliminar</button>
+                                        <a class="btn btn-xs btn-warning" href="'.base_url().'index.php/UsuariosController/edit?id='.$usuario['id'].'">editar</a> 
+                                        <button class="btn btn-xs btn-danger" onclick="deleteUsuario('.$usuario['id'].');">eliminar</button>
                                     </td>';
                                 echo '</tr>';
                                }
@@ -106,6 +106,24 @@
                 }
             });
         });
+
+        function deleteUsuario(usuario_id){
+            let c = confirm('Confirme la eliminación de este registro.');
+            if(c){
+                $.ajax({
+                    url: '<?php echo base_url();?>index.php/UsuariosController/deleteUsuario',
+                    data: {id: usuario_id},
+                    type: 'post',
+                    dataType: 'text',
+                    success: function(response){
+                        if(response == '1')
+                            window.location.href = '<?php echo base_url();?>index.php/UsuariosController/index';
+                        else
+                            alert('Hubo un problema con la eliminación del Usuario # '+ id);
+                    }   
+                });
+            }
+        }
     </script>
 </body>
 

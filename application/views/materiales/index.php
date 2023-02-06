@@ -25,29 +25,35 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid m-2" style="background-color: #fff; min-height: 500px;">
                     <!-- main content -->
-                    <h4><?php if(!empty($titulo)) echo $titulo;else echo 'Servicios';?></h4>
+                    <h4><?php if(!empty($titulo)) echo $titulo;else echo 'Materiales';?></h4>
                     <hr>
-                    <a class="btn btn-primary" href="<?php echo base_url();?>index.php/ServiciosController/add">Agregar</a>
+                    <a class="btn btn-primary" href="<?php echo base_url();?>index.php/MaterialesController/add">Agregar</a>
                     <hr>
-                    <table id="table-servicios" class="table table-bordered table-striped">
+                    <table id="table-materiales" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th width="20%">Id</th>
-                                <th width="60%">Nombre</th>
+                                <th width="10%">Id</th>
+                                <th width="30%">Nombre</th>
+                                <th width="20%">Modelo</th>
+                                <th width="10%">Valor</th>
+                                <th width="10%">Stock</th>
                                 <th width="20%">Acciones</th>
                             </tr>
                         </thead>
-                        <tbody id="tbody-servicios">
+                        <tbody id="tbody-materiales">
                         <?php
-                            if(!empty($servicios)){
+                            if(!empty($materiales)){
                                //vienen registros
-                               foreach($servicios as $servicio){
+                               foreach($materiales as $material){
                                 echo '<tr>';
-                                echo '<td>'.$servicio['id'].'</td>';
-                                echo '<td>'.$servicio['nombre'].'</td>';
+                                echo '<td>'.$material['id'].'</td>';
+                                echo '<td>'.$material['nombre'].'</td>';
+                                echo '<td>'.$material['modelo'].'</td>';
+                                echo '<td>'.$material['valor'].'</td>';
+                                echo '<td>'.$material['stock'].'</td>';
                                 echo '<td align="center">
-                                            <a class="btn btn-xs btn-warning" href="'.base_url().'index.php/ServiciosController/edit?id='.$servicio['id'].'">editar</a> 
-                                            <button class="btn btn-xs btn-danger" onclick="deleteServicio('.$servicio['id'].');">eliminar</button>
+                                            <a class="btn btn-xs btn-warning" href="'.base_url().'index.php/MaterialesController/edit?id='.$material['id'].'">editar</a> 
+                                            <button class="btn btn-xs btn-danger" onclick="deleteMaterial('.$material['id'].');">eliminar</button>
                                       </td>';
                                 echo '</tr>';
                                }
@@ -83,7 +89,7 @@
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready( function () {
-            $('#table-servicios').DataTable({
+            $('#table-materiales').DataTable({
                 language: {
                     "decimal": "",
                     "emptyTable": "No hay información",
@@ -107,19 +113,19 @@
             });
         });
 
-        function deleteServicio(servicio_id){
+        function deleteMaterial(material_id){
             let c = confirm('Confirme la eliminación de este registro.');
             if(c){
                 $.ajax({
-                    url: '<?php echo base_url();?>index.php/ServiciosController/deleteServicio',
-                    data: {id: servicio_id},
+                    url: '<?php echo base_url();?>index.php/MaterialesController/deleteMaterial',
+                    data: {id: material_id},
                     type: 'post',
                     dataType: 'text',
                     success: function(response){
                         if(response == '1')
-                            window.location.href = '<?php echo base_url();?>index.php/ServiciosController/index';
+                            window.location.href = '<?php echo base_url();?>index.php/MaterialesController/index';
                         else
-                            alert('Hubo un problema con la eliminación del Rol # '+ id);
+                            alert('Hubo un problema con la eliminación del Material # '+ id);
                     }   
                 });
             }
