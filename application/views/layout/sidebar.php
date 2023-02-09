@@ -57,7 +57,7 @@
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">GESTIÓN:</h6>
             <a class="collapse-item" href="<?php echo base_url();?>index.php/MaterialesController/index">Stock Materiales</a>
-            <a class="collapse-item" href="utilities-border.html">Programación Proyectos</a>
+            <a class="collapse-item" href="<?php echo base_url();?>index.php/CotizacionesController/index">Programación Proyectos</a>
             <a class="collapse-item" href="utilities-animation.html">Tickets</a>
 
         </div>

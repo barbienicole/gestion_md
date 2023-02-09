@@ -83,4 +83,21 @@ class MaterialesController extends CI_Controller {
 			echo '0';
 		}
 	}
+
+	public function updateStock(){
+		$id = trim($this->input->post('id', TRUE));
+		$nuevoStock = trim($this->input->post('nuevoStock', TRUE));
+		$data = [
+				 'stock' => $nuevoStock
+				];
+		$responseBD = $this->modelo->updateMaterial($id, $data);
+		if($responseBD){
+			//true hacer algo
+			echo '1';
+		}
+		else{
+			//false hacer algo
+			echo '0';
+		}
+	}
 }

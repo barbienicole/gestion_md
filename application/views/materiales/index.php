@@ -50,7 +50,7 @@
                                 echo '<td>'.$material['nombre'].'</td>';
                                 echo '<td>'.$material['modelo'].'</td>';
                                 echo '<td>'.$material['valor'].'</td>';
-                                echo '<td>'.$material['stock'].'</td>';
+                                echo '<td><input min="0" style="width: 60%;" type="number" value="'.$material['stock'].'" name="input-stock" id="input-stock-'.$material['id'].'" /><button id="'.$material['id'].'" class="btn btn-sm btn-primary ml-1" onclick="updateStock(this.id);">Ok</button></td>';
                                 echo '<td align="center">
                                             <a class="btn btn-xs btn-warning" href="'.base_url().'index.php/MaterialesController/edit?id='.$material['id'].'">editar</a> 
                                             <button class="btn btn-xs btn-danger" onclick="deleteMaterial('.$material['id'].');">eliminar</button>
@@ -126,6 +126,25 @@
                             window.location.href = '<?php echo base_url();?>index.php/MaterialesController/index';
                         else
                             alert('Hubo un problema con la eliminación del Material # '+ id);
+                    }   
+                });
+            }
+        }
+
+        function updateStock(material_id){
+            let c = confirm('Confirme esta operación');
+            if(c){
+                let nuevoStock = $('#input-stock-'+material_id).val();
+                $.ajax({
+                    url: '<?php echo base_url();?>index.php/MaterialesController/updateStock',
+                    data: {id: material_id, nuevoStock: nuevoStock},
+                    type: 'post',
+                    dataType: 'text',
+                    success: function(response){
+                        if(response == '1')
+                            window.location.href = '<?php echo base_url();?>index.php/MaterialesController/index';
+                        else
+                            alert('Hubo un problema con la actualización del stock del Material # '+ id);
                     }   
                 });
             }
