@@ -52,7 +52,14 @@ class MaterialesController extends CI_Controller {
 	public function editMaterial(){
 		$id = trim($this->input->post('id', TRUE));
 		$nombre = trim($this->input->post('nombre', TRUE));
-		$data = ['nombre' => $nombre];
+		$modelo = trim($this->input->post('modelo', TRUE));
+		$valor = trim($this->input->post('valor', TRUE));
+		$stock = trim($this->input->post('stock', TRUE));
+		$data = ['nombre' => $nombre,
+				 'modelo' => $modelo,
+				 'valor' => $valor,
+				 'stock' => $stock
+				];
 		$responseBD = $this->modelo->updateMaterial($id, $data);
 		if($responseBD){
 			//true hacer algo
