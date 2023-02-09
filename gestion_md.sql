@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v11.11 (64 bit)
-MySQL - 5.5.5-10.4.24-MariaDB : Database - gestion_md
+MySQL - 5.5.5-10.4.25-MariaDB : Database - gestion_md
 *********************************************************************
 */
 
@@ -166,6 +166,23 @@ CREATE TABLE `logs` (
 
 /*Data for the table `logs` */
 
+/*Table structure for table `materiales` */
+
+DROP TABLE IF EXISTS `materiales`;
+
+CREATE TABLE `materiales` (
+  `id` int(255) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(155) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `modelo` varchar(155) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `valor` decimal(9,0) NOT NULL,
+  `stock` int(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `materiales` */
+
+insert  into `materiales`(`id`,`nombre`,`modelo`,`valor`,`stock`) values (1,'Comunicador','DSC Neo',120000,10);
+
 /*Table structure for table `opcion_rol` */
 
 DROP TABLE IF EXISTS `opcion_rol`;
@@ -201,11 +218,11 @@ CREATE TABLE `roles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `roles` */
 
-insert  into `roles`(`id`,`nombre`) values (1,'Administrador'),(2,'Usuario');
+insert  into `roles`(`id`,`nombre`) values (1,'Administrador'),(2,'Usuario'),(3,'Cliente');
 
 /*Table structure for table `servicios` */
 
@@ -215,11 +232,11 @@ CREATE TABLE `servicios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `servicios` */
 
-insert  into `servicios`(`id`,`nombre`) values (1,'CCTV'),(2,'Alarmas'),(3,'Voceo'),(4,'Portones');
+insert  into `servicios`(`id`,`nombre`) values (1,'CCTV.'),(2,'Alarmas'),(3,'Voceo'),(4,'Portones'),(5,'Monitoreo');
 
 /*Table structure for table `sucursales` */
 
@@ -254,11 +271,11 @@ CREATE TABLE `usuarios` (
   PRIMARY KEY (`id`),
   KEY `roles_id` (`roles_id`),
   CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`roles_id`) REFERENCES `roles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `usuarios` */
 
-insert  into `usuarios`(`id`,`usuario`,`password`,`nombre`,`email`,`roles_id`,`escribir`,`editar`,`eliminar`) values (1,'admin','827ccb0eea8a706c4c34a16891f84e7b','Administrador','admin@mdsg.cl',1,1,1,1);
+insert  into `usuarios`(`id`,`usuario`,`password`,`nombre`,`email`,`roles_id`,`escribir`,`editar`,`eliminar`) values (1,'admin','827ccb0eea8a706c4c34a16891f84e7b','Administrador.','admin@mdsg.cl',1,1,1,1);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
