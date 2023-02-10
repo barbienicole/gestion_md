@@ -24,16 +24,18 @@ CREATE TABLE `clientes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `rut` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nombre` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `razon_social` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `direccion` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(155) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `razonsocial` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `telefono` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(155) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `direccion` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `comuna` varchar(155) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `rut` (`rut`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `clientes` */
+
+insert  into `clientes`(`id`,`rut`,`nombre`,`razonsocial`,`telefono`,`email`,`direccion`,`comuna`) values (1,'77.808.700-6','Mujica y Docmac Servicios Electrónicos','Mujica y Docmac Comercial y Servicios Electronicos Ltda.','+56981821885','bgonzalez@mdsg.cl','Calle René León N° 80','Curicó'),(2,'76.454.929-5','MUJICA Y DOCMAC ALERTA','ALERTA MD SECURITY SPA','+56981821885','bgonzalez@mdsg.cl','Calle René León N° 80','Curicó');
 
 /*Table structure for table `configuraciones` */
 
@@ -181,7 +183,7 @@ CREATE TABLE `materiales` (
 
 /*Data for the table `materiales` */
 
-insert  into `materiales`(`id`,`nombre`,`modelo`,`valor`,`stock`) values (1,'Comunicador','DSC Neo',120000,10);
+insert  into `materiales`(`id`,`nombre`,`modelo`,`valor`,`stock`) values (1,'Comunicador','DSC Neo',120000,11);
 
 /*Table structure for table `opcion_rol` */
 
