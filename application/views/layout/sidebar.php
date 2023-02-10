@@ -40,6 +40,7 @@
             <a class="collapse-item" href="<?php echo base_url();?>index.php/RolesController/index">Roles</a>
             <a class="collapse-item" href="<?php echo base_url();?>index.php/UsuariosController/index">Usuarios</a>
             <a class="collapse-item" href="<?php echo base_url();?>index.php/ServiciosController/index">Servicios</a>
+            <a class="collapse-item" href="<?php echo base_url();?>index.php/ClientesController/index">Clientes</a>
 
         </div>
     </div>
