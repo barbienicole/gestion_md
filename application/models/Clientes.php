@@ -7,14 +7,14 @@ class Clientes extends CI_Model {
     }
     
     public function getClientes(){
-        $this->db->select('id, rut, nombre, razonsocial, direccion, email, telefono, comuna');
+        $this->db->select('id, rut, nombre, razonsocial, telefono, email, direccion, comuna');
         $this->db->from('clientes');
         $this->db->order_by('nombre','asc');
         return $this->db->get()->result_array();
     }
 
     public function getCliente($cliente_id){
-        $this->db->select('id, rut, nombre, razonsocial, direccion, email, telefono, comuna');
+        $this->db->select('id, rut, nombre, razonsocial, telefono, email, direccion, comuna');
         $this->db->from('clientes');
         $this->db->where('id', $cliente_id);
         $this->db->limit(1);

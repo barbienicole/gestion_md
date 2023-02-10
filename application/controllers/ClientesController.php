@@ -39,16 +39,16 @@ class ClientesController extends CI_Controller {
 		$rut = $this->input->post('input-rut');
 		$nombre = $this->input->post('input-nombre');
 		$razonsocial = $this->input->post('input-razonsocial');
-		$direccion = $this->input->post('input-direccion');
-		$email = $this->input->post('input-email');
 		$telefono = $this->input->post('input-telefono');
+		$email = $this->input->post('input-email');
+		$direccion = $this->input->post('input-direccion');
 		$comuna = $this->input->post('input-comuna');
 		$data = ['rut' => $rut,
 				 'nombre' => $nombre,
 				 'razonsocial' => $razonsocial,
-				 'direccion' => $direccion,
-				 'email' => $email,
 				 'telefono' => $telefono,
+				 'email' => $email,
+				 'direccion' => $direccion,
 				 'comuna' => $comuna,
 				];
 		$this->modelo->addCliente($data);
@@ -60,16 +60,16 @@ class ClientesController extends CI_Controller {
 		$rut = trim($this->input->post('rut', TRUE));
 		$nombre = trim($this->input->post('nombre', TRUE));
 		$razonsocial = trim($this->input->post('razonsocial', TRUE));
-		$direccion = trim($this->input->post('direccion', TRUE));
-		$email = trim($this->input->post('email', TRUE));
 		$telefono = trim($this->input->post('telefono', TRUE));
+		$email = trim($this->input->post('email', TRUE));
+		$direccion = trim($this->input->post('direccion', TRUE));
 		$comuna = trim($this->input->post('comuna', TRUE));
 		$data = ['rut' => $rut,
 				 'nombre' => $nombre,
 				 'razonsocial' => $razonsocial,
-				 'direccion' => $direccion,
-				 'email' => $email,
 				 'telefono' => $telefono,
+				 'email' => $email,
+				 'direccion' => $direccion,
 				 'comuna' => $comuna
 				];
 		$responseBD = $this->modelo->updateCliente($id, $data);

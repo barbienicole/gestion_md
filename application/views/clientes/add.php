@@ -35,11 +35,11 @@
                                 </br>
                                 <input required class="form-control" name="input-razonsocial" id="input-razonsocial" placeholder="Ingrese Razón Social">
                                 <br>
-                                <input required class="form-control" name="input-direccion" id="input-direccion" placeholder="Ingrese Dirección">
+                                <input required class="form-control" name="input-telefono" id="input-telefono" placeholder="Ingrese Teléfono">
                                 </br>
                                 <input required class="form-control" name="input-email" id="input-email" placeholder="Ingrese e-Mail">
                                 <br>
-                                <input required class="form-control" name="input-telefono" id="input-telefono" placeholder="Ingrese Teléfono">
+                                <input required class="form-control" name="input-direccion" id="input-direccion" placeholder="Ingrese Dirección">          
                                 </br>
                                 <input required class="form-control" name="input-comuna" id="input-comuna" placeholder="Ingrese Comuna">
                                 

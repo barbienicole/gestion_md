@@ -34,11 +34,11 @@
                             </br>
                             <input required class="form-control" name="input-razonsocial" id="input-razonsocial" placeholder="Ingrese Razón Social" value="<?php if(!empty($data[0]['razonsocial'])) echo $data[0]['razonsocial'];?>">
                             <br>
-                            <input required class="form-control" name="input-direccion" id="input-direccion" placeholder="Ingrese Dirección" value="<?php if(!empty($data[0]['direccion'])) echo $data[0]['direccion'];?>">
+                            <input required class="form-control" name="input-telefono" id="input-telefono" placeholder="Ingrese Telefono" value="<?php if(!empty($data[0]['telefono'])) echo $data[0]['telefono'];?>">
                             </br>
                             <input required class="form-control" name="input-email" id="input-email" placeholder="Ingrese e-Mail" value="<?php if(!empty($data[0]['email'])) echo $data[0]['email'];?>">
                             <br>
-                            <input required class="form-control" name="input-telefono" id="input-telefono" placeholder="Ingrese Telefono" value="<?php if(!empty($data[0]['telefono'])) echo $data[0]['telefono'];?>">
+                            <input required class="form-control" name="input-direccion" id="input-direccion" placeholder="Ingrese Dirección" value="<?php if(!empty($data[0]['direccion'])) echo $data[0]['direccion'];?>">
                             </br>
                             <input required class="form-control" name="input-comuna" id="input-comuna" placeholder="Ingrese Comuna" value="<?php if(!empty($data[0]['comuna'])) echo $data[0]['comuna'];?>">
                         </div>
@@ -77,16 +77,16 @@
             let cliente_rut = $('#input-rut').val();
             let cliente_nombre = $('#input-nombre').val();
             let cliente_razonsocial = $('#input-razonsocial').val();
-            let cliente_direccion = $('#input-direccion').val();
-            let cliente_email = $('#input-email').val();
             let cliente_telefono = $('#input-telefono').val();
+            let cliente_email = $('#input-email').val();
+            let cliente_direccion = $('#input-direccion').val();
             let cliente_comuna = $('#input-comuna').val();
 
             if(cliente_rut.trim() != ''){
                 $.ajax({
                     url: '<?php echo base_url();?>index.php/ClientesController/editCliente',
                     data: {id: cliente_id, rut: cliente_rut, nombre: cliente_nombre, razonsocial: cliente_razonsocial, 
-                            direccion: cliente_direccion, email: cliente_email, telefono: cliente_telefono, comuna: cliente_comuna},
+                            telefono: cliente_telefono, email: cliente_email, direccion: cliente_direccion, comuna: cliente_comuna},
                     type: 'post',
                     dataType: 'text',
                     success: function(response){

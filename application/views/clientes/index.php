@@ -36,9 +36,9 @@
                                 <th width="10%">Rut</th>
                                 <th width="25%">Nombre</th>
                                 <th width="20%">Razón Social</th>
-                                <th width="10%">Dirección</th>
-                                <th width="10%">e-Mail</th>
                                 <th width="5%">Teléfono</th>
+                                <th width="10%">e-Mail</th>
+                                <th width="10%">Dirección</th>
                                 <th width="5%">Comuna</th>
                                 <th width="10%">Acciones</th>                            
                             </tr>
@@ -53,9 +53,9 @@
                                 echo '<td>'.$cliente['rut'].'</td>';
                                 echo '<td>'.$cliente['nombre'].'</td>';
                                 echo '<td>'.$cliente['razonsocial'].'</td>';
-                                echo '<td>'.$cliente['direccion'].'</td>';
-                                echo '<td>'.$cliente['email'].'</td>';
                                 echo '<td>'.$cliente['telefono'].'</td>';
+                                echo '<td>'.$cliente['email'].'</td>';
+                                echo '<td>'.$cliente['direccion'].'</td>';
                                 echo '<td>'.$cliente['comuna'].'</td>';
                                 echo '<td align="center">
                                             <a class="btn btn-xs btn-warning" href="'.base_url().'index.php/ClientesController/edit?id='.$cliente['id'].'">editar</a> 
