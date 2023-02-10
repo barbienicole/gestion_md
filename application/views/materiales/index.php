@@ -33,7 +33,8 @@
                         <thead>
                             <tr>
                                 <th width="10%">Id</th>
-                                <th width="30%">Nombre</th>
+                                <th width="10%">Código</th>
+                                <th width="20%">Nombre</th>
                                 <th width="20%">Modelo</th>
                                 <th width="10%">Valor</th>
                                 <th width="10%">Stock</th>
@@ -47,6 +48,7 @@
                                foreach($materiales as $material){
                                 echo '<tr>';
                                 echo '<td>'.$material['id'].'</td>';
+                                echo '<td>'.$material['codigo'].'</td>';
                                 echo '<td>'.$material['nombre'].'</td>';
                                 echo '<td>'.$material['modelo'].'</td>';
                                 echo '<td>'.$material['valor'].'</td>';

@@ -174,16 +174,17 @@ DROP TABLE IF EXISTS `materiales`;
 
 CREATE TABLE `materiales` (
   `id` int(255) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(155) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `modelo` varchar(155) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `valor` decimal(9,0) NOT NULL,
+  `codigo` int(9) NOT NULL,
+  `nombre` varchar(155) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `modelo` varchar(155) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `valor` decimal(9,0) DEFAULT NULL,
   `stock` int(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `materiales` */
 
-insert  into `materiales`(`id`,`nombre`,`modelo`,`valor`,`stock`) values (1,'Comunicador','DSC Neo',120000,11);
+insert  into `materiales`(`id`,`codigo`,`nombre`,`modelo`,`valor`,`stock`) values (1,1051197,'Adaptador Cámara Plug DC Macho','N/A',230,35),(2,950342,'Aslador de Paso Tipo Corcho ','N/A',100,58),(3,950338,'Aislador Intermedio Plano','N/A',30,113),(4,667001,'Antena Adicional Para Respaldo','N/A',30,4);
 
 /*Table structure for table `opcion_rol` */
 

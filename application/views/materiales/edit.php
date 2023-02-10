@@ -28,14 +28,16 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-12">
+                            <input required class="form-control" name="input-codigo" id="input-codigo" placeholder="Ingrese Codigo" value="<?php if(!empty($data[0]['codigo'])) echo $data[0]['codigo'];?>">
+                            <br>
                             <input required class="form-control" name="input-nombre" id="input-nombre" placeholder="Ingrese Nombre" value="<?php if(!empty($data[0]['nombre'])) echo $data[0]['nombre'];?>">
-                            <br>
+                            </br>
                             <input required class="form-control" name="input-modelo" id="input-modelo" placeholder="Ingrese Modelo" value="<?php if(!empty($data[0]['modelo'])) echo $data[0]['modelo'];?>">
-                            </br>
-                            <input required class="form-control" name="input-valor" id="input-valor" placeholder="Ingrese Valor" value="<?php if(!empty($data[0]['valor'])) echo $data[0]['valor'];?>">
                             <br>
-                            <input required class="form-control" name="input-stock" id="input-stock" placeholder="Ingrese Stock" value="<?php if(!empty($data[0]['stock'])) echo $data[0]['stock'];?>">
+                            <input required class="form-control" name="input-valor" id="input-valor" placeholder="Ingrese Valor" value="<?php if(!empty($data[0]['valor'])) echo $data[0]['valor'];?>">
                             </br>
+                            <input required class="form-control" name="input-stock" id="input-stock" placeholder="Ingrese Stock" value="<?php if(!empty($data[0]['stock'])) echo $data[0]['stock'];?>">
+                            <br>
                         </div>
                     </div>
                     <br>
@@ -69,6 +71,7 @@
     <script>
         function updateMaterial(){
             let material_id = '<?php echo $data[0]['id'];?>';
+            let material_codigo = $('#input-codigo').val();
             let material_nombre = $('#input-nombre').val();
             let material_modelo = $('#input-modelo').val();
             let material_valor = $('#input-valor').val();
@@ -77,7 +80,7 @@
             if(material_nombre.trim() != ''){
                 $.ajax({
                     url: '<?php echo base_url();?>index.php/MaterialesController/editMaterial',
-                    data: {id: material_id, nombre: material_nombre, modelo: material_modelo, valor: material_valor, stock: material_stock},
+                    data: {id: material_id, codigo: material_codigo, nombre: material_nombre, modelo: material_modelo, valor: material_valor, stock: material_stock},
                     type: 'post',
                     dataType: 'text',
                     success: function(response){
