@@ -52,7 +52,7 @@
                                 echo '<td>'.$cliente['id'].'</td>';
                                 echo '<td>'.$cliente['rut'].'</td>';
                                 echo '<td>'.$cliente['nombre'].'</td>';
-                                echo '<td>'.$cliente['razon_social'].'</td>';
+                                echo '<td>'.$cliente['razonsocial'].'</td>';
                                 echo '<td>'.$cliente['direccion'].'</td>';
                                 echo '<td>'.$cliente['email'].'</td>';
                                 echo '<td>'.$cliente['telefono'].'</td>';

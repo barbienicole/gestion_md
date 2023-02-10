@@ -38,14 +38,14 @@ class ClientesController extends CI_Controller {
 	public function addCliente(){
 		$rut = $this->input->post('input-rut');
 		$nombre = $this->input->post('input-nombre');
-		$razon_social = $this->input->post('input-razon_social');
+		$razonsocial = $this->input->post('input-razonsocial');
 		$direccion = $this->input->post('input-direccion');
 		$email = $this->input->post('input-email');
 		$telefono = $this->input->post('input-telefono');
 		$comuna = $this->input->post('input-comuna');
 		$data = ['rut' => $rut,
 				 'nombre' => $nombre,
-				 'razon_social' => $razon_social,
+				 'razonsocial' => $razonsocial,
 				 'direccion' => $direccion,
 				 'email' => $email,
 				 'telefono' => $telefono,
@@ -59,14 +59,14 @@ class ClientesController extends CI_Controller {
 		$id = trim($this->input->post('id', TRUE));
 		$rut = trim($this->input->post('rut', TRUE));
 		$nombre = trim($this->input->post('nombre', TRUE));
-		$razon_social = trim($this->input->post('razon_social', TRUE));
+		$razonsocial = trim($this->input->post('razonsocial', TRUE));
 		$direccion = trim($this->input->post('direccion', TRUE));
 		$email = trim($this->input->post('email', TRUE));
 		$telefono = trim($this->input->post('telefono', TRUE));
 		$comuna = trim($this->input->post('comuna', TRUE));
 		$data = ['rut' => $rut,
 				 'nombre' => $nombre,
-				 'razon_social' => $razon_social,
+				 'razonsocial' => $razonsocial,
 				 'direccion' => $direccion,
 				 'email' => $email,
 				 'telefono' => $telefono,

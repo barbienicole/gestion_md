@@ -33,7 +33,7 @@
                                 <br>
                                 <input required class="form-control" name="input-nombre" id="input-nombre" placeholder="Ingrese Nombre">
                                 </br>
-                                <input required class="form-control" name="input-razon_social" id="input-razon_social" placeholder="Ingrese Razón Social">
+                                <input required class="form-control" name="input-razonsocial" id="input-razonsocial" placeholder="Ingrese Razón Social">
                                 <br>
                                 <input required class="form-control" name="input-direccion" id="input-direccion" placeholder="Ingrese Dirección">
                                 </br>

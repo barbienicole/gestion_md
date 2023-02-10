@@ -32,7 +32,7 @@
                             <br>
                             <input required class="form-control" name="input-nombre" id="input-nombre" placeholder="Ingrese Nombre" value="<?php if(!empty($data[0]['nombre'])) echo $data[0]['nombre'];?>">
                             </br>
-                            <input required class="form-control" name="input-razon_social" id="razon_social" placeholder="Ingrese Razón Social" value="<?php if(!empty($data[0]['razon_social'])) echo $data[0]['razon_social'];?>">
+                            <input required class="form-control" name="input-razonsocial" id="input-razonsocial" placeholder="Ingrese Razón Social" value="<?php if(!empty($data[0]['razonsocial'])) echo $data[0]['razonsocial'];?>">
                             <br>
                             <input required class="form-control" name="input-direccion" id="input-direccion" placeholder="Ingrese Dirección" value="<?php if(!empty($data[0]['direccion'])) echo $data[0]['direccion'];?>">
                             </br>
@@ -76,7 +76,7 @@
             let cliente_id = '<?php echo $data[0]['id'];?>';
             let cliente_rut = $('#input-rut').val();
             let cliente_nombre = $('#input-nombre').val();
-            let cliente_razon_social = $('#input-razon_social').val();
+            let cliente_razonsocial = $('#input-razonsocial').val();
             let cliente_direccion = $('#input-direccion').val();
             let cliente_email = $('#input-email').val();
             let cliente_telefono = $('#input-telefono').val();
@@ -85,7 +85,7 @@
             if(cliente_rut.trim() != ''){
                 $.ajax({
                     url: '<?php echo base_url();?>index.php/ClientesController/editCliente',
-                    data: {id: cliente_id, rut: cliente_rut, nombre: cliente_nombre, razon_social: cliente_razon_social, 
+                    data: {id: cliente_id, rut: cliente_rut, nombre: cliente_nombre, razonsocial: cliente_razonsocial, 
                             direccion: cliente_direccion, email: cliente_email, telefono: cliente_telefono, comuna: cliente_comuna},
                     type: 'post',
                     dataType: 'text',
