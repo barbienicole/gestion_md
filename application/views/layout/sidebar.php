@@ -37,10 +37,12 @@
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">INTRANET:</h6>
-            <a class="collapse-item" href="<?php echo base_url();?>index.php/RolesController/index">Roles</a>
             <a class="collapse-item" href="<?php echo base_url();?>index.php/UsuariosController/index">Usuarios</a>
-            <a class="collapse-item" href="<?php echo base_url();?>index.php/ServiciosController/index">Servicios</a>
+            <a class="collapse-item" href="<?php echo base_url();?>index.php/RolesController/index">Roles</a>
             <a class="collapse-item" href="<?php echo base_url();?>index.php/ClientesController/index">Clientes</a>
+            <a class="collapse-item" href="<?php echo base_url();?>index.php/ServiciosController/index">Servicios</a>
+            <a class="collapse-item" href="<?php echo base_url();?>index.php/ItemsController/index">Items</a>
+            <a class="collapse-item">Permisos</a>
 
         </div>
     </div>

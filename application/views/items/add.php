@@ -24,29 +24,19 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid m-2" style="background-color: #fff; min-height: 500px;">
                     <!-- main content -->
-                    <h4><?php if(!empty($titulo)) echo $titulo;else echo 'Agregar Material';?></h4>
+                    <h4><?php if(!empty($titulo)) echo $titulo;else echo 'Agregar Item';?></h4>
                     <hr>
-                    <form action="<?php echo base_url();?>index.php/MaterialesController/addMaterial" method="post">
+                    <form action="<?php echo base_url();?>index.php/ItemsController/addItem" method="post">
                         <div class="row">
                             <div class="col-md-12">
-                                <input required class="form-control" name="input-codigo" id="input-codigo" placeholder="Ingrese Código">
-                                <br>
-                                <input required class="form-control" name="input-nombre" id="input-nombre" placeholder="Ingrese Nombre">
-                                </br>
-                                <input required class="form-control" name="input-modelo" id="input-modelo" placeholder="Ingrese Modelo">
-                                <br>
-                                <input required class="form-control" name="input-valor" id="input-valor" placeholder="Ingrese Valor">  
-                                </br>
-                                <input required class="form-control" name="input-stockideal" id="input-stockideal" placeholder="Ingrese Stock Ideal">
-                                <br>    
-                                <input required class="form-control" name="input-stock" id="input-stock" placeholder="Ingrese Stock Inicial">             
+                                <input required class="form-control" name="input-item" id="input-item" placeholder="Ingrese Item">
                             </div>
                         </div>
                         <br>
                         <div class="row">
                             <div class="col-md-12">
                                 <button type="submit" class="btn btn-success">Enviar</button>
-                                <a class= "btn btn-xs btn-danger" href="<?php echo base_url();?>index.php/MaterialesController/index">Cancelar</a>
+                                <a class= "btn btn-xs btn-danger" href="<?php echo base_url();?>index.php/ItemsController/index">Cancelar</a>
                             </div>
                         </div>
                     </form>

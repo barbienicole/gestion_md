@@ -25,39 +25,29 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid m-2" style="background-color: #fff; min-height: 500px;">
                     <!-- main content -->
-                    <h4><?php if(!empty($titulo)) echo $titulo;else echo 'Materiales';?></h4>
+                    <h4><?php if(!empty($titulo)) echo $titulo;else echo 'Items';?></h4>
                     <hr>
-                    <a class="btn btn-primary" href="<?php echo base_url();?>index.php/MaterialesController/add">Agregar</a>
+                    <a class="btn btn-primary" href="<?php echo base_url();?>index.php/ItemsController/add">Agregar</a>
                     <hr>
-                    <table id="table-materiales" class="table table-bordered table-striped">
+                    <table id="table-items" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th width="5%">Id</th>
-                                <th width="10%">Código</th>
-                                <th width="20%">Nombre</th>
-                                <th width="20%">Modelo</th>
-                                <th width="10%">Valor</th>
-                                <th width="10%">Stock Ideal</th>
-                                <th width="10%">Stock</th>
-                                <th width="15%">Acciones</th>
+                                <th width="20%">Id</th>
+                                <th width="60%">Nombre</th>
+                                <th width="20%">Acciones</th>
                             </tr>
                         </thead>
-                        <tbody id="tbody-materiales">
+                        <tbody id="tbody-items">
                         <?php
-                            if(!empty($materiales)){
+                            if(!empty($items)){
                                //vienen registros
-                               foreach($materiales as $material){
+                               foreach($items as $item){
                                 echo '<tr>';
-                                echo '<td>'.$material['id'].'</td>';
-                                echo '<td>'.$material['codigo'].'</td>';
-                                echo '<td>'.$material['nombre'].'</td>';
-                                echo '<td>'.$material['modelo'].'</td>';
-                                echo '<td>'.$material['valor'].'</td>';
-                                echo '<td>'.$material['stockideal'].'</td>';
-                                echo '<td><input min="0" style="width: 60%;" type="number" value="'.$material['stock'].'" name="input-stock" id="input-stock-'.$material['id'].'" /><button id="'.$material['id'].'" class="btn btn-sm btn-primary ml-1" onclick="updateStock(this.id);">Ok</button></td>';
+                                echo '<td>'.$item['id'].'</td>';
+                                echo '<td>'.$item['nombre'].'</td>';
                                 echo '<td align="center">
-                                            <a class="btn btn-xs btn-warning" href="'.base_url().'index.php/MaterialesController/edit?id='.$material['id'].'">editar</a> 
-                                            <button class="btn btn-xs btn-danger" onclick="deleteMaterial('.$material['id'].');">eliminar</button>
+                                            <a class="btn btn-xs btn-warning" href="'.base_url().'index.php/ItemsController/edit?id='.$item['id'].'">editar</a> 
+                                            <button class="btn btn-xs btn-danger" onclick="deleteItem('.$item['id'].');">eliminar</button>
                                       </td>';
                                 echo '</tr>';
                                }
@@ -93,7 +83,7 @@
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready( function () {
-            $('#table-materiales').DataTable({
+            $('#table-items').DataTable({
                 language: {
                     "decimal": "",
                     "emptyTable": "No hay información",
@@ -117,38 +107,19 @@
             });
         });
 
-        function deleteMaterial(material_id){
+        function deleteItem(item_id){
             let c = confirm('Confirme la eliminación de este registro.');
             if(c){
                 $.ajax({
-                    url: '<?php echo base_url();?>index.php/MaterialesController/deleteMaterial',
-                    data: {id: material_id},
+                    url: '<?php echo base_url();?>index.php/ItemsController/deleteItem',
+                    data: {id: item_id},
                     type: 'post',
                     dataType: 'text',
                     success: function(response){
                         if(response == '1')
-                            window.location.href = '<?php echo base_url();?>index.php/MaterialesController/index';
+                            window.location.href = '<?php echo base_url();?>index.php/ItemsController/index';
                         else
-                            alert('Hubo un problema con la eliminación del Material # '+ id);
-                    }   
-                });
-            }
-        }
-
-        function updateStock(material_id){
-            let c = confirm('Confirme esta operación');
-            if(c){
-                let nuevoStock = $('#input-stock-'+material_id).val();
-                $.ajax({
-                    url: '<?php echo base_url();?>index.php/MaterialesController/updateStock',
-                    data: {id: material_id, nuevoStock: nuevoStock},
-                    type: 'post',
-                    dataType: 'text',
-                    success: function(response){
-                        if(response == '1')
-                            window.location.href = '<?php echo base_url();?>index.php/MaterialesController/index';
-                        else
-                            alert('Hubo un problema con la actualización del stock del Material # '+ id);
+                            alert('Hubo un problema con la eliminación del Item # '+ id);
                     }   
                 });
             }
