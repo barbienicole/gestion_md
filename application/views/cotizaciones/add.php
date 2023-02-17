@@ -206,10 +206,25 @@
                     </thead>
                     <tbody id="tbody-carga-items">
                         <tr>
-                            <td>1</td>
-                            <td>Item 1</td>
+                        <?php
+                            if(!empty($items)){
+                               //vienen registros
+                               foreach($items as $item){
+                                echo '<tr>';
+                                echo '<td>'.$item['id'].'</td>';
+                                echo '<td>'.$item['nombre'].'</td>';
+                                echo '</tr>';
+                               }
+                            }
+                            else{
+                                //no vienen registros
+                                echo '<tr><td colspan="3">No existen registros.</td></tr>';
+                            }
+                            ?>
+                            <!--<td>1</td>
+                            <td>Item 1</td> -->
                             <td><input type="number" id="input-cantidad-item" name="input-cantidad-item" size="4" value="1" min="1"></td>
-                            <td><button class="btn btn-success btn-sm">cargar</button></td>
+                            <td><button class="btn btn-success btn-sm">cargar</button></td> 
                         </tr>
                     </tbody>
                 </table>
@@ -226,8 +241,34 @@
         <i class="fas fa-angle-up"></i>
     </a>
     <?php $this->load->view('layout/scripts');?>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script>
-    </script>
+        $(document).ready( function () {
+            $('#table-carga-items').DataTable({
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Entradas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            });
+        });
+
+        </script>
 </body>
 
 </html>
