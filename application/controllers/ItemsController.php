@@ -69,4 +69,10 @@ class ItemsController extends CI_Controller {
 			echo '0';
 		}
 	}
+
+	public function getDataItem(){
+		$id = trim($this->input->post('id', TRUE));
+		$item = $this->modelo->getItem($id);
+		echo json_encode($item);
+	}
 }

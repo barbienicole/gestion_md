@@ -12,8 +12,10 @@ class CotizacionesController extends CI_Controller {
     }
 
     public function add(){
+        $items = $this->modelo->getItems();
         $data = [
-			'titulo' => 'Nuevo Proyecto'
+			'titulo' => 'Nuevo Proyecto',
+            'items' => $items
 		];
 		$this->load->view('cotizaciones/add', $data);
     }

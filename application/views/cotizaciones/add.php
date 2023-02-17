@@ -31,7 +31,6 @@
 </head>
 
 <body id="page-top">
-
     <!-- Page Wrapper -->
     <div id="wrapper">  
         <!-- sidebar-->
@@ -117,16 +116,6 @@
                                             </tr>
                                         </thead>
                                         <tbody id="tbody-detalle">
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Item 1</td>
-                                                <td>2</td>
-                                                <td>1000</td>
-                                                <td>2000</td>
-                                                <td>
-                                                    <button class="btn btn-xs btn-danger">remover</button>
-                                                </td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                     <div class="col-md-12">
@@ -137,17 +126,17 @@
                                                     <table class="">
                                                         <tr>
                                                             <td>Neto</td>
-                                                            <td>2000</td>
+                                                            <td id="td-neto">0</td>
                                                         </tr>
 
                                                         <tr>
                                                             <td>IVA</td>
-                                                            <td>380</td>
+                                                            <td id="td-iva">0</td>
                                                         </tr>
 
                                                         <tr>
                                                             <td>Total</td>
-                                                            <td>2380</td>
+                                                            <td id="td-total">0</td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -205,27 +194,23 @@
                         </tr>
                     </thead>
                     <tbody id="tbody-carga-items">
-                        <tr>
                         <?php
                             if(!empty($items)){
-                               //vienen registros
-                               foreach($items as $item){
-                                echo '<tr>';
-                                echo '<td>'.$item['id'].'</td>';
-                                echo '<td>'.$item['nombre'].'</td>';
-                                echo '</tr>';
-                               }
+                                //vienen registros
+                                foreach($items as $item){
+                                    echo '<tr>';
+                                    echo '<td>'.$item['id'].'</td>';
+                                    echo '<td>'.$item['nombre'].'</td>';
+                                    echo '<td><input value="0" class="form-control" type="number" name="input-item_cantidad" id="input-cantidad-'.$item['id'].'"></td>';
+                                    echo '<td><button class="btn btn-primary" id="btn-'.$item['id'].'" onclick="cargarItem(this.id);">agregar</button></td>';
+                                    echo '</tr>';
+                                }
                             }
                             else{
                                 //no vienen registros
-                                echo '<tr><td colspan="3">No existen registros.</td></tr>';
+                                echo '<tr><td colspan="4">No existen registros.</td></tr>';
                             }
-                            ?>
-                            <!--<td>1</td>
-                            <td>Item 1</td> -->
-                            <td><input type="number" id="input-cantidad-item" name="input-cantidad-item" size="4" value="1" min="1"></td>
-                            <td><button class="btn btn-success btn-sm">cargar</button></td> 
-                        </tr>
+                        ?>
                     </tbody>
                 </table>
             </div>
@@ -245,6 +230,11 @@
     <script>
         $(document).ready( function () {
             $('#table-carga-items').DataTable({
+                lengthMenu: [
+                    [5, 25, 50, -1],
+                    [5, 25, 50, 'All'],
+                ],
+                pageLength: 5,
                 language: {
                     "decimal": "",
                     "emptyTable": "No hay información",
@@ -267,6 +257,67 @@
                 }
             });
         });
+
+        function cargarItem(item_id){
+            item_id = item_id.replace('btn-','');
+            let cantidad = $('#input-cantidad-'+item_id).val();
+
+            $.ajax({
+                url: '<?php echo base_url();?>index.php/ItemsController/getDataItem',
+                type: 'post',
+                data: {id: item_id},
+                dataType: 'json',
+                success: function(response){
+                    console.log(response);
+
+                    let tbody = '<tr id="tr-'+item_id+'">';
+                    tbody += '<td>'+item_id+'</td>';
+                    tbody += '<td>'+response[0]['nombre']+'</td>';
+                    tbody += '<td id="td-cantidad_item-'+item_id+'">'+cantidad+'</td>';
+                    tbody += '<td><input onkeyup="calcularSubTotal(this.id);" value="0" type="number" id="input-valor_unitario-'+item_id+'" name="input-valor_unitario" /></td>';
+                    tbody += '<td><input class="form-control" name="input-sub_total" id="input-sub_total-'+item_id+'" readonly></td>';
+                    tbody += '<td><button id="btn-remove-'+item_id+'" class="btn btn-danger" onclick="removerItem(this.id);">remover</button></td>';
+                    tbody += '</tr>';
+                    $('#tbody-detalle').append(tbody);
+
+                    $('#modal-items').modal('hide');
+                }
+            });
+        }
+
+        function removerItem(identificador_item){
+            identificador_item = identificador_item.replace('btn-remove-','');
+            let c = confirm('Cofirme esta operación');
+            if(c)
+                $('#tr-'+identificador_item).remove();
+
+            sumatoriaTotal();
+        }
+
+        function calcularSubTotal(identificador){
+            let valor_unitario = $('#'+identificador).val();
+            item_id = identificador.replace('input-valor_unitario-','');
+            let cantidad = $('#td-cantidad_item-'+item_id).html();
+            let calculo = cantidad * valor_unitario;
+            $('#input-sub_total-'+item_id).val(calculo);
+            sumatoriaTotal();
+        }
+
+        function sumatoriaTotal(){
+            let sub_totales = $('input[name="input-sub_total"]');
+            let sumatoria = 0;
+            for(let i=0; i < sub_totales.length; i++){
+                sumatoria += parseInt($(sub_totales[i]).val());
+            }
+
+            let iva = sumatoria * 0.19;
+            let total = sumatoria + iva;
+
+            $('#td-neto').html(sumatoria);
+            $('#td-iva').html(iva);
+            $('#td-total').html(total);
+
+        }
 
         </script>
 </body>
