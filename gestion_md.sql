@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v11.11 (64 bit)
-MySQL - 5.5.5-10.4.25-MariaDB : Database - gestion_md
+MySQL - 5.5.5-10.4.24-MariaDB : Database - gestion_md
 *********************************************************************
 */
 
@@ -161,12 +161,15 @@ CREATE TABLE `logs` (
   `identificador` int(11) DEFAULT NULL,
   `data` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `usuarios_id` int(11) DEFAULT NULL,
+  `fecha` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `usuarios_id` (`usuarios_id`),
   CONSTRAINT `logs_ibfk_1` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `logs` */
+
+insert  into `logs`(`id`,`accion`,`entidad`,`identificador`,`data`,`usuarios_id`,`fecha`) values (1,'Login Correcto','usuarios',1,'{\"usuario_id\":\"1\",\"usuario_usuario\":\"admin\",\"usuario_password_raw\":\"12345\",\"usuario_password\":\"827ccb0eea8a706c4c34a16891f84e7b\",\"usuario_nombre\":\"Mat\\u00edas Quezada\",\"usuario_email\":\"admin@mdsg.cl\",\"usuario_escribir\":\"1\",\"usuario_editar\":\"1\",\"usuario_eliminar\":\"1\",\"roles_id\":\"1\",\"roles_nombre\":\"Administrador\"}',1,'2023-03-17 20:09:18'),(2,'Login Incorrecto','usuarios',3,'{\"usuario\":\"admin\",\"password\":\"12345dasd\"}',3,'2023-03-17 20:10:38'),(3,'Login Correcto','usuarios',1,'{\"usuario_id\":\"1\",\"usuario_usuario\":\"admin\",\"usuario_password_raw\":\"12345\",\"usuario_password\":\"827ccb0eea8a706c4c34a16891f84e7b\",\"usuario_nombre\":\"Mat\\u00edas Quezada\",\"usuario_email\":\"admin@mdsg.cl\",\"usuario_escribir\":\"1\",\"usuario_editar\":\"1\",\"usuario_eliminar\":\"1\",\"roles_id\":\"1\",\"roles_nombre\":\"Administrador\"}',1,'2023-03-17 20:12:15');
 
 /*Table structure for table `materiales` */
 
@@ -275,11 +278,11 @@ CREATE TABLE `usuarios` (
   PRIMARY KEY (`id`),
   KEY `roles_id` (`roles_id`),
   CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`roles_id`) REFERENCES `roles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `usuarios` */
 
-insert  into `usuarios`(`id`,`usuario`,`password`,`nombre`,`email`,`roles_id`,`escribir`,`editar`,`eliminar`) values (1,'admin','827ccb0eea8a706c4c34a16891f84e7b','Administrador.','admin@mdsg.cl',1,1,1,1);
+insert  into `usuarios`(`id`,`usuario`,`password`,`nombre`,`email`,`roles_id`,`escribir`,`editar`,`eliminar`) values (1,'admin','827ccb0eea8a706c4c34a16891f84e7b','Matías Quezada','admin@mdsg.cl',1,1,1,1),(3,'prueba','827ccb0eea8a706c4c34a16891f84e7b','N/A','usuario@gmail.com',1,1,1,1);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
