@@ -4,8 +4,12 @@
     <!------ Include the above in your HEAD tag ---------->
     <?php $this->load->view('layout/scripts');?>
     <style>
-        body#LoginForm{ background-image:url("https://hdwallsource.com/img/2014/9/blur-26347-27038-hd-wallpapers.jpg"); background-repeat:no-repeat; background-position:center; background-size:cover; padding:10px;}
-
+        /*
+            body#LoginForm{ background-image:url("https://hdwallsource.com/img/2014/9/blur-26347-27038-hd-wallpapers.jpg"); background-repeat:no-repeat; background-position:center; background-size:cover; padding:10px;}
+        */
+        body#LoginForm{
+            background-color: #444;
+        }
         .form-heading { color:#fff; font-size:23px;}
         .panel h2{ color:#444444; font-size:18px; margin:0 0 8px 0;}
         .panel p { color:#777777; font-size:14px; margin-bottom:30px; line-height:24px;}
@@ -34,10 +38,12 @@
         font-size: 14px;
         text-decoration: underline;
         }
-        .login-form  .btn.btn-primary {
+        .login-form  .btn.btn-success {
+        /*
         background: #f0ad4e none repeat scroll 0 0;
         border-color: #f0ad4e;
         color: #ffffff;
+        */
         font-size: 14px;
         width: 100%;
         height: 50px;
@@ -81,7 +87,7 @@
         <div class="form-group">
             <input required type="password" class="form-control" id="input-password" name="password" placeholder="Contraseña">
         </div>
-        <button type="submit" class="btn btn-primary">Aceptar</button>
+        <button type="submit" class="btn btn-success">Aceptar</button>
     </form>
     </div>
 </div></div></div>

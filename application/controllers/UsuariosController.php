@@ -4,18 +4,63 @@ class UsuariosController extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
+		ini_set('date.timezone', 'America/Santiago');
 		$this->load->model('Usuarios', 'modelo');
 	}
 	
 	public function index()
 	{
-		$usuarios = $this->modelo->getUsuarios();
-		$data = [
-					'titulo' => 'Usuarios',
-					'usuarios' => $usuarios
-				];
+		$this->load->library('grocery_CRUD');
+		$crud = new grocery_CRUD();
+		$crud->set_table('usuarios');
+		$crud->set_subject('Usuario');
+		$crud->set_language('spanish');
+		
+		$crud->set_relation('roles_id','roles','nombre');
+		$crud->display_as('roles_id','Rol');
+
+		$crud->field_type('password', 'password');
+		$crud->field_type('email', 'email');
+		
+		$crud->unset_columns(array('password'));
+		$crud->unset_print();
+		$crud->unset_export();
+		if($this->session->userdata('usuario_escribir') == 0)
+			$crud->unset_add();
+		if($this->session->userdata('usuario_editar') == 0)
+			$crud->unset_edit();
+		if($this->session->userdata('usuario_eliminar') == 0)
+			$crud->unset_delete();
+
+		$crud->callback_before_insert(array($this,'encrypt_password_and_insert_callback'));
+		$crud->callback_before_update(array($this,'encrypt_password_and_update_callback'));
+
+		$crud->required_fields('usuario','password', 'nombre', 'roles_id');
+
+		$output = $crud->render();
+		$data = (array)$output;
+		$data['titulo'] = 'Usuarios';
 		$this->load->view('usuarios/index', $data);
 	}
+
+	function encrypt_password_and_insert_callback($post_array) {
+		$post_array['password'] = md5($post_array['password']);
+		return $post_array;
+	} 
+
+	function encrypt_password_and_update_callback($post_array) {
+		$email = $post_array['email'];
+		$this->db->select('password');
+		$this->db->from('usuarios');
+		$this->db->where('email', $email);
+		$this->db->limit(1);
+		$res = $this->db->get()->result_array();
+
+		$input_password = $post_array['password'];
+		if($input_password != $res[0]['password'])
+			$post_array['password'] = md5($post_array['password']);
+		return $post_array;
+	} 
 
 	public function add(){
 		$data = [
@@ -101,7 +146,8 @@ class UsuariosController extends CI_Controller {
 				'fecha' => date('Y-m-d H:i:s')
 			];
 			$this->modelo->addLog($dataLog);
-			$this->load->view('index');
+			header('Location: '.base_url().'index.php/Welcome/Panel');
+			//$this->load->view('index');
 		}
 		else{
 			//si no existe, hay que enviar mensaje hacia el usuario

@@ -45,6 +45,13 @@
         <i class="fas fa-angle-up"></i>
     </a>
     <?php $this->load->view('layout/scripts');?>
+    <script>
+        $(document).ready(function() {
+            
+        });
+        function logout(){
+            window.location.href = '<?php echo base_url();?>'+'index.php/UsuariosController/logout';
+        }
+    </script>
 </body>
-
 </html>
