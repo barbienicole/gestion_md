@@ -25,6 +25,7 @@ class UsuariosController extends CI_Controller {
 		$crud->unset_columns(array('password'));
 		$crud->unset_print();
 		$crud->unset_export();
+		$crud->unset_clone();
 		if($this->session->userdata('usuario_escribir') == 0)
 			$crud->unset_add();
 		if($this->session->userdata('usuario_editar') == 0)

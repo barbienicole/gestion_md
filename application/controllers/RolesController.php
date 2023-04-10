@@ -9,12 +9,36 @@ class RolesController extends CI_Controller {
 	
 	public function index()
 	{
+		$this->load->library('grocery_CRUD');
+		$crud = new grocery_CRUD();
+		$crud->set_table('roles');
+		$crud->set_subject('Rol');
+		$crud->set_language('spanish');
+
+		$crud->unset_print();
+		$crud->unset_export();
+		$crud->unset_clone();
+		if($this->session->userdata('usuario_escribir') == 0)
+			$crud->unset_add();
+		if($this->session->userdata('usuario_editar') == 0)
+			$crud->unset_edit();
+		if($this->session->userdata('usuario_eliminar') == 0)
+			$crud->unset_delete();
+
+		$crud->required_fields('nombre');
+
+		$output = $crud->render();
+		$data = (array)$output;
+		$data['titulo'] = 'Roles';
+		$this->load->view('roles/index', $data);
+		/*
 		$roles = $this->modelo->getRoles();
 		$data = [
 					'titulo' => 'Roles',
 					'roles' => $roles
 				];
 		$this->load->view('roles/index', $data);
+		*/
 	}
 
 	public function add(){
