@@ -14,7 +14,7 @@ class Cotizaciones extends CI_Model {
     }
 
     public function obtenerCotizaciones($desde = null, $hasta = null, $cliente = null, $estado = null){
-        $this->db->select('c.codigo, c.fecha_creacion, c.titulo, cli.razonsocial as cliente, c.total, c.total_real, (c.total - c.total_real) as diferencia, ce.nombre as estado');
+        $this->db->select('c.id, c.codigo, c.fecha_creacion, c.titulo, cli.razonsocial as cliente, c.total, c.total_real, (c.total - c.total_real) as diferencia, ce.nombre as estado');
         $this->db->from('cotizaciones as c');
         $this->db->join('cotizaciones_estado as ce', 'ce.id = c.cotizaciones_estado_id');
         $this->db->join('clientes as cli', 'cli.id = c.clientes_id');

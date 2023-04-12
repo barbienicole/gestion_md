@@ -113,7 +113,7 @@
                         tbody += '<td>'+response[i]['total_real']+'</td>';
                         tbody += '<td>'+response[i]['diferencia']+'</td>';
                         tbody += '<td>'+response[i]['estado']+'</td>';
-                        tbody += '<td><button class="btn btn-info btn-sm" title="Ver cotización">ver</button> <button class="btn btn-warning btn-sm" title="Editar cotización">editar</i></button></td>';
+                        tbody += '<td><a href="<?php echo base_url();?>index.php/CotizacionesController/view?id='+response[i]['id']+'" class="btn btn-info btn-sm" title="Ver cotización">ver</a> <button class="btn btn-warning btn-sm" title="Editar cotización">editar</i></button></td>';
                         tbody += '</tr>';
                     }
                     if(sum_diferencia < 0)

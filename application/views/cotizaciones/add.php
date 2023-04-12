@@ -233,8 +233,9 @@
 <hr>
 <div class="row">
     <div class="col-md-12">
-        <button type="submit" class="btn btn-success">Generar</button>
+        <button type="submit" class="btn btn-success" onclick="generarCotizacion();">Generar</button>
         <a class= "btn btn-xs btn-danger" href="<?php echo base_url();?>index.php/CotizacionesController/index">Cancelar</a>
+        <br><br>
     </div>
 </div>
 <!-- Modal -->
@@ -521,13 +522,38 @@
         let iva = Math.round(sumatoria * iva_historico);
         let total = Math.round(sumatoria + iva);
 
-        neto_pre = sumatoria;
-        iva_pre = iva;
-        total_pre = total;
+        neto_real = sumatoria;
+        iva_real = iva;
+        total_real = total;
 
         $('#td-real-neto').html(new Intl.NumberFormat('es-CL', {currency: 'CLP', style: 'currency'}).format(sumatoria));
         $('#td-real-iva').html(new Intl.NumberFormat('es-CL', {currency: 'CLP', style: 'currency'}).format(iva));
         $('#td-real-total').html(new Intl.NumberFormat('es-CL', {currency: 'CLP', style: 'currency'}).format(total));
+    }
+    //----------------------------------------------------------------------------------------------------------
+    function generarCotizacion(){
+        let usuario = '<?php echo $this->session->userdata("usuario_id");?>';
+        let codigo = $('#input-codigo').val();
+        let fecha = $('#input-fecha').val();
+        let titulo = $('#input-titulo').val();
+        let estado = $('#select-estado').val();
+        let cliente = $('#select-cliente').val();
+        let descripcion = $('#textarea-descripcion').val();
 
+        let dataPre = [];
+        let dataReal = [];
+
+        /*
+        iva_historico
+        neto_pre
+        iva_pre
+        total_pre
+        */
+
+        //tabla pre
+
+        //tabla real
+
+        console.log(usuario,codigo,fecha,titulo,estado,cliente,descripcion,iva_historico,neto_pre,iva_pre,total_pre,neto_real,iva_real,total_real);
     }
 </script>

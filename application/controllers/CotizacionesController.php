@@ -8,7 +8,7 @@ class CotizacionesController extends CI_Controller {
 	}
 
     public function index(){
-		$data['titulo'] = 'Cotizaciones';
+		$data['titulo'] = 'Proyectos';
 		$data['clientes'] = $this->modelo->obtenerClientes();
 		$data['estados'] = $this->modelo->obtenerEstados();
 		$this->load->view('cotizaciones/index', $data);
@@ -28,7 +28,9 @@ class CotizacionesController extends CI_Controller {
     }
 
     public function view(){
-
+		$id = trim($this->input->get('id', TRUE));
+		$data['titulo'] = 'Ver Proyecto # '.$id;
+		$this->load->view('cotizaciones/view', $data);
     }
 
     public function edit(){
