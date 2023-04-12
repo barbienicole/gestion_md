@@ -8,15 +8,22 @@ class CotizacionesController extends CI_Controller {
 	}
 
     public function index(){
-
+		$data['titulo'] = 'Cotizaciones';
+		$data['clientes'] = $this->modelo->obtenerClientes();
+		$data['estados'] = $this->modelo->obtenerEstados();
+		$this->load->view('cotizaciones/index', $data);
     }
 
     public function add(){
+		$iva = $this->modelo->getParametroConfiguracion('iva');
         $items = $this->modelo->getItems();
         $data = [
 			'titulo' => 'Nuevo Proyecto',
+			'iva' => $iva,
             'items' => $items
 		];
+		$data['clientes'] = $this->modelo->obtenerClientes();
+		$data['estados'] = $this->modelo->obtenerEstados();
 		$this->load->view('cotizaciones/add', $data);
     }
 
@@ -27,4 +34,13 @@ class CotizacionesController extends CI_Controller {
     public function edit(){
 
     }
+
+	public function obtenerCotizaciones(){
+		$desde = trim($this->input->post('desde', TRUE));
+		$hasta = trim($this->input->post('hasta', TRUE));
+		$cliente = trim($this->input->post('cliente', TRUE));
+		$estado = trim($this->input->post('estado', TRUE));
+
+		echo json_encode($this->modelo->obtenerCotizaciones($desde, $hasta, $cliente, $estado));
+	}
 }
