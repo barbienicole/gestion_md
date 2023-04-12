@@ -44,6 +44,7 @@
             <a class="collapse-item" href="<?php echo base_url();?>index.php/ItemsController/index">Items</a>
             <a class="collapse-item" href="<?php echo base_url();?>index.php/SucursalesController/index">Sucursales</a>
             <a class="collapse-item" href="<?php echo base_url();?>index.php/MaterialesController/listado">Materiales</a>
+            <a class="collapse-item" href="<?php echo base_url();?>index.php/ConfiguracionesController/index">Parametrización</a>
             <a class="collapse-item">Permisos</a>
 
         </div>
