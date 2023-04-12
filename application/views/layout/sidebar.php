@@ -42,6 +42,8 @@
             <a class="collapse-item" href="<?php echo base_url();?>index.php/ClientesController/index">Clientes</a>
             <a class="collapse-item" href="<?php echo base_url();?>index.php/ServiciosController/index">Servicios</a>
             <a class="collapse-item" href="<?php echo base_url();?>index.php/ItemsController/index">Items</a>
+            <a class="collapse-item" href="<?php echo base_url();?>index.php/SucursalesController/index">Sucursales</a>
+            <a class="collapse-item" href="<?php echo base_url();?>index.php/MaterialesController/listado">Materiales</a>
             <a class="collapse-item">Permisos</a>
 
         </div>
@@ -90,6 +92,9 @@
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Programación Proyectos:</h6>
             <a class="collapse-item" href="#">Histórico</a>
+            <h6 class="collapse-header">Información Log:</h6>
+            <a class="collapse-item" href= "<?php echo base_url();?>index.php/LogsController/index">Logs</a>
+
         </div>
     </div>
 </li>

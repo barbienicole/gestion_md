@@ -9,12 +9,31 @@ class ServiciosController extends CI_Controller {
 	
 	public function index()
 	{
+		$this->load->library('grocery_CRUD');
+		$crud = new grocery_CRUD();
+		$crud->set_table('servicios');
+		$crud->set_subject('Servicio');
+		$crud->set_language('spanish');
+
+		$crud->unset_print();
+		$crud->unset_export();
+		$crud->unset_clone();
+		
+		$crud->required_fields('nombre');
+
+		$output = $crud->render();
+		$data = (array)$output;
+		$data['titulo'] = 'Servicios';
+		$this->load->view('servicios/index', $data);
+
+		/*
 		$servicios = $this->modelo->getServicios();
 		$data = [
 					'titulo' => 'Servicios',
 					'servicios' => $servicios
 				];
 		$this->load->view('servicios/index', $data);
+		*/
 	}
 
 	public function add(){

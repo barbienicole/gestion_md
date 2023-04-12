@@ -9,12 +9,30 @@ class ClientesController extends CI_Controller {
 	
 	public function index()
 	{
+		$this->load->library('grocery_CRUD');
+		$crud = new grocery_CRUD();
+		$crud->set_table('clientes');
+		$crud->set_subject('Cliente');
+		$crud->set_language('spanish');
+
+		$crud->unset_print();
+		$crud->unset_export();
+		$crud->unset_clone();
+		
+		$crud->required_fields('nombre');
+
+		$output = $crud->render();
+		$data = (array)$output;
+		$data['titulo'] = 'Clientes';
+		$this->load->view('clientes/index', $data);
+		/*
 		$clientes = $this->modelo->getClientes();
 		$data = [
 					'titulo' => 'Clientes',
 					'clientes' => $clientes
 				];
 		$this->load->view('clientes/index', $data);
+		*/
 	}
 
 	public function add(){

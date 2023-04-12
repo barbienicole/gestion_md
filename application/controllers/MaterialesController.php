@@ -7,6 +7,36 @@ class MaterialesController extends CI_Controller {
 		$this->load->model('Materiales', 'modelo');
 	}
 	
+	public function listado()
+	{
+		$this->load->library('grocery_CRUD');
+		$crud = new grocery_CRUD();
+		$crud->set_table('materiales');
+		$crud->set_subject('Material');
+		$crud->set_language('spanish');
+
+		$crud->unset_print();
+		$crud->unset_export();
+		$crud->unset_clone();
+		$crud->unset_edit();
+		$crud->unset_delete();
+				
+		$crud->required_fields('nombre');
+
+		$output = $crud->render();
+		$data = (array)$output;
+		$data['titulo'] = 'Materiales';
+		$this->load->view('materiales/listado', $data);
+		/*
+		$items = $this->modelo->getItems();
+		$data = [
+					'titulo' => 'Items',
+					'items' => $items
+				];
+		$this->load->view('items/index', $data);
+		*/
+	}
+
 	public function index()
 	{
 		$materiales = $this->modelo->getMateriales();
