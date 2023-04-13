@@ -72,13 +72,14 @@
 <div class="login-form">
 <div class="main-div">
     <div class="panel">
-   <h2>Iniciar Sesión</h2>
-   <p>Porfavor ingresa tu usuario y contraseña</p>
-   <?php
-   if(!empty($mensaje)){
-    echo '<p>'.$mensaje.'</p>';
-   }
-   ?>
+        <img src="<?php echo base_url();?>assets/img/logo_md_negro.png" class="img-responsive" width="250px;"/>
+        <h2>Iniciar Sesión</h2>
+        <p>Porfavor ingresa tu usuario y contraseña</p>
+        <?php
+        if(!empty($mensaje)){
+            echo '<p>'.$mensaje.'</p>';
+        }
+        ?>
    </div>
     <form id="form-login" action="<?php echo base_url();?>index.php/UsuariosController/login" method="post">
         <div class="form-group">
