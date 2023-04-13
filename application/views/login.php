@@ -73,6 +73,7 @@
 <div class="main-div">
     <div class="panel">
         <img src="<?php echo base_url();?>assets/img/logo_md_negro.png" class="img-responsive" width="250px;"/>
+        <br><br>
         <h2>Iniciar Sesión</h2>
         <p>Porfavor ingresa tu usuario y contraseña</p>
         <?php
