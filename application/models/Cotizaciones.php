@@ -52,4 +52,34 @@ class Cotizaciones extends CI_Model {
         $res = $this->db->get()->result_array();
         return ( !empty($res[0]['valor']) ? $res[0]['valor'] : 0.19 );
     }
+
+    public function obtenerCotizacion($id){
+        $this->db->select('c.id, c.codigo, DATE(c.fecha_creacion) as fecha_creacion, c.titulo,
+                            c.descripcion, c.neto as neto_pre, c.iva as iva_pre, c.iva_historico, c.total as total_pre, 
+                            DATE(c.fecha_actualizacion) as fecha_actualizacion, u.nombre as usuario_nombre, cli.razonsocial, c.neto_real, c.iva_real,
+                            c.total_real, ce.nombre as estado, cli.id as cliente_id, ce.id as estado_id');
+        $this->db->from('cotizaciones as c');
+        $this->db->join('cotizaciones_estado as ce', 'ce.id = c.cotizaciones_estado_id');
+        $this->db->join('clientes as cli', 'cli.id = c.clientes_id');
+        $this->db->join('usuarios as u', 'u.id = c.usuarios_id');
+        $this->db->where('c.id', $id);
+        $this->db->limit(1);
+        return $this->db->get()->result_array();
+    }
+
+    public function obtenerDetalleCotizacionPre($cotizacion_id){
+        $this->db->select('dc.id, dc.items_id as item_id, i.nombre as item_nombre, dc.n_linea, dc.cantidad, dc.valor');
+        $this->db->from('detalle_cotizacion as dc');
+        $this->db->join('items as i', 'i.id = dc.items_id');
+        $this->db->where('dc.cotizaciones_id', $cotizacion_id);
+        return $this->db->get()->result_array();
+    }
+
+    public function obtenerDetalleCotizacionReal($cotizacion_id){
+        $this->db->select('dc.id, dc.items_id as item_id, i.nombre as item_nombre, dc.n_linea, dc.cantidad, dc.valor');
+        $this->db->from('detalle_cotizacion_real as dc');
+        $this->db->join('items as i', 'i.id = dc.items_id');
+        $this->db->where('dc.cotizaciones_id', $cotizacion_id);
+        return $this->db->get()->result_array();
+    }
 }

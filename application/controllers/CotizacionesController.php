@@ -29,12 +29,30 @@ class CotizacionesController extends CI_Controller {
 
     public function view(){
 		$id = trim($this->input->get('id', TRUE));
+		$cotizacion_cebecera = $this->modelo->obtenerCotizacion($id);
+		$cotizacion_detalle_pre = $this->modelo->obtenerDetalleCotizacionPre($id);
+		$cotizacion_detalle_real = $this->modelo->obtenerDetalleCotizacionReal($id);
 		$data['titulo'] = 'Ver Proyecto # '.$id;
+		$data['cabecera'] = $cotizacion_cebecera; 
+		$data['detalle_pre'] = $cotizacion_detalle_pre; 
+		$data['detalle_real'] = $cotizacion_detalle_real; 
+		$data['clientes'] = $this->modelo->obtenerClientes();
+		$data['estados'] = $this->modelo->obtenerEstados();
 		$this->load->view('cotizaciones/view', $data);
     }
 
     public function edit(){
-
+		$id = trim($this->input->get('id', TRUE));
+		$cotizacion_cebecera = $this->modelo->obtenerCotizacion($id);
+		$cotizacion_detalle_pre = $this->modelo->obtenerDetalleCotizacionPre($id);
+		$cotizacion_detalle_real = $this->modelo->obtenerDetalleCotizacionReal($id);
+		$data['titulo'] = 'Editar Proyecto # '.$id;
+		$data['cabecera'] = $cotizacion_cebecera; 
+		$data['detalle_pre'] = $cotizacion_detalle_pre; 
+		$data['detalle_real'] = $cotizacion_detalle_real; 
+		$data['clientes'] = $this->modelo->obtenerClientes();
+		$data['estados'] = $this->modelo->obtenerEstados();
+		$this->load->view('cotizaciones/edit', $data);
     }
 
 	public function obtenerCotizaciones(){

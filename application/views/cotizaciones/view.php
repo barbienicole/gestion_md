@@ -46,22 +46,22 @@
                 <div class="row">
                     <div class="col-md-4">
                         <label>Usuario</label>
-                        <input readonly value="<?php echo $this->session->userdata('usuario_nombre');?>" class="form-control" name="input-usuario" id="input-usuario" />
+                        <input readonly value="<?php echo !empty($cabecera[0]['usuario_nombre']) ? $cabecera[0]['usuario_nombre'] : 'N/A';?>" class="form-control" name="input-usuario" id="input-usuario" />
                     </div>
                     <div class="col-md-4">
                         <label>Código</label>
-                        <input class="form-control" name="input-codigo" id="input-codigo" />
+                        <input readonly class="form-control" name="input-codigo" id="input-codigo" value="<?php echo !empty($cabecera[0]['codigo']) ? $cabecera[0]['codigo'] : 'N/A';?>"/>
                     </div>
                     <div class="col-md-4">
                         <label>Fecha</label>
-                        <input value="<?php echo date('Y-m-d');?>" class="form-control" type="date" name="input-fecha" id="input-fecha" />
+                        <input readonly value="<?php echo !empty($cabecera[0]['fecha_creacion']) ? $cabecera[0]['fecha_creacion'] : date('Y-m-d');?>" class="form-control" type="date" name="input-fecha" id="input-fecha" />
                     </div>
                 </div>
                 <br>
                 <div class="row">
                     <div class="col-md-4">
                         <label>Título</label>
-                        <input  value="" class="form-control" name="input-titulo" id="input-titulo" />
+                        <input disabled  value="<?php echo !empty($cabecera[0]['titulo']) ? $cabecera[0]['titulo'] : 'N/A';?>" class="form-control" name="input-titulo" id="input-titulo" />
                     </div>
                     <div class="col-md-4">
                         <label>Estado</label>
@@ -69,8 +69,7 @@
                             <?php
                             if(!empty($estados)){
                                 foreach($estados as $e){
-                                    if($e['id'] == 1)
-                                        echo '<option selected value="'.$e['id'].'">'.$e['nombre'].' </option>';
+                                    echo '<option selected value="'.$e['id'].'">'.$e['nombre'].' </option>';
                                 }
                             }
                             ?>
@@ -78,8 +77,7 @@
                     </div>
                     <div class="col-md-4">
                         <label>Cliente</label>
-                        <select class="form-control" id="select-cliente" name="select-cliente">
-                            <option value="">Seleccione</option>
+                        <select disabled class="form-control" id="select-cliente" name="select-cliente">
                             <?php
                             if(!empty($clientes)){
                                 foreach($clientes as $c){
@@ -94,7 +92,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <label>Descripción</label>
-                        <textarea rows="4" value="" class="form-control" name="textarea-descripcion" id="textarea-descripcion" ></textarea>
+                        <textarea readonly rows="4" value="" class="form-control" name="textarea-descripcion" id="textarea-descripcion" ><?php echo !empty($cabecera[0]['descripcion']) ? $cabecera[0]['descripcion'] : 'N/A';?></textarea>
                     </div>
                 </div>
             </div>
@@ -129,10 +127,26 @@
                                         <th>Cantidad</th>
                                         <th>Valor Unitario</th>
                                         <th>Sub Total</th>
-                                        <th>Acciones</th>
+                                        <!-- <th>Acciones</th> -->
                                     </tr>
                                 </thead>
                                 <tbody id="tbody-detalle_pre">
+                                    <?php
+                                    if(!empty($detalle_pre)){
+                                        foreach($detalle_pre as $dp){
+                                            echo '<tr>';
+                                            echo '<td>'.$dp['item_id'].'</td>';
+                                            echo '<td>'.$dp['item_nombre'].'</td>';
+                                            echo '<td>'.$dp['cantidad'].'</td>';
+                                            echo '<td>'.$dp['valor'].'</td>';
+                                            echo '<td>'.round($dp['cantidad'] * $dp['valor']).'</td>';
+                                            echo '</tr>';
+                                        }
+                                    }
+                                    else{
+                                        echo '<tr><td colspan="5" class="text-center">No hay registros.</td></tr>';
+                                    }
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
@@ -147,17 +161,17 @@
                             <table class="">
                                 <tr>
                                     <td><strong>Neto:</strong></td>
-                                    <td id="td-neto_pre">0</td>
+                                    <td id="td-neto_pre"><?php echo !empty($cabecera[0]['neto_pre']) ? '$ '.number_format(floatval($cabecera[0]['neto_pre']), 0, ',', '.')  : '$0';?></td>
                                 </tr>
 
                                 <tr>
                                     <td><strong>IVA:</strong></td>
-                                    <td id="td-iva_pre">0</td>
+                                    <td id="td-iva_pre"><?php echo !empty($cabecera[0]['iva_pre']) ? '$ '.number_format(floatval($cabecera[0]['iva_pre']), 0, ',', '.') : '$0';?></td>
                                 </tr>
 
                                 <tr>
                                     <td><strong>Total:</strong></td>
-                                    <td id="td-total_pre">0</td>
+                                    <td id="td-total_pre"><?php echo !empty($cabecera[0]['total_pre']) ? '$ '.number_format(floatval($cabecera[0]['total_pre']), 0, ',', '.') : '$0';?></td>
                                 </tr>
                             </table>
                         </div>
@@ -184,10 +198,26 @@
                                         <th>Cantidad</th>
                                         <th>Valor Unitario</th>
                                         <th>Sub Total</th>
-                                        <th>Acciones</th>
+                                        <!-- <th>Acciones</th> -->
                                     </tr>
                                 </thead>
                                 <tbody id="tbody-real-detalle">
+                                <?php
+                                    if(!empty($detalle_real)){
+                                        foreach($detalle_real as $dr){
+                                            echo '<tr>';
+                                            echo '<td>'.$dr['item_id'].'</td>';
+                                            echo '<td>'.$dr['item_nombre'].'</td>';
+                                            echo '<td>'.$dr['cantidad'].'</td>';
+                                            echo '<td>'.$dr['valor'].'</td>';
+                                            echo '<td>'.round($dr['cantidad'] * $dr['valor']).'</td>';
+                                            echo '</tr>';
+                                        }
+                                    }
+                                    else{
+                                        echo '<tr><td colspan="5" class="text-center">No hay registros.</td></tr>';
+                                    }
+                                    ?>
                                 </tbody>
                             </table>  
                         </div>
@@ -202,17 +232,17 @@
                             <table class="">
                                 <tr>
                                     <td><strong>Neto:</strong></td>
-                                    <td id="td-real-neto">0</td>
+                                    <td id="td-real-neto"><?php echo !empty($cabecera[0]['neto_real']) ? '$ '.number_format(floatval($cabecera[0]['neto_real']), 0, ',', '.') : '$0';?></td>
                                 </tr>
 
                                 <tr>
                                     <td><strong>IVA:</strong></td>
-                                    <td id="td-real-iva">0</td>
+                                    <td id="td-real-iva"><?php echo !empty($cabecera[0]['iva_real']) ? '$ '.number_format(floatval($cabecera[0]['iva_real']), 0, ',', '.') : '$0';?></td>
                                 </tr>
 
                                 <tr>
                                     <td><strong>Total:</strong></td>
-                                    <td id="td-real-total">0</td>
+                                    <td id="td-real-total"><?php echo !empty($cabecera[0]['total_real']) ? '$ '.number_format(floatval($cabecera[0]['total_real']), 0, ',', '.') : '$0';?></td>
                                 </tr>
                             </table>
                         </div>
@@ -239,5 +269,7 @@
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>     
 <script>
     $(document).ready( function () {
+        $('#select-cliente').val('<?php echo !empty($cabecera[0]['cliente_id']) ? $cabecera[0]['cliente_id'] : 1;?>');
+        $('#select-estado').val('<?php echo !empty($cabecera[0]['estado_id']) ? $cabecera[0]['estado_id'] : 1;?>');
     });
 </script>
