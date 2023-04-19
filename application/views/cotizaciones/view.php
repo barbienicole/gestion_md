@@ -122,7 +122,7 @@
                             <table table="table-detalle_pre" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>N° Item</th>
+                                        <th>ID Item</th>
                                         <th>Item</th>
                                         <th>Cantidad</th>
                                         <th>Valor Unitario</th>
@@ -193,7 +193,7 @@
                             <table table="table-real-detalle" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>N° Item</th>
+                                        <th>ID Item</th>
                                         <th>Item</th>
                                         <th>Cantidad</th>
                                         <th>Valor Unitario</th>

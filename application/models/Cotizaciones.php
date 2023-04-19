@@ -19,8 +19,8 @@ class Cotizaciones extends CI_Model {
         $this->db->join('cotizaciones_estado as ce', 'ce.id = c.cotizaciones_estado_id');
         $this->db->join('clientes as cli', 'cli.id = c.clientes_id');
         if(!empty($desde) && !empty($hasta)){
-            $this->db->where('fecha_creacion >= ', $desde);
-            $this->db->where('fecha_creacion <= ', $hasta);
+            $this->db->where('DATE(fecha_creacion) >= ', $desde);
+            $this->db->where('DATE(fecha_creacion) <= ', $hasta);
         }
         if(!empty($cliente))
             $this->db->where('clientes_id', $cliente);
@@ -81,5 +81,42 @@ class Cotizaciones extends CI_Model {
         $this->db->join('items as i', 'i.id = dc.items_id');
         $this->db->where('dc.cotizaciones_id', $cotizacion_id);
         return $this->db->get()->result_array();
+    }
+
+    public function add($data){
+        if($this->db->insert('cotizaciones', $data))
+            return $this->db->insert_id();
+        else
+            return false;
+    }
+
+    public function addDetallePre($data){
+        if($this->db->insert('detalle_cotizacion', $data))
+            return true;
+        else
+            return false;
+    }
+
+    public function addDetalleReal($data){
+        if($this->db->insert('detalle_cotizacion_real', $data))
+            return true;
+        else
+            return false;
+    }
+
+    public function deleteDetalleCotizacionPre($cotizacion_id){
+        $this->db->where('cotizaciones_id', $cotizacion_id);
+        if($this->db->delete('detalle_cotizacion'))
+            true;
+        else
+            false;
+    }
+
+    public function deleteDetalleCotizacionReal($cotizacion_id){
+        $this->db->where('cotizaciones_id', $cotizacion_id);
+        if($this->db->delete('detalle_cotizacion_real'))
+            true;
+        else
+            false;
     }
 }

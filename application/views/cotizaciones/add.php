@@ -42,25 +42,25 @@
         <legend>Datos Generales</legend>
         <div class="panel panel-default">
             <div class="panel-body">
-
+                <p><font color="red">(*)</font> Datos Obligatorios</p>
                 <div class="row">
                     <div class="col-md-4">
                         <label>Usuario</label>
                         <input readonly value="<?php echo $this->session->userdata('usuario_nombre');?>" class="form-control" name="input-usuario" id="input-usuario" />
                     </div>
                     <div class="col-md-4">
-                        <label>Código</label>
+                        <label>Código <font color="red">(*)</font></label>
                         <input class="form-control" name="input-codigo" id="input-codigo" />
                     </div>
                     <div class="col-md-4">
-                        <label>Fecha</label>
+                        <label>Fecha <font color="red">(*)</font></label>
                         <input value="<?php echo date('Y-m-d');?>" class="form-control" type="date" name="input-fecha" id="input-fecha" />
                     </div>
                 </div>
                 <br>
                 <div class="row">
                     <div class="col-md-4">
-                        <label>Título</label>
+                        <label>Título <font color="red">(*)</font></label>
                         <input  value="" class="form-control" name="input-titulo" id="input-titulo" />
                     </div>
                     <div class="col-md-4">
@@ -77,7 +77,7 @@
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <label>Cliente</label>
+                        <label>Cliente <font color="red">(*)</font></label>
                         <select class="form-control" id="select-cliente" name="select-cliente">
                             <option value="">Seleccione</option>
                             <?php
@@ -123,10 +123,10 @@
                     <legend>Detalle Presupuestado</legend>
                     <div class="panel">
                         <div class="panel-body">
-                            <table table="table-detalle_pre" class="table table-striped table-bordered">
+                            <table id="table-detalle_pre" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>N° Item</th>
+                                        <th>ID Item</th>
                                         <th>Item</th>
                                         <th>Cantidad</th>
                                         <th>Valor Unitario</th>
@@ -179,10 +179,10 @@
                     <legend>Detalle Real</legend>
                     <div class="panel">
                         <div class="panel-body">
-                            <table table="table-real-detalle" class="table table-striped table-bordered">
+                            <table id="table-detalle_real" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>N° Item</th>
+                                        <th>ID Item</th>
                                         <th>Item</th>
                                         <th>Cantidad</th>
                                         <th>Valor Unitario</th>
@@ -419,7 +419,7 @@
                 tbody += '<td>'+response[0]['nombre']+'</td>';
                 tbody += '<td id="td-cantidad_item-'+item_id+'">'+cantidad+'</td>';
                 tbody += '<td><input onkeyup="calcularSubTotal(this.id);" value="0" type="number" id="input-valor_unitario-'+item_id+'" name="input-valor_unitario" /></td>';
-                tbody += '<td><input class="form-control" name="input-sub_total" id="input-sub_total-'+item_id+'" readonly></td>';
+                tbody += '<td><input class="form-control" name="input-sub_total" value="0" id="input-sub_total-'+item_id+'" readonly></td>';
                 tbody += '<td><button id="btn-remove-'+item_id+'" class="btn btn-danger" onclick="removerItem(this.id);">remover</button></td>';
                 tbody += '</tr>';
                 $('#tbody-detalle_pre').append(tbody);
@@ -439,7 +439,7 @@
     }
 
     function calcularSubTotal(identificador){
-        let valor_unitario = $('#'+identificador).val();
+        let valor_unitario = $('#'+identificador).val() != '0' ? $('#'+identificador).val() : 0;
         item_id = identificador.replace('input-valor_unitario-','');
         let cantidad = $('#td-cantidad_item-'+item_id).html();
         let calculo = cantidad * valor_unitario;
@@ -484,7 +484,7 @@
                 tbody += '<td>'+response[0]['nombre']+'</td>';
                 tbody += '<td id="td-real-cantidad_item-'+item_id+'">'+cantidad+'</td>';
                 tbody += '<td><input onkeyup="calcularSubTotalReal(this.id);" value="0" type="number" id="input-real-valor_unitario-'+item_id+'" name="input-real-valor_unitario" /></td>';
-                tbody += '<td><input class="form-control" name="input-real-sub_total" id="input-real-sub_total-'+item_id+'" readonly></td>';
+                tbody += '<td><input class="form-control" name="input-real-sub_total" value="0" id="input-real-sub_total-'+item_id+'" readonly></td>';
                 tbody += '<td><button id="btn-real-remove-'+item_id+'" class="btn btn-danger" onclick="removerItemReal(this.id);">remover</button></td>';
                 tbody += '</tr>';
                 $('#tbody-real-detalle').append(tbody);
@@ -504,7 +504,7 @@
     }
 
     function calcularSubTotalReal(identificador){
-        let valor_unitario = $('#'+identificador).val();
+        let valor_unitario = $('#'+identificador).val() != '0' ? $('#'+identificador).val() : 0;
         item_id = identificador.replace('input-real-valor_unitario-','');
         let cantidad = $('#td-real-cantidad_item-'+item_id).html();
         let calculo = cantidad * valor_unitario;
@@ -532,28 +532,81 @@
     }
     //----------------------------------------------------------------------------------------------------------
     function generarCotizacion(){
-        let usuario = '<?php echo $this->session->userdata("usuario_id");?>';
-        let codigo = $('#input-codigo').val();
-        let fecha = $('#input-fecha').val();
-        let titulo = $('#input-titulo').val();
-        let estado = $('#select-estado').val();
-        let cliente = $('#select-cliente').val();
-        let descripcion = $('#textarea-descripcion').val();
+        let c = confirm('Confirme la creación de este Proyecto');
+        if(c){
+            let usuario = '<?php echo $this->session->userdata("usuario_id");?>';
+            let codigo = $('#input-codigo').val();
+            let fecha = $('#input-fecha').val();
+            let titulo = $('#input-titulo').val();
+            let estado = $('#select-estado').val();
+            let cliente = $('#select-cliente').val();
+            let descripcion = $('#textarea-descripcion').val();
+            //--------------------------------------------------------------------------------------------------------
+            let dataPre = [];
+            let dataReal = [];
+            //pre
+            //--------------------------------------------------------------------------------------------------------
+            let table_pre = document.getElementById('table-detalle_pre');
+            for (var r = 1, n = table_pre.rows.length; r < n; r++) {
 
-        let dataPre = [];
-        let dataReal = [];
+                let idItem = table_pre.rows[r].cells[0].innerHTML;
+                let cantidad = table_pre.rows[r].cells[2].innerHTML;
+                let valor_unitario = $('#input-valor_unitario-'+idItem).val();
+                let sub_total = $('#input-sub_total-'+idItem).val();
 
-        /*
-        iva_historico
-        neto_pre
-        iva_pre
-        total_pre
-        */
+                let temp = [idItem, cantidad, valor_unitario, sub_total];
+                dataPre.push(temp);
+            }
+            //real
+            let table_real = document.getElementById('table-detalle_real');
+            for (var r = 1, n = table_real.rows.length; r < n; r++) {
 
-        //tabla pre
+                let idItem = table_real.rows[r].cells[0].innerHTML;
+                let cantidad = table_real.rows[r].cells[2].innerHTML;
+                let valor_unitario = $('#input-real-valor_unitario-'+idItem).val();
+                let sub_total = $('#input-real-sub_total-'+idItem).val();
 
-        //tabla real
+                let temp = [idItem, cantidad, valor_unitario, sub_total];
+                dataReal.push(temp);
+            }
 
-        console.log(usuario,codigo,fecha,titulo,estado,cliente,descripcion,iva_historico,neto_pre,iva_pre,total_pre,neto_real,iva_real,total_real);
+            //--------------------------------------------------------------------------------------------------------
+            if(dataPre.length > 0){
+                $.ajax({
+                    url: '<?php echo base_url();?>index.php/CotizacionesController/addCotizacion',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                                dataPre: dataPre, 
+                                dataReal: dataReal,
+                                usuario: usuario,
+                                codigo: codigo,
+                                fecha: fecha,
+                                titulo: titulo,
+                                estado: estado,
+                                cliente: cliente,
+                                descripcion: descripcion,
+                                iva_historico: iva_historico,
+                                neto_pre: neto_pre,
+                                iva_pre: iva_pre,
+                                total_pre: total_pre,
+                                neto_real: neto_real,
+                                iva_real: iva_real,
+                                total_real: total_real
+                            },
+                    success: function(response){
+                        if(parseInt(response['codigo']) == 1){
+                            alert(response['response']);
+                            window.location.href = '<?php echo base_url();?>index.php/CotizacionesController/index';
+                        }
+                        else{
+                            alert(response['response']);
+                        }
+                    }
+                });
+            }
+            else
+                alert('Debe existir al menos un detalle Presupuestado');
+        }
     }
 </script>

@@ -51,6 +51,7 @@
         <table id="table-cotizaciones" class="table table-bordered table-striped">
             <thead>
                 <tr>
+                    <th class="text-center">ID</th>
                     <th class="text-center">Código</th>
                     <th class="text-center">Fecha</th>
                     <th class="text-center">Título</th>
@@ -105,6 +106,7 @@
                         sum_diferencia += parseInt(response[i]['diferencia']);
 
                         tbody += '<tr>';
+                        tbody += '<td>'+response[i]['id']+'</td>';
                         tbody += '<td>'+response[i]['codigo']+'</td>';
                         tbody += '<td>'+response[i]['fecha_creacion']+'</td>';
                         tbody += '<td>'+response[i]['titulo']+'</td>';

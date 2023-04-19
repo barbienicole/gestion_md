@@ -42,30 +42,30 @@
         <legend>Datos Generales</legend>
         <div class="panel panel-default">
             <div class="panel-body">
-
+                <p><font color="red">(*)</font> Datos Obligatorios</p>
                 <div class="row">
                     <div class="col-md-4">
                         <label>Usuario</label>
                         <input readonly value="<?php echo !empty($cabecera[0]['usuario_nombre']) ? $cabecera[0]['usuario_nombre'] : 'N/A';?>" class="form-control" name="input-usuario" id="input-usuario" />
                     </div>
                     <div class="col-md-4">
-                        <label>Código</label>
-                        <input readonly class="form-control" name="input-codigo" id="input-codigo" value="<?php echo !empty($cabecera[0]['codigo']) ? $cabecera[0]['codigo'] : 'N/A';?>"/>
+                        <label>Código <font color="red">(*)</font></label>
+                        <input class="form-control" name="input-codigo" id="input-codigo" value="<?php echo !empty($cabecera[0]['codigo']) ? $cabecera[0]['codigo'] : 'N/A';?>"/>
                     </div>
                     <div class="col-md-4">
-                        <label>Fecha</label>
-                        <input readonly value="<?php echo !empty($cabecera[0]['fecha_creacion']) ? $cabecera[0]['fecha_creacion'] : date('Y-m-d');?>" class="form-control" type="date" name="input-fecha" id="input-fecha" />
+                        <label>Fecha <font color="red">(*)</font></label>
+                        <input value="<?php echo !empty($cabecera[0]['fecha_creacion']) ? $cabecera[0]['fecha_creacion'] : date('Y-m-d');?>" class="form-control" type="date" name="input-fecha" id="input-fecha" />
                     </div>
                 </div>
                 <br>
                 <div class="row">
                     <div class="col-md-4">
-                        <label>Título</label>
-                        <input disabled  value="<?php echo !empty($cabecera[0]['titulo']) ? $cabecera[0]['titulo'] : 'N/A';?>" class="form-control" name="input-titulo" id="input-titulo" />
+                        <label>Título <font color="red">(*)</font></label>
+                        <input  value="<?php echo !empty($cabecera[0]['titulo']) ? $cabecera[0]['titulo'] : 'N/A';?>" class="form-control" name="input-titulo" id="input-titulo" />
                     </div>
                     <div class="col-md-4">
                         <label>Estado</label>
-                        <select disabled class="form-control" id="select-estado" name="select-estado">
+                        <select class="form-control" id="select-estado" name="select-estado">
                             <?php
                             if(!empty($estados)){
                                 foreach($estados as $e){
@@ -76,8 +76,8 @@
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <label>Cliente</label>
-                        <select disabled class="form-control" id="select-cliente" name="select-cliente">
+                        <label>Cliente <font color="red">(*)</font></label>
+                        <select class="form-control" id="select-cliente" name="select-cliente">
                             <?php
                             if(!empty($clientes)){
                                 foreach($clientes as $c){
@@ -92,7 +92,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <label>Descripción</label>
-                        <textarea readonly rows="4" value="" class="form-control" name="textarea-descripcion" id="textarea-descripcion" ><?php echo !empty($cabecera[0]['descripcion']) ? $cabecera[0]['descripcion'] : 'N/A';?></textarea>
+                        <textarea rows="4" value="" class="form-control" name="textarea-descripcion" id="textarea-descripcion" ><?php echo !empty($cabecera[0]['descripcion']) ? $cabecera[0]['descripcion'] : 'N/A';?></textarea>
                     </div>
                 </div>
             </div>
@@ -122,7 +122,7 @@
                             <table table="table-detalle_pre" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>N° Item</th>
+                                        <th>ID Item</th>
                                         <th>Item</th>
                                         <th>Cantidad</th>
                                         <th>Valor Unitario</th>
@@ -193,7 +193,7 @@
                             <table table="table-real-detalle" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>N° Item</th>
+                                        <th>ID Item</th>
                                         <th>Item</th>
                                         <th>Cantidad</th>
                                         <th>Valor Unitario</th>
@@ -260,6 +260,7 @@
 <hr>
 <div class="row">
     <div class="col-md-12">
+        <button type="submit" class="btn btn-success" onclick="editarCotizacion();">Editar</button>
         <a class= "btn btn-xs btn-info" href="<?php echo base_url();?>index.php/CotizacionesController/index">Volver</a>
         <br><br>
     </div>
