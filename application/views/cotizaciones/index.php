@@ -111,9 +111,9 @@
                         tbody += '<td>'+response[i]['fecha_creacion']+'</td>';
                         tbody += '<td>'+response[i]['titulo']+'</td>';
                         tbody += '<td>'+response[i]['cliente']+'</td>';
-                        tbody += '<td>'+response[i]['total']+'</td>';
-                        tbody += '<td>'+response[i]['total_real']+'</td>';
-                        tbody += '<td>'+response[i]['diferencia']+'</td>';
+                        tbody += '<td class="text-right">'+response[i]['total']+'</td>';
+                        tbody += '<td class="text-right">'+response[i]['total_real']+'</td>';
+                        tbody += '<td class="text-right">'+response[i]['diferencia']+'</td>';
                         tbody += '<td>'+response[i]['estado']+'</td>';
                         tbody += '<td><a href="<?php echo base_url();?>index.php/CotizacionesController/view?id='+response[i]['id']+'" class="btn btn-info btn-sm" title="Ver cotización">ver</a> <a href="<?php echo base_url();?>index.php/CotizacionesController/edit?id='+response[i]['id']+'" class="btn btn-warning btn-sm" title="Editar cotización">editar</a></td>';
                         tbody += '</tr>';
@@ -122,7 +122,7 @@
                         sum_diferencia = '<font color="red">'+new Intl.NumberFormat('es-CL', {currency: 'CLP', style: 'currency'}).format(sum_diferencia)+'</font>';
                     else if(sum_diferencia > 0)
                         sum_diferencia = '<font color="green">'+new Intl.NumberFormat('es-CL', {currency: 'CLP', style: 'currency'}).format(sum_diferencia)+'</font>';
-                    tfoot += '<tr><td colspan="4" class="text-center"><strong>Totales $</strong></td><td>'+new Intl.NumberFormat('es-CL', {currency: 'CLP', style: 'currency'}).format(sum_presupuestado)+'</td><td>'+new Intl.NumberFormat('es-CL', {currency: 'CLP', style: 'currency'}).format(sum_real)+'</td><td>'+sum_diferencia+'</td><td colspan="2"></td></tr>';
+                    tfoot += '<tr><td colspan="5" class="text-center"><strong>Totales $</strong></td><td class="text-right">'+new Intl.NumberFormat('es-CL', {currency: 'CLP', style: 'currency'}).format(sum_presupuestado)+'</td><td class="text-right">'+new Intl.NumberFormat('es-CL', {currency: 'CLP', style: 'currency'}).format(sum_real)+'</td><td class="text-right">'+sum_diferencia+'</td><td colspan="2"></td></tr>';
                 }
 
                 $('#tbody-cotizaciones').html(tbody);
