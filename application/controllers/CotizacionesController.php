@@ -42,6 +42,8 @@ class CotizacionesController extends CI_Controller {
     }
 
     public function edit(){
+		$iva = $this->modelo->getParametroConfiguracion('iva');
+		$items = $this->modelo->getItems();
 		$id = trim($this->input->get('id', TRUE));
 		$cotizacion_cebecera = $this->modelo->obtenerCotizacion($id);
 		$cotizacion_detalle_pre = $this->modelo->obtenerDetalleCotizacionPre($id);
@@ -52,6 +54,8 @@ class CotizacionesController extends CI_Controller {
 		$data['detalle_real'] = $cotizacion_detalle_real; 
 		$data['clientes'] = $this->modelo->obtenerClientes();
 		$data['estados'] = $this->modelo->obtenerEstados();
+		$data['iva'] = $iva;
+		$data['items'] = $items;
 		$this->load->view('cotizaciones/edit', $data);
     }
 
@@ -167,51 +171,67 @@ class CotizacionesController extends CI_Controller {
 		$neto_real = trim($this->input->post('neto_real', TRUE));
 		$iva_real = trim($this->input->post('iva_real', TRUE));
 		$total_real = trim($this->input->post('total_real', TRUE));
-		//guardar cotizacion
-		$dataCotizacion = 	[
-								'codigo' => $codigo,
-								'fecha_creacion' => date('Y-m-d H:i:s'),
-								'fecha_actualizacion' => date('Y-m-d H:i:s'),
-								'fecha' => $fecha,
-								'titulo' => $titulo,
-								'cotizaciones_estado_id' => $estado,
-								'clientes_id' => $cliente,
-								'descripcion' => $descripcion,
-								'iva_historico' => $iva_historico,
-								'neto' => $neto_pre,
-								'total' => $total_pre,
-								'iva'	=>	$iva_pre,
-								'neto_real' => $neto_real,
-								'iva_real' => $iva_real,
-								'total_real' => $total_real,
-								'usuarios_id' => $this->session->userdata("usuario_id")
-							];
-		
-		$this->modelo->modelo->edit($dataCotizacion);
-		//eliminar detalles
-		$this->modelo->deleteDetalleCotizacionPre($cotizacion_id);
-		$this->modelo->deleteDetalleCotizacionReal($cotizacion_id);
-		//guardar detalles
-		for($i=0; $i < count($dataPre); $i++){
-			$arr_temp = 	[
-								'cotizaciones_id' => $cotizacion_id,
-								'items_id' => $dataPre[$i][0],
-								'n_linea' => ($i+1),
-								'cantidad' => $dataPre[$i][1],
-								'valor'	=> $dataPre[$i][2]
-			];
-			$this->modelo->addDetallePre($arr_temp);
-		}
 
-		for($i=0; $i < count($dataReal); $i++){
-			$arr_temp = 	[
-								'cotizaciones_id' => $cotizacion_id,
-								'items_id' => $dataReal[$i][0],
-								'n_linea' => ($i+1),
-								'cantidad' => $dataReal[$i][1],
-								'valor'	=> $dataReal[$i][2]
+		$response = [];
+		if(!empty($codigo) && !empty($fecha) && !empty($titulo) && !empty($cliente) && 
+			!empty($dataPre) && !empty($neto_pre)){
+			//guardar cotizacion
+			$dataCotizacion = 	[
+									'codigo' => $codigo,
+									'fecha_creacion' => date('Y-m-d H:i:s'),
+									'fecha_actualizacion' => date('Y-m-d H:i:s'),
+									'fecha' => $fecha,
+									'titulo' => $titulo,
+									'cotizaciones_estado_id' => $estado,
+									'clientes_id' => $cliente,
+									'descripcion' => $descripcion,
+									'iva_historico' => $iva_historico,
+									'neto' => $neto_pre,
+									'total' => $total_pre,
+									'iva'	=>	$iva_pre,
+									'neto_real' => $neto_real,
+									'iva_real' => $iva_real,
+									'total_real' => $total_real,
+									'usuarios_id' => $this->session->userdata("usuario_id")
+								];
+			
+			$this->modelo->modelo->edit($dataCotizacion, $cotizacion_id);
+			//eliminar detalles
+			$this->modelo->deleteDetalleCotizacionPre($cotizacion_id);
+			$this->modelo->deleteDetalleCotizacionReal($cotizacion_id);
+			//guardar detalles
+			for($i=0; $i < count($dataPre); $i++){
+				$arr_temp = 	[
+									'cotizaciones_id' => $cotizacion_id,
+									'items_id' => $dataPre[$i][0],
+									'n_linea' => ($i+1),
+									'cantidad' => $dataPre[$i][1],
+									'valor'	=> $dataPre[$i][2]
+				];
+				$this->modelo->addDetallePre($arr_temp);
+			}
+
+			for($i=0; $i < count($dataReal); $i++){
+				$arr_temp = 	[
+									'cotizaciones_id' => $cotizacion_id,
+									'items_id' => $dataReal[$i][0],
+									'n_linea' => ($i+1),
+									'cantidad' => $dataReal[$i][1],
+									'valor'	=> $dataReal[$i][2]
+				];
+				$this->modelo->addDetalleReal($arr_temp);
+			}
+			$response = [
+				'codigo' => 1,
+				'response' => 'Se ha editado de manera correcta el Proyecto.'
 			];
-			$this->modelo->addDetalleReal($arr_temp);
 		}
+		else{
+			$response = [
+				'codigo' => 0,
+				'response' => 'Verifique que los campos obligatorios no esten vacíos.'
+			];
+		}
+		echo json_encode($response);
 	}
 }

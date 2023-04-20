@@ -119,4 +119,12 @@ class Cotizaciones extends CI_Model {
         else
             false;
     }
+
+    public function edit($data, $id){
+        $this->db->where('id', $id);
+        if($this->db->update('cotizaciones', $data))
+            return true;
+        else
+            return false;
+    }
 }
