@@ -200,27 +200,32 @@ class CotizacionesController extends CI_Controller {
 			$this->modelo->deleteDetalleCotizacionPre($cotizacion_id);
 			$this->modelo->deleteDetalleCotizacionReal($cotizacion_id);
 			//guardar detalles
-			for($i=0; $i < count($dataPre); $i++){
-				$arr_temp = 	[
-									'cotizaciones_id' => $cotizacion_id,
-									'items_id' => $dataPre[$i][0],
-									'n_linea' => ($i+1),
-									'cantidad' => $dataPre[$i][1],
-									'valor'	=> $dataPre[$i][2]
-				];
-				$this->modelo->addDetallePre($arr_temp);
+			if(count($dataPre) > 0){
+				for($i=0; $i < count($dataPre); $i++){
+					$arr_temp = 	[
+										'cotizaciones_id' => $cotizacion_id,
+										'items_id' => $dataPre[$i][0],
+										'n_linea' => ($i+1),
+										'cantidad' => $dataPre[$i][1],
+										'valor'	=> $dataPre[$i][2]
+					];
+					$this->modelo->addDetallePre($arr_temp);
+				}
 			}
-
-			for($i=0; $i < count($dataReal); $i++){
-				$arr_temp = 	[
-									'cotizaciones_id' => $cotizacion_id,
-									'items_id' => $dataReal[$i][0],
-									'n_linea' => ($i+1),
-									'cantidad' => $dataReal[$i][1],
-									'valor'	=> $dataReal[$i][2]
-				];
-				$this->modelo->addDetalleReal($arr_temp);
+			
+			if(count($dataReal) > 0){
+				for($i=0; $i < count($dataReal); $i++){
+					$arr_temp = 	[
+										'cotizaciones_id' => $cotizacion_id,
+										'items_id' => $dataReal[$i][0],
+										'n_linea' => ($i+1),
+										'cantidad' => $dataReal[$i][1],
+										'valor'	=> $dataReal[$i][2]
+					];
+					$this->modelo->addDetalleReal($arr_temp);
+				}
 			}
+			
 			$response = [
 				'codigo' => 1,
 				'response' => 'Se ha editado de manera correcta el Proyecto.'

@@ -147,7 +147,7 @@
                                             }
                                         }
                                         else{
-                                            echo '<tr><td colspan="5" class="text-center">No hay registros.</td></tr>';
+                                            //echo '<tr><td colspan="5" class="text-center">No hay registros.</td></tr>';
                                         }
                                     ?>
                                 </tbody>
@@ -220,7 +220,7 @@
                                             }
                                         }
                                         else{
-                                            echo '<tr><td colspan="5" class="text-center">No hay registros.</td></tr>';
+                                            //echo '<tr><td colspan="5" class="text-center">No hay registros.</td></tr>';
                                         }
                                     ?>
                                 </tbody>
