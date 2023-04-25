@@ -225,7 +225,7 @@ class CotizacionesController extends CI_Controller {
 					$this->modelo->addDetalleReal($arr_temp);
 				}
 			}
-			
+
 			$response = [
 				'codigo' => 1,
 				'response' => 'Se ha editado de manera correcta el Proyecto.'
@@ -247,6 +247,13 @@ class CotizacionesController extends CI_Controller {
 		$crud->set_table('cotizaciones');
 		$crud->set_subject('Usuario');
 		$crud->set_language('spanish');
+
+		$crud->set_relation('clientes_id','clientes','razonsocial');
+		$crud->display_as('clientes_id','Cliente');
+		$crud->display_as('total','Total P.');
+		$crud->display_as('total_real','Total R.');
+		$crud->display_as('fecha_creacion','creado');
+		$crud->columns(['codigo','fecha','titulo','total','total_real', 'clientes_id', 'fecha_creacion']);
 		/*
 		$crud->set_relation('roles_id','roles','nombre');
 		$crud->display_as('roles_id','Rol');
@@ -262,6 +269,7 @@ class CotizacionesController extends CI_Controller {
 		$crud->unset_add();
 		$crud->unset_edit();
 		$crud->unset_delete();
+		$crud->unset_read();
 
 		$output = $crud->render();
 		$data = (array)$output;
