@@ -234,4 +234,33 @@ class CotizacionesController extends CI_Controller {
 		}
 		echo json_encode($response);
 	}
+
+	public function historico()
+	{
+		$this->load->library('grocery_CRUD');
+		$crud = new grocery_CRUD();
+		$crud->set_table('cotizaciones');
+		$crud->set_subject('Usuario');
+		$crud->set_language('spanish');
+		/*
+		$crud->set_relation('roles_id','roles','nombre');
+		$crud->display_as('roles_id','Rol');
+
+		$crud->field_type('password', 'password');
+		$crud->field_type('email', 'email');
+		
+		$crud->unset_columns(array('password'));
+		*/
+		//$crud->unset_print();
+		//$crud->unset_export();
+		$crud->unset_clone();
+		$crud->unset_add();
+		$crud->unset_edit();
+		$crud->unset_delete();
+
+		$output = $crud->render();
+		$data = (array)$output;
+		$data['titulo'] = 'Cotizaciones Historico';
+		$this->load->view('cotizaciones/historico', $data);
+	}
 }

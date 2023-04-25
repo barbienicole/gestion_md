@@ -94,7 +94,7 @@
             <a class="collapse-item" href="#">Listado</a>
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Programación Proyectos:</h6>
-            <a class="collapse-item" href="#">Histórico</a>
+            <a class="collapse-item" href="<?php echo base_url();?>index.php/CotizacionesController/historico">Histórico</a>
             <h6 class="collapse-header">Información Log:</h6>
             <a class="collapse-item" href= "<?php echo base_url();?>index.php/LogsController/index">Logs</a>
 
