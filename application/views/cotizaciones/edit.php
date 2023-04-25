@@ -369,13 +369,13 @@
 <script>
     var iva_historico = <?= $iva?>;
     
-    var neto_pre = 0;
-    var iva_pre = 0;
-    var total_pre = 0;
+    var neto_pre = '<?php echo !empty($cabecera[0]['neto_pre']) ? $cabecera[0]['neto_pre'] : 0;?>';
+    var iva_pre = '<?php echo !empty($cabecera[0]['iva_pre']) ? $cabecera[0]['iva_pre'] : 0;?>';
+    var total_pre = '<?php echo !empty($cabecera[0]['total_pre']) ? $cabecera[0]['total_pre'] : 0;?>';
 
-    var neto_real = 0;
-    var iva_real = 0;
-    var total_real = 0;
+    var neto_real = '<?php echo !empty($cabecera[0]['neto_real']) ? $cabecera[0]['neto_real'] : 0;?>';
+    var iva_real = '<?php echo !empty($cabecera[0]['iva_real']) ? $cabecera[0]['iva_real'] : 0;?>';
+    var total_real = '<?php echo !empty($cabecera[0]['total_real']) ? $cabecera[0]['total_real'] : 0;?>';
 
     $(document).ready( function () {
         $('#select-cliente').val('<?php echo !empty($cabecera[0]['cliente_id']) ? $cabecera[0]['cliente_id'] : 1;?>');
