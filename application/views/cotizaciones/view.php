@@ -107,6 +107,8 @@
     <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
         <a class="nav-item nav-link active" id="nav-pre-tab" data-toggle="tab" href="#nav-pre" role="tab" aria-controls="nav-pre" aria-selected="true">Presupuestado</a>
         <a class="nav-item nav-link" id="nav-real-tab" data-toggle="tab" href="#nav-real" role="tab" aria-controls="nav-real" aria-selected="false">Real</a>
+        <a class="nav-item nav-link" id="nav-mat-pre-tab" data-toggle="tab" href="#nav-mat-pre" role="tab" aria-controls="nav-mat-pre" aria-selected="true">Materiales Presupuestados</a>
+        <a class="nav-item nav-link" id="nav-mat-real-tab" data-toggle="tab" href="#nav-mat-real" role="tab" aria-controls="nav-mat-real" aria-selected="false">Materieales Reales</a>
     </div>
 </nav>
 <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent" style="border-left: 1px solid #ddd !important;border-rigth: 1px solid #ddd !important;">
@@ -252,6 +254,91 @@
             </div>
         </div>
     </div>
+
+    <div class="tab-pane fade show" id="nav-mat-pre" role="tabpanel" aria-labelledby="nav-mat-pre-tab" style="padding: 5px;">
+        <br><br>         
+        <div class="row">
+            <div class="col-md-12">
+                <fieldset>    	
+                    <legend>Materiales Presupuestados</legend>
+                    <div class="panel">
+                        <div class="panel-body">
+                            <table table="table-materiales_pre" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Nombre</th>
+                                        <th>Cantidad</th>
+                                        <!-- <th>Acciones</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-materiales_pre">
+                                    <?php
+                                    if(!empty($cotizacion_material_pre)){
+                                        foreach($cotizacion_material_pre as $cm){
+                                            echo '<tr>';
+                                            echo '<td>'.$cm['codigo'].'</td>';
+                                            echo '<td>'.$cm['nombre'].'</td>';
+                                            echo '<td>'.$cm['cantidad'].'</td>';
+                                            echo '</tr>';
+                                        }
+                                    }
+                                    else{
+                                        echo '<tr><td colspan="3" class="text-center">No hay registros.</td></tr>';
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </fieldset>			
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-pane fade show" id="nav-mat-real" role="tabpanel" aria-labelledby="nav-mat-real-tab" style="padding: 5px;">
+
+        <br><br>
+        <div class="row">
+            <div class="col-md-12">
+                <fieldset>    	
+                    <legend>Materiales Reales</legend>
+                    <div class="panel">
+                        <div class="panel-body">
+                            <table table="table-materiales_real" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Nombre</th>
+                                        <th>Cantidad</th>
+                                        <!-- <th>Acciones</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-materiales_real">
+                                    <?php
+                                    if(!empty($cotizacion_material_real)){
+                                        foreach($cotizacion_material_real as $cm){
+                                            echo '<tr>';
+                                            echo '<td>'.$cm['codigo'].'</td>';
+                                            echo '<td>'.$cm['nombre'].'</td>';
+                                            echo '<td>'.$cm['cantidad'].'</td>';
+                                            echo '</tr>';
+                                        }
+                                    }
+                                    else{
+                                        echo '<tr><td colspan="3" class="text-center">No hay registros.</td></tr>';
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </fieldset>			
+            </div>
+        </div>
+    </div>
+
+
 </div>
 
 

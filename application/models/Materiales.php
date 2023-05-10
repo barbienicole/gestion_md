@@ -42,4 +42,12 @@ class Materiales extends CI_Model {
         else
             return false;
     }
+
+    public function getItem($material_id){
+        $this->db->select('id, codigo, nombre');
+        $this->db->from('materiales');
+        $this->db->where('id', $material_id);
+        $this->db->limit(1);
+        return $this->db->get()->result_array();
+    }
 }

@@ -17,6 +17,7 @@ class CotizacionesController extends CI_Controller {
     public function add(){
 		$iva = $this->modelo->getParametroConfiguracion('iva');
         $items = $this->modelo->getItems();
+		$materiales = $this->modelo->getMateriales();
         $data = [
 			'titulo' => 'Nuevo Proyecto',
 			'iva' => $iva,
@@ -24,6 +25,7 @@ class CotizacionesController extends CI_Controller {
 		];
 		$data['clientes'] = $this->modelo->obtenerClientes();
 		$data['estados'] = $this->modelo->obtenerEstados();
+		$data['materiales'] = $materiales;
 		$this->load->view('cotizaciones/add', $data);
     }
 
@@ -32,10 +34,14 @@ class CotizacionesController extends CI_Controller {
 		$cotizacion_cebecera = $this->modelo->obtenerCotizacion($id);
 		$cotizacion_detalle_pre = $this->modelo->obtenerDetalleCotizacionPre($id);
 		$cotizacion_detalle_real = $this->modelo->obtenerDetalleCotizacionReal($id);
+		$cotizacion_material_pre = $this->modelo->obtenerCotizacionMaterialPre($id);
+		$cotizacion_material_real = $this->modelo->obtenerCotizacionMaterialReal($id);
 		$data['titulo'] = 'Ver Proyecto # '.$id;
 		$data['cabecera'] = $cotizacion_cebecera; 
 		$data['detalle_pre'] = $cotizacion_detalle_pre; 
 		$data['detalle_real'] = $cotizacion_detalle_real; 
+		$data['cotizacion_material_pre'] = $cotizacion_material_pre; 
+		$data['cotizacion_material_real'] = $cotizacion_material_real; 
 		$data['clientes'] = $this->modelo->obtenerClientes();
 		$data['estados'] = $this->modelo->obtenerEstados();
 		$this->load->view('cotizaciones/view', $data);
@@ -44,18 +50,24 @@ class CotizacionesController extends CI_Controller {
     public function edit(){
 		$iva = $this->modelo->getParametroConfiguracion('iva');
 		$items = $this->modelo->getItems();
+		$materiales = $this->modelo->getMateriales();
 		$id = trim($this->input->get('id', TRUE));
 		$cotizacion_cebecera = $this->modelo->obtenerCotizacion($id);
 		$cotizacion_detalle_pre = $this->modelo->obtenerDetalleCotizacionPre($id);
 		$cotizacion_detalle_real = $this->modelo->obtenerDetalleCotizacionReal($id);
+		$cotizacion_material_pre = $this->modelo->obtenerCotizacionMaterialPre($id);
+		$cotizacion_material_real = $this->modelo->obtenerCotizacionMaterialReal($id);
 		$data['titulo'] = 'Editar Proyecto # '.$id;
 		$data['cabecera'] = $cotizacion_cebecera; 
 		$data['detalle_pre'] = $cotizacion_detalle_pre; 
 		$data['detalle_real'] = $cotizacion_detalle_real; 
+		$data['cotizacion_material_pre'] = $cotizacion_material_pre; 
+		$data['cotizacion_material_real'] = $cotizacion_material_real; 
 		$data['clientes'] = $this->modelo->obtenerClientes();
 		$data['estados'] = $this->modelo->obtenerEstados();
 		$data['iva'] = $iva;
 		$data['items'] = $items;
+		$data['materiales'] = $materiales;
 		$this->load->view('cotizaciones/edit', $data);
     }
 
@@ -72,6 +84,8 @@ class CotizacionesController extends CI_Controller {
 	public function addCotizacion(){
 		$dataPre = $this->input->post('dataPre', TRUE);
 		$dataReal = $this->input->post('dataReal', TRUE);
+		$dataMaterialPre = $this->input->post('dataMaterialPre', TRUE);
+		$dataMaterialReal = $this->input->post('dataMaterialReal', TRUE);
 
 		$usuario = trim($this->input->post('usuario', TRUE));
 		$codigo = trim($this->input->post('codigo', TRUE));
@@ -136,6 +150,29 @@ class CotizacionesController extends CI_Controller {
 						$this->modelo->addDetalleReal($arr_temp);
 					}
 				}
+
+				//guardar materiales
+				if(count($dataMaterialPre) > 0){
+					for($i=0; $i < count($dataMaterialPre); $i++){
+						$arr_temp = 	[
+											'cotizacion_id' => $cotizacion_id,
+											'material_id' => $dataMaterialPre[$i][0],
+											'cantidad' => $dataMaterialPre[$i][1]
+						];
+						$this->modelo->addMaterialPre($arr_temp);
+					}
+				}
+				
+				if(count($dataMaterialReal) > 0){
+					for($i=0; $i < count($dataMaterialReal); $i++){
+						$arr_temp = 	[
+											'cotizacion_id' => $cotizacion_id,
+											'material_id' => $dataMaterialReal[$i][0],
+											'cantidad' => $dataMaterialReal[$i][1]
+						];
+						$this->modelo->addMaterialReal($arr_temp);
+					}
+				}
 			}
 			$response = [
 							'codigo' => 1,
@@ -156,6 +193,8 @@ class CotizacionesController extends CI_Controller {
 
 		$dataPre = $this->input->post('dataPre', TRUE);
 		$dataReal = $this->input->post('dataReal', TRUE);
+		$dataMaterialPre = $this->input->post('dataMaterialPre', TRUE);
+		$dataMaterialReal = $this->input->post('dataMaterialReal', TRUE);
 
 		$usuario = trim($this->input->post('usuario', TRUE));
 		$codigo = trim($this->input->post('codigo', TRUE));
@@ -178,7 +217,6 @@ class CotizacionesController extends CI_Controller {
 			//guardar cotizacion
 			$dataCotizacion = 	[
 									'codigo' => $codigo,
-									'fecha_creacion' => date('Y-m-d H:i:s'),
 									'fecha_actualizacion' => date('Y-m-d H:i:s'),
 									'fecha' => $fecha,
 									'titulo' => $titulo,
@@ -199,6 +237,8 @@ class CotizacionesController extends CI_Controller {
 			//eliminar detalles
 			$this->modelo->deleteDetalleCotizacionPre($cotizacion_id);
 			$this->modelo->deleteDetalleCotizacionReal($cotizacion_id);
+			$this->modelo->deleteMaterialesPre($cotizacion_id);
+			$this->modelo->deleteMaterialesReal($cotizacion_id);
 			//guardar detalles
 			if(count($dataPre) > 0){
 				for($i=0; $i < count($dataPre); $i++){
@@ -223,6 +263,28 @@ class CotizacionesController extends CI_Controller {
 										'valor'	=> $dataReal[$i][2]
 					];
 					$this->modelo->addDetalleReal($arr_temp);
+				}
+			}
+			//guardar materiales
+			if(count($dataMaterialPre) > 0){
+				for($i=0; $i < count($dataMaterialPre); $i++){
+					$arr_temp = 	[
+										'cotizacion_id' => $cotizacion_id,
+										'material_id' => $dataMaterialPre[$i][0],
+										'cantidad' => $dataMaterialPre[$i][1]
+					];
+					$this->modelo->addMaterialPre($arr_temp);
+				}
+			}
+			
+			if(count($dataMaterialReal) > 0){
+				for($i=0; $i < count($dataMaterialReal); $i++){
+					$arr_temp = 	[
+										'cotizacion_id' => $cotizacion_id,
+										'material_id' => $dataMaterialReal[$i][0],
+										'cantidad' => $dataMaterialReal[$i][1]
+					];
+					$this->modelo->addMaterialReal($arr_temp);
 				}
 			}
 

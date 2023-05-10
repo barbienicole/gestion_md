@@ -138,4 +138,10 @@ class MaterialesController extends CI_Controller {
 			echo '0';
 		}
 	}
+
+	public function getDataMaterial(){
+		$id = trim($this->input->post('id', TRUE));
+		$material = $this->modelo->getMaterial($id);
+		echo json_encode($material);
+	}
 }

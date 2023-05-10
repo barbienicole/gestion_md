@@ -127,4 +127,57 @@ class Cotizaciones extends CI_Model {
         else
             return false;
     }
+
+    public function obtenerCotizacionMaterialPre($cotizacion_id){
+        $this->db->select('cm.cantidad, m.codigo, m.nombre, m.id as material_id');
+        $this->db->from('cotizacion_material_presupuestado as cm');
+        $this->db->join('materiales as m', 'm.id = cm.material_id');
+        $this->db->where('cm.cotizacion_id', $cotizacion_id);
+        return $this->db->get()->result_array();
+    }
+
+    public function obtenerCotizacionMaterialReal($cotizacion_id){
+        $this->db->select('cm.cantidad, m.codigo, m.nombre, m.id as material_id');
+        $this->db->from('cotizacion_material_real as cm');
+        $this->db->join('materiales as m', 'm.id = cm.material_id');
+        $this->db->where('cm.cotizacion_id', $cotizacion_id);
+        return $this->db->get()->result_array();
+    }
+
+    public function deleteMaterialesPre($cotizacion_id){
+        $this->db->where('cotizacion_id', $cotizacion_id);
+        if($this->db->delete('cotizacion_material_presupuestado'))
+            true;
+        else
+            false;
+    }
+
+    public function deleteMaterialesReal($cotizacion_id){
+        $this->db->where('cotizacion_id', $cotizacion_id);
+        if($this->db->delete('cotizacion_material_real'))
+            true;
+        else
+            false;
+    }
+
+    public function addMaterialPre($data){
+        if($this->db->insert('cotizacion_material_presupuestado', $data))
+            return true;
+        else
+            return false;
+    }
+
+    public function addMaterialReal($data){
+        if($this->db->insert('cotizacion_material_real', $data))
+            return true;
+        else
+            return false;
+    }
+
+    public function getMateriales(){
+        $this->db->select('id, codigo,  nombre');
+        $this->db->from('materiales');
+        $this->db->order_by('nombre','asc');
+        return $this->db->get()->result_array();
+    }
 }

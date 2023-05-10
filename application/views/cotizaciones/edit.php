@@ -107,6 +107,8 @@
     <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
         <a class="nav-item nav-link active" id="nav-pre-tab" data-toggle="tab" href="#nav-pre" role="tab" aria-controls="nav-pre" aria-selected="true">Presupuestado</a>
         <a class="nav-item nav-link" id="nav-real-tab" data-toggle="tab" href="#nav-real" role="tab" aria-controls="nav-real" aria-selected="false">Real</a>
+        <a class="nav-item nav-link" id="nav-mat-pre-tab" data-toggle="tab" href="#nav-mat-pre" role="tab" aria-controls="nav-mat-pre" aria-selected="true">Materiales Presupuestados</a>
+        <a class="nav-item nav-link" id="nav-mat-real-tab" data-toggle="tab" href="#nav-mat-real" role="tab" aria-controls="nav-mat-real" aria-selected="false">Materieales Reales</a>
     </div>
 </nav>
 <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent" style="border-left: 1px solid #ddd !important;border-rigth: 1px solid #ddd !important;">
@@ -257,6 +259,92 @@
             </div>
         </div>
     </div>
+
+    <div class="tab-pane fade show" id="nav-mat-pre" role="tabpanel" aria-labelledby="nav-mat-pre-tab" style="padding: 5px;">
+        <button class="btn btn-primary" data-toggle="modal" data-target="#modal-materiales-pre">Agregar Materiales</button>
+        <br><br>         
+        <div class="row">
+            <div class="col-md-12">
+                <fieldset>    	
+                    <legend>Materiales Presupuestados</legend>
+                    <div class="panel">
+                        <div class="panel-body">
+                            <table id="table-materiales_pre" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Nombre</th>
+                                        <th>Cantidad</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-materiales_pre">
+                                    <?php
+                                    if(!empty($cotizacion_material_pre)){
+                                        foreach($cotizacion_material_pre as $cm){
+                                            echo '<tr id="tr-material-pre-'.$cm['material_id'].'">';
+                                            echo '<td>'.$cm['codigo'].'</td>';
+                                            echo '<td>'.$cm['nombre'].'</td>';
+                                            echo '<td><input type="number" value="'.$cm['cantidad'].'" class="form-control" name="input-material-pre-cantidad" id="input-material-pre-cantidad-'.$cm['material_id'].'" /></td>';
+                                            echo '<td><button id="btn-material-pre-remove-'.$cm['material_id'].'" class="btn btn-danger" onclick="removerMaterialPre(this.id);">remover</button></td>';
+                                            echo '</tr>';
+                                        }
+                                    }
+                                    else{
+                                        echo '<tr><td colspan="4" class="text-center">No hay registros.</td></tr>';
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </fieldset>			
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-pane fade show" id="nav-mat-real" role="tabpanel" aria-labelledby="nav-mat-real-tab" style="padding: 5px;">
+        <button class="btn btn-primary" data-toggle="modal" data-target="#modal-materiales-real">Agregar Materiales</button>
+        <br><br>
+        <div class="row">
+            <div class="col-md-12">
+                <fieldset>    	
+                    <legend>Materiales Reales</legend>
+                    <div class="panel">
+                        <div class="panel-body">
+                            <table id="table-materiales_real" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Nombre</th>
+                                        <th>Cantidad</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-materiales_real">
+                                    <?php
+                                    if(!empty($cotizacion_material_real)){
+                                        foreach($cotizacion_material_real as $cm){
+                                            echo '<tr id="tr-material-real-'.$cm['material_id'].'">';
+                                            echo '<td>'.$cm['codigo'].'</td>';
+                                            echo '<td>'.$cm['nombre'].'</td>';
+                                            echo '<td><input type="number" value="'.$cm['cantidad'].'" class="form-control" name="input-material-real-cantidad" id="input-material-real-cantidad-'.$cm['material_id'].'" /></td>';
+                                            echo '<td><button id="btn-material-real-remove-'.$cm['material_id'].'" class="btn btn-danger" onclick="removerMaterialReal(this.id);">remover</button></td>';
+                                            echo '</tr>';
+                                        }
+                                    }
+                                    else{
+                                        echo '<tr><td colspan="4" class="text-center">No hay registros.</td></tr>';
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </fieldset>			
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -364,6 +452,105 @@
         </div>
     </div>
 </div>
+<!-- Modal Materiales Pre-->
+<div class="modal fade" id="modal-materiales-pre" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modal-materiales-label">Listado de Materiales</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <table id="table-carga-materiales_pre" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                        <th>Cargar</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-carga-materiales_pre">
+                    <?php
+                        if(!empty($materiales)){
+                            //vienen registros
+                            foreach($materiales as $material){
+                                echo '<tr>';
+                                echo '<td>'.$material['id'].'</td>';
+                                echo '<td>'.$material['codigo'].'</td>';
+                                echo '<td>'.$material['nombre'].'</td>';
+                                echo '<td><input value="0" class="form-control" type="number" name="input-material_pre_cantidad" id="input-material_pre-cantidad-'.$material['id'].'"></td>';
+                                echo '<td><button class="btn btn-primary" id="btn-'.$material['id'].'" onclick="cargarMaterialPre(this.id);">agregar</button></td>';
+                                echo '</tr>';
+                            }
+                        }
+                        else{
+                            //no vienen registros
+                            echo '<tr><td colspan="5">No existen registros.</td></tr>';
+                        }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Materiales Real-->
+<div class="modal fade" id="modal-materiales-real" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modal-materiales-label">Listado de Materiales</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <table id="table-carga-materiales_real" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                        <th>Cargar</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-carga-materiales_real">
+                    <?php
+                        if(!empty($materiales)){
+                            //vienen registros
+                            foreach($materiales as $material){
+                                echo '<tr>';
+                                echo '<td>'.$material['id'].'</td>';
+                                echo '<td>'.$material['codigo'].'</td>';
+                                echo '<td>'.$material['nombre'].'</td>';
+                                echo '<td><input value="0" class="form-control" type="number" name="input-material_real_cantidad" id="input-material_real-cantidad-'.$material['id'].'"></td>';
+                                echo '<td><button class="btn btn-primary" id="btn-'.$material['id'].'" onclick="cargarMaterialReal(this.id);">agregar</button></td>';
+                                echo '</tr>';
+                            }
+                        }
+                        else{
+                            //no vienen registros
+                            echo '<tr><td colspan="5">No existen registros.</td></tr>';
+                        }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+        </div>
+    </div>
+</div>
+<!-- fin modales -->
 <?php $this->load->view('layout/main_bot');?>   
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>     
 <script>
@@ -410,6 +597,62 @@
         });
 
         $('#table-real-carga-items').DataTable({
+            lengthMenu: [
+                [5, 25, 50, -1],
+                [5, 25, 50, 'All'],
+            ],
+            pageLength: 5,
+            language: {
+                "decimal": ",",
+                "emptyTable": "No hay información",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                "infoPostFix": "",
+                "thousands": ".",
+                "lengthMenu": "Mostrar _MENU_ Entradas",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            }
+        });
+
+        $('#table-carga-materiales_pre').DataTable({
+            lengthMenu: [
+                [5, 25, 50, -1],
+                [5, 25, 50, 'All'],
+            ],
+            pageLength: 5,
+            language: {
+                "decimal": ",",
+                "emptyTable": "No hay información",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                "infoPostFix": "",
+                "thousands": ".",
+                "lengthMenu": "Mostrar _MENU_ Entradas",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            }
+        });
+
+        $('#table-carga-materiales_real').DataTable({
             lengthMenu: [
                 [5, 25, 50, -1],
                 [5, 25, 50, 'All'],
@@ -604,8 +847,34 @@
                 let temp = [idItem, cantidad, valor_unitario, sub_total];
                 dataReal.push(temp);
             }
+            //--------------------------------------------------------------------------------------------------------
+            let dataMaterialPre = [];
+            let dataMaterialReal = [];
+            //materiales pre
+            //--------------------------------------------------------------------------------------------------------
+            let material_pre = document.getElementById('table-materiales_pre');
+            for (var r = 1, n = material_pre.rows.length; r < n; r++) {
+                let material_id = $(material_pre.rows[r]).attr('id');
+                material_id = material_id.replace('tr-material-pre-','');
+                let cantidad = $('#input-material-pre-cantidad-'+material_id).val();
+
+                let temp = [material_id, cantidad];
+                dataMaterialPre.push(temp);
+                
+            }
+            //materiales real
+            let material_real = document.getElementById('table-materiales_real');
+            for (var r = 1, n = material_real.rows.length; r < n; r++) {
+                let material_id = $(material_real.rows[r]).attr('id');
+                material_id = material_id.replace('tr-material-real-','');
+                let cantidad = $('#input-material-real-cantidad-'+material_id).val();
+
+                let temp = [material_id, cantidad];
+                dataMaterialReal.push(temp);
+            }
 
             //--------------------------------------------------------------------------------------------------------
+            
             if(dataPre.length > 0){
                 $.ajax({
                     url: '<?php echo base_url();?>index.php/CotizacionesController/editCotizacion',
@@ -615,6 +884,8 @@
                                 cotizacion_id: '<?php echo $_GET['id']?>',
                                 dataPre: dataPre, 
                                 dataReal: dataReal,
+                                dataMaterialPre: dataMaterialPre, 
+                                dataMaterialReal: dataMaterialReal,
                                 usuario: usuario,
                                 codigo: codigo,
                                 fecha: fecha,
@@ -643,6 +914,71 @@
             }
             else
                 alert('Debe existir al menos un detalle Presupuestado');
+                
         }
+    }
+    //----------------------------------------------------------------------------------------------------------
+    //MATERIAL PRESUPUESTADO
+    function removerMaterialPre(material_id){
+        material_id = material_id.replace('btn-material-pre-remove-','');
+        let c = confirm('Cofirme esta operación');
+        if(c)
+            $('#tr-material-pre-'+material_id).remove();
+    }
+
+    function cargarMaterialPre(material_id){
+        material_id = material_id.replace('btn-','');
+        let cantidad = $('#input-material_pre-cantidad-'+material_id).val();
+
+        $.ajax({
+            url: '<?php echo base_url();?>index.php/MaterialesController/getDataMaterial',
+            type: 'post',
+            data: {id: material_id},
+            dataType: 'json',
+            success: function(response){
+
+                let tbody = '<tr id="tr-material-pre-'+material_id+'">';
+                tbody += '<td>'+response[0]['codigo']+'</td>';
+                tbody += '<td>'+response[0]['nombre']+'</td>';
+                tbody += '<td><input type="number" value="'+cantidad+'" class="form-control" name="input-material-pre-cantidad" id="input-material-pre-cantidad-'+material_id+'"></td>';
+                tbody += '<td><button id="btn-material-pre-remove-'+material_id+'" class="btn btn-danger" onclick="removerMaterialPre(this.id);">remover</button></td>';
+                tbody += '</tr>';
+                $('#tbody-materiales_pre').append(tbody);
+
+                $('#modal-materiales-pre').modal('hide');
+            }
+        });
+    }
+    //----------------------------------------------------------------------------------------------------------
+    //MATERIAL REAL
+    function removerMaterialReal(material_id){
+        material_id = material_id.replace('btn-material-real-remove-','');
+        let c = confirm('Cofirme esta operación');
+        if(c)
+            $('#tr-material-real-'+material_id).remove();
+    }
+
+    function cargarMaterialReal(material_id){
+        material_id = material_id.replace('btn-','');
+        let cantidad = $('#input-material_real-cantidad-'+material_id).val();
+
+        $.ajax({
+            url: '<?php echo base_url();?>index.php/MaterialesController/getDataMaterial',
+            type: 'post',
+            data: {id: material_id},
+            dataType: 'json',
+            success: function(response){
+
+                let tbody = '<tr id="tr-material-real-'+material_id+'">';
+                tbody += '<td>'+response[0]['codigo']+'</td>';
+                tbody += '<td>'+response[0]['nombre']+'</td>';
+                tbody += '<td><input type="number" value="'+cantidad+'" class="form-control" name="input-material-real-cantidad" id="input-material-real-cantidad-'+material_id+'"></td>';
+                tbody += '<td><button id="btn-material-real-remove-'+material_id+'" class="btn btn-danger" onclick="removerMaterialReal(this.id);">remover</button></td>';
+                tbody += '</tr>';
+                $('#tbody-materiales_real').append(tbody);
+
+                $('#modal-materiales-real').modal('hide');
+            }
+        });
     }
 </script>
