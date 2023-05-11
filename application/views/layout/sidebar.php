@@ -67,7 +67,6 @@
             <a class="collapse-item" href="<?php echo base_url();?>index.php/MaterialesController/index">Stock Materiales</a>
             <a class="collapse-item" href="<?php echo base_url();?>index.php/CotizacionesController/index">Programación Proyectos</a>
             <a class="collapse-item" href="<?php echo base_url();?>index.php/TicketsController/index">Tickets</a>
-
         </div>
     </div>
 </li>
@@ -97,7 +96,6 @@
             <a class="collapse-item" href="<?php echo base_url();?>index.php/CotizacionesController/historico">Histórico</a>
             <h6 class="collapse-header">Información Log:</h6>
             <a class="collapse-item" href= "<?php echo base_url();?>index.php/LogsController/index">Logs</a>
-
         </div>
     </div>
 </li>
