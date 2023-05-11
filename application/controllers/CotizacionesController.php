@@ -240,7 +240,7 @@ class CotizacionesController extends CI_Controller {
 			$this->modelo->deleteMaterialesPre($cotizacion_id);
 			$this->modelo->deleteMaterialesReal($cotizacion_id);
 			//guardar detalles
-			if(count($dataPre) > 0){
+			if(!empty($dataPre)){
 				for($i=0; $i < count($dataPre); $i++){
 					$arr_temp = 	[
 										'cotizaciones_id' => $cotizacion_id,
@@ -253,7 +253,7 @@ class CotizacionesController extends CI_Controller {
 				}
 			}
 			
-			if(count($dataReal) > 0){
+			if(!empty($dataReal)){
 				for($i=0; $i < count($dataReal); $i++){
 					$arr_temp = 	[
 										'cotizaciones_id' => $cotizacion_id,
@@ -266,7 +266,7 @@ class CotizacionesController extends CI_Controller {
 				}
 			}
 			//guardar materiales
-			if(count($dataMaterialPre) > 0){
+			if(!empty($dataMaterialPre)){
 				for($i=0; $i < count($dataMaterialPre); $i++){
 					$arr_temp = 	[
 										'cotizacion_id' => $cotizacion_id,
@@ -277,7 +277,7 @@ class CotizacionesController extends CI_Controller {
 				}
 			}
 			
-			if(count($dataMaterialReal) > 0){
+			if(!empty($dataMaterialReal)){
 				for($i=0; $i < count($dataMaterialReal); $i++){
 					$arr_temp = 	[
 										'cotizacion_id' => $cotizacion_id,
