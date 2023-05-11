@@ -152,7 +152,7 @@ class CotizacionesController extends CI_Controller {
 				}
 
 				//guardar materiales
-				if(count($dataMaterialPre) > 0){
+				if(!empty($dataMaterialPre)){
 					for($i=0; $i < count($dataMaterialPre); $i++){
 						$arr_temp = 	[
 											'cotizacion_id' => $cotizacion_id,
@@ -163,7 +163,7 @@ class CotizacionesController extends CI_Controller {
 					}
 				}
 				
-				if(count($dataMaterialReal) > 0){
+				if(!empty($dataMaterialReal)){
 					for($i=0; $i < count($dataMaterialReal); $i++){
 						$arr_temp = 	[
 											'cotizacion_id' => $cotizacion_id,
