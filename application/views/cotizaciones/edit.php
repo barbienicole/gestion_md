@@ -148,9 +148,6 @@
                                                 echo '</tr>';
                                             }
                                         }
-                                        else{
-                                            //echo '<tr><td colspan="5" class="text-center">No hay registros.</td></tr>';
-                                        }
                                     ?>
                                 </tbody>
                             </table>
@@ -221,9 +218,6 @@
                                                 echo '</tr>';
                                             }
                                         }
-                                        else{
-                                            //echo '<tr><td colspan="5" class="text-center">No hay registros.</td></tr>';
-                                        }
                                     ?>
                                 </tbody>
                             </table>  
@@ -290,9 +284,6 @@
                                             echo '</tr>';
                                         }
                                     }
-                                    else{
-                                        echo '<tr><td colspan="4" class="text-center">No hay registros.</td></tr>';
-                                    }
                                     ?>
                                 </tbody>
                             </table>
@@ -332,9 +323,6 @@
                                             echo '<td><button id="btn-material-real-remove-'.$cm['material_id'].'" class="btn btn-danger" onclick="removerMaterialReal(this.id);">remover</button></td>';
                                             echo '</tr>';
                                         }
-                                    }
-                                    else{
-                                        echo '<tr><td colspan="4" class="text-center">No hay registros.</td></tr>';
                                     }
                                     ?>
                                 </tbody>

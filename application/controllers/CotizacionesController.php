@@ -82,10 +82,10 @@ class CotizacionesController extends CI_Controller {
 	//add & edit
 	//add
 	public function addCotizacion(){
-		$dataPre = $this->input->post('dataPre', TRUE);
-		$dataReal = $this->input->post('dataReal', TRUE);
-		$dataMaterialPre = $this->input->post('dataMaterialPre', TRUE);
-		$dataMaterialReal = $this->input->post('dataMaterialReal', TRUE);
+		$dataPre = $this->input->post('dataPre');
+		$dataReal = $this->input->post('dataReal');
+		$dataMaterialPre = $this->input->post('dataMaterialPre');
+		$dataMaterialReal = $this->input->post('dataMaterialReal');
 
 		$usuario = trim($this->input->post('usuario', TRUE));
 		$codigo = trim($this->input->post('codigo', TRUE));
@@ -191,10 +191,10 @@ class CotizacionesController extends CI_Controller {
 	public function editCotizacion(){
 		$cotizacion_id = trim($this->input->post('cotizacion_id', TRUE));
 
-		$dataPre = $this->input->post('dataPre', TRUE);
-		$dataReal = $this->input->post('dataReal', TRUE);
-		$dataMaterialPre = $this->input->post('dataMaterialPre', TRUE);
-		$dataMaterialReal = $this->input->post('dataMaterialReal', TRUE);
+		$dataPre = $this->input->post('dataPre');
+		$dataReal = $this->input->post('dataReal');
+		$dataMaterialPre = $this->input->post('dataMaterialPre');
+		$dataMaterialReal = $this->input->post('dataMaterialReal');
 
 		$usuario = trim($this->input->post('usuario', TRUE));
 		$codigo = trim($this->input->post('codigo', TRUE));
