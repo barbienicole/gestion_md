@@ -66,6 +66,7 @@
             <h6 class="collapse-header">Gestión:</h6>
             <a class="collapse-item" href="<?php echo base_url();?>index.php/MaterialesController/index">Stock Materiales</a>
             <a class="collapse-item" href="<?php echo base_url();?>index.php/CotizacionesController/index">Programación Proyectos</a>
+            <a class="collapse-item" href="<?php echo base_url();?>index.php/ServiciosFinalizadosController/index">Servicios Finalizados</a>
             <a class="collapse-item" href="<?php echo base_url();?>index.php/TicketsController/index">Tickets</a>
         </div>
     </div>

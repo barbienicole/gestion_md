@@ -25,6 +25,7 @@ class ClientesController extends CI_Controller {
 		$data = (array)$output;
 		$data['titulo'] = 'Clientes';
 		$this->load->view('clientes/index', $data);
+		
 		/*
 		$clientes = $this->modelo->getClientes();
 		$data = [
