@@ -115,6 +115,5 @@
 <script>
     $(document).ready( function () {
         $('#select-cliente').val('<?php echo !empty($cabecera[0]['cliente_id']) ? $cabecera[0]['cliente_id'] : 1;?>');
-        $('#select-estado').val('<?php echo !empty($cabecera[0]['estado_id']) ? $cabecera[0]['estado_id'] : 1;?>');
     });
 </script>

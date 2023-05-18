@@ -10,18 +10,18 @@ class ServiciosFinalizadosController extends CI_Controller {
     public function index(){
 		$data['titulo'] = 'Servicios Técnicos Finalizados';
 		$data['clientes'] = $this->modelo->obtenerClientes();
+        $data['servicios'] = $this->modelo->obtenerServicios();
 		$this->load->view('serviciosfinalizados/index', $data);
     }
 
     public function add(){
 		$iva = $this->modelo->getParametroConfiguracion('iva');
-        $items = $this->modelo->getItems();
         $data = [
 			'titulo' => 'Nuevo Servicio Técnico',
 			'iva' => $iva,
-            'items' => $items
 		];
 		$data['clientes'] = $this->modelo->obtenerClientes();
+        $data['servicios'] = $this->modelo->obtenerServicios();
 		$this->load->view('serviciosfinalizados/add', $data);
     }
 
@@ -29,7 +29,7 @@ class ServiciosFinalizadosController extends CI_Controller {
 		$id = trim($this->input->get('id', TRUE));
 		$serviciofinalizado_cebecera = $this->modelo->obtenerServicioFinalizado($id);
 		$serviciofinalizado_detalle = $this->modelo->obtenerDetalleServicioFinalizado($id);
-		$data['titulo'] = 'Ver Proyecto # '.$id;
+		$data['titulo'] = 'Ver Servicio Cerrado # '.$id;
 		$data['cabecera'] = $serviciofinalizado_cebecera; 
 		$data['detalle'] = $serviciofinalizado_detalle; 
 		$data['clientes'] = $this->modelo->obtenerClientes();
@@ -38,16 +38,14 @@ class ServiciosFinalizadosController extends CI_Controller {
 
     public function edit(){
 		$iva = $this->modelo->getParametroConfiguracion('iva');
-		$items = $this->modelo->getItems();
 		$id = trim($this->input->get('id', TRUE));
 		$serviciofinalizado_cebecera = $this->modelo->obtenerServicioFinalizado($id);
 		$serviciofinalizado_detalle = $this->modelo->obtenerDetalleServicioFinalizado($id);
 		$data['titulo'] = 'Editar Proyecto # '.$id;
 		$data['cabecera'] = $serviciofinalizado_cebecera; 
-		$data['detalle_pre'] = $serviciofinalizado_detalle; 
+		$data['detalle'] = $serviciofinalizado_detalle; 
 		$data['clientes'] = $this->modelo->obtenerClientes();
 		$data['iva'] = $iva;
-		$data['items'] = $items;
 		$this->load->view('serviciosfinalizados/edit', $data);
     }
 
@@ -64,23 +62,26 @@ class ServiciosFinalizadosController extends CI_Controller {
 		$data = $this->input->post('data', TRUE);
 
 		$usuario = trim($this->input->post('usuario', TRUE));
+		$ticket = trim($this->input->post('ticket', TRUE));
 		$istt = trim($this->input->post('istt', TRUE));
 		$fecha = trim($this->input->post('fecha', TRUE));
 		$servicio = trim($this->input->post('servicio', TRUE));
-		//$estado = 1;
 		$cliente = trim($this->input->post('cliente', TRUE));
 		$valor = trim($this->input->post('valor', TRUE));
         $descripcion = trim($this->input->post('descripcion', TRUE));
+		$nota_venta = trim($this->input->post('nota_venta', TRUE));
+		$orden_compra = trim($this->input->post('orden_compra', TRUE));
+		$factura = trim($this->input->post('factura', TRUE));
 		$iva_historico = trim($this->input->post('iva_historico', TRUE));
-		$neto = trim($this->input->post('neto', TRUE));
 		$iva = trim($this->input->post('iva', TRUE));
 		$total = trim($this->input->post('total', TRUE));
 
 
 		$response = [];
-		if(!empty($istt) && !empty($fecha) && !empty($servicio) && !empty($cliente) && !empty($dataPre) && !empty($neto_pre)){
+		if(!empty($istt) && !empty($fecha) && !empty($servicio)){
 			//guardar serviciofinalizado
 			$dataServicioFinalizado = 	[
+				'ticket' => $ticket,
 				'istt' => $istt,
 				'fecha_creacion' => date('Y-m-d H:i:s'),
 				'fecha' => $fecha,
@@ -88,8 +89,10 @@ class ServiciosFinalizadosController extends CI_Controller {
 				'clientes_id' => $cliente,
 				'valor' => $valor,
                 'descripcion' => $descripcion,
+				'nota_venta' => $nota_venta,
+				'orden_compra' => $orden_compra,
+				'factura' => $factura,
 				'iva_historico' => $iva_historico,
-				'neto' => $neto,
 				'total' => $total,
 				'iva'	=>	$iva,
 				'usuarios_id' => $this->session->userdata("usuario_id")
@@ -101,7 +104,6 @@ class ServiciosFinalizadosController extends CI_Controller {
 				for($i=0; $i < count($data); $i++){
 					$arr_temp = 	[
 								'serviciosfinalizados_id' => $serviciofinalizado_id,
-								'items_id' => $data[$i][0],
 								'n_linea' => ($i+1),
 								'cantidad' => $data[$i][1],
 								'valor'	=> $data[$i][2]
@@ -113,7 +115,7 @@ class ServiciosFinalizadosController extends CI_Controller {
 			}
 			$response = [
 							'codigo' => 1,
-							'response' => 'Se ha generado de manera correcta el Proyecto.'
+							'response' => 'Se ha generado de manera correcta el Cierre de Servicio.'
 						];
 		}
 		else{
@@ -131,33 +133,38 @@ class ServiciosFinalizadosController extends CI_Controller {
 		$data = $this->input->post('data', TRUE);
 
 		$usuario = trim($this->input->post('usuario', TRUE));
+		$ticket = trim($this->input->post('ticket', TRUE));
 		$istt = trim($this->input->post('istt', TRUE));
 		$fecha = trim($this->input->post('fecha', TRUE));
 		$servicio = trim($this->input->post('servicio', TRUE));
 		$cliente = trim($this->input->post('cliente', TRUE));
         $valor = trim($this->input->post('valor', TRUE));
 		$descripcion = trim($this->input->post('descripcion', TRUE));
+		$nota_venta = trim($this->input->post('nota_venta', TRUE));
+		$orden_compra = trim($this->input->post('orden_compra', TRUE));
+		$factura = trim($this->input->post('factura', TRUE));
 		$iva_historico = trim($this->input->post('iva_historico', TRUE));
-		$neto = trim($this->input->post('neto', TRUE));
 		$iva = trim($this->input->post('iva', TRUE));
 		$total = trim($this->input->post('total', TRUE));
 
 
 		$response = [];
 		if(!empty($istt) && !empty($fecha) && !empty($servicio) && !empty($cliente) && 
-			!empty($valor) && !empty($neto)){
+			!empty($valor)){
 			//guardar serviciofinalizado
 			$dataServicioFinalizado = 	[
+									'ticket' => $ticket,
 									'istt' => $istt,
 									'fecha_creacion' => date('Y-m-d H:i:s'),
 									'fecha_actualizacion' => date('Y-m-d H:i:s'),
 									'fecha' => $fecha,
 									'titulo' => $titulo,
-									'serviciosfinalizados_id' => $estado,
 									'clientes_id' => $cliente,
 									'descripcion' => $descripcion,
+									'nota_vena' => $nota_venta,
+									'orden_compra' => $orden_compra,
+									'factura' => $factura,
 									'iva_historico' => $iva_historico,
-									'neto' => $neto,
 									'total' => $total,
 									'iva'	=>	$iva,
 									'usuarios_id' => $this->session->userdata("usuario_id")
@@ -165,14 +172,12 @@ class ServiciosFinalizadosController extends CI_Controller {
 			
 			$this->modelo->modelo->edit($dataServicioFinalizado, $serviciofinalizado_id);
 			//eliminar detalles
-			$this->modelo->deleteDetalleServicioFinalizadoPre($serviciofinalizado_id);
-			$this->modelo->deleteDetalleServicioFinalizadoReal($serviciofinalizado_id);
+			$this->modelo->deleteDetalleServicioFinalizado($serviciofinalizado_id);
 			//guardar detalles
 			if(count($data) > 0){
 				for($i=0; $i < count($data); $i++){
 					$arr_temp = 	[
 										'serviciosfinalizados_id' => $serviciofinalizado_id,
-										'items_id' => $data[$i][0],
 										'n_linea' => ($i+1),
 										'cantidad' => $data[$i][1],
 										'valor'	=> $data[$i][2]
@@ -184,7 +189,7 @@ class ServiciosFinalizadosController extends CI_Controller {
 
 			$response = [
 				'codigo' => 1,
-				'response' => 'Se ha editado de manera correcta el Proyecto.'
+				'response' => 'Se ha editado de manera correcta el Cierre de Servicio.'
 			];
 		}
 		else{

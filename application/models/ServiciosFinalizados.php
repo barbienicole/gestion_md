@@ -6,14 +6,8 @@ class ServiciosFinalizados extends CI_Model {
         parent::__construct();
     }
 
-    public function getItems(){
-        $this->db->select('id, nombre');
-        $this->db->from('items');
-        $this->db->order_by('nombre','asc');
-        return $this->db->get()->result_array();
-    }
 
-    public function obtenerServiciosFinalizados($desde = null, $hasta = null, $cliente = null, $estado = null){
+    public function obtenerServiciosFinalizados($desde = null, $hasta = null, $cliente = null){
         $this->db->select('c.id, c.istt, c.fecha, c.servicio, c.cliente, c.valor, c.descripcion');
         $this->db->from('serviciosfinalizados as c');
         $this->db->join('serviciosfinalizados as ce', 'ce.id = c.serviciosfinalizados_id');
@@ -24,8 +18,6 @@ class ServiciosFinalizados extends CI_Model {
         }
         if(!empty($cliente))
             $this->db->where('clientes_id', $cliente);
-        if(!empty($estado))
-            $this->db->where('serviciosfinalizados_id', $estado);
         $this->db->order_by('fecha_creacion DESC');
         return $this->db->get()->result_array();
     }
@@ -37,13 +29,12 @@ class ServiciosFinalizados extends CI_Model {
         return $this->db->get()->result_array();
     }
 
-    public function obtenerEstados(){
-        $this->db->select('id, servicio');
-        $this->db->from('serviciosfinalizados');
-        $this->db->order_by('id ASC');
+    public function obtenerServicios(){
+        $this->db->select('id, nombre');
+        $this->db->from('servicios');
+        $this->db->order_by('nombre ASC');
         return $this->db->get()->result_array();
     }
-
 
     public function getParametroConfiguracion($parametro){
         $this->db->select('valor');
@@ -55,8 +46,8 @@ class ServiciosFinalizados extends CI_Model {
     }
 
     public function obtenerServicioFinalizado($id){
-        $this->db->select('c.id, c.istt, DATE(c.fecha) as fecha, c.servicio,
-                            c.cliente, c.valor, c.descripcion');
+        $this->db->select('c.id, c.ticket, c.istt, DATE(c.fecha) as fecha, c.servicio,
+                            c.cliente, c.valor, c.descripcion, c.nota_venta, c.oden_compra, c.factura');
         $this->db->from('serviciosfinalizados as c');
         $this->db->join('serviciosfinalizados as ce', 'ce.id = c.serviciosfinalizados_id');
         $this->db->join('clientes as cli', 'cli.id = c.clientes_id');

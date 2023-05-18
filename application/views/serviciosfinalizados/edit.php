@@ -64,18 +64,6 @@
                         <input  value="<?php echo !empty($cabecera[0]['titulo']) ? $cabecera[0]['titulo'] : 'N/A';?>" class="form-control" name="input-titulo" id="input-titulo" />
                     </div>
                     <div class="col-md-4">
-                        <label>Estado</label>
-                        <select class="form-control" id="select-estado" name="select-estado">
-                            <?php
-                            if(!empty($estados)){
-                                foreach($estados as $e){
-                                    echo '<option selected value="'.$e['id'].'">'.$e['nombre'].' </option>';
-                                }
-                            }
-                            ?>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
                         <label>Cliente <font color="red">(*)</font></label>
                         <select class="form-control" id="select-cliente" name="select-cliente">
                             <?php
@@ -379,7 +367,6 @@
 
     $(document).ready( function () {
         $('#select-cliente').val('<?php echo !empty($cabecera[0]['cliente_id']) ? $cabecera[0]['cliente_id'] : 1;?>');
-        $('#select-estado').val('<?php echo !empty($cabecera[0]['estado_id']) ? $cabecera[0]['estado_id'] : 1;?>');
 
         $('#table-carga-items').DataTable({
             lengthMenu: [
@@ -438,41 +425,7 @@
         });
     });
     //PRE
-    function cargarItem(item_id){
-        item_id = item_id.replace('btn-','');
-        let cantidad = $('#input-cantidad-'+item_id).val();
-
-        $.ajax({
-            url: '<?php echo base_url();?>index.php/ItemsController/getDataItem',
-            type: 'post',
-            data: {id: item_id},
-            dataType: 'json',
-            success: function(response){
-
-                let tbody = '<tr id="tr-'+item_id+'">';
-                tbody += '<td>'+item_id+'</td>';
-                tbody += '<td>'+response[0]['nombre']+'</td>';
-                tbody += '<td id="td-cantidad_item-'+item_id+'">'+cantidad+'</td>';
-                tbody += '<td><input onkeyup="calcularSubTotal(this.id);" value="0" type="number" id="input-valor_unitario-'+item_id+'" name="input-valor_unitario" /></td>';
-                tbody += '<td><input class="form-control" name="input-sub_total" value="0" id="input-sub_total-'+item_id+'" readonly></td>';
-                tbody += '<td><button id="btn-remove-'+item_id+'" class="btn btn-danger" onclick="removerItem(this.id);">remover</button></td>';
-                tbody += '</tr>';
-                $('#tbody-detalle_pre').append(tbody);
-
-                $('#modal-items').modal('hide');
-            }
-        });
-    }
-
-    function removerItem(identificador_item){
-        identificador_item = identificador_item.replace('btn-remove-','');
-        let c = confirm('Cofirme esta operación');
-        if(c)
-            $('#tr-'+identificador_item).remove();
-
-        sumatoriaTotal();
-    }
-
+   
     function calcularSubTotal(identificador){
         let valor_unitario = $('#'+identificador).val() != '0' ? $('#'+identificador).val() : 0;
         item_id = identificador.replace('input-valor_unitario-','');
@@ -503,40 +456,6 @@
     }
     //----------------------------------------------------------------------------------------------------------
     //REAL
-    function cargarItemReal(item_id){
-        item_id = item_id.replace('btn-real-','');
-        let cantidad = $('#input-real-cantidad-'+item_id).val();
-
-        $.ajax({
-            url: '<?php echo base_url();?>index.php/ItemsController/getDataItem',
-            type: 'post',
-            data: {id: item_id},
-            dataType: 'json',
-            success: function(response){
-
-                let tbody = '<tr id="tr-real-'+item_id+'">';
-                tbody += '<td>'+item_id+'</td>';
-                tbody += '<td>'+response[0]['nombre']+'</td>';
-                tbody += '<td id="td-real-cantidad_item-'+item_id+'">'+cantidad+'</td>';
-                tbody += '<td><input onkeyup="calcularSubTotalReal(this.id);" value="0" type="number" id="input-real-valor_unitario-'+item_id+'" name="input-real-valor_unitario" /></td>';
-                tbody += '<td><input class="form-control" name="input-real-sub_total" value="0" id="input-real-sub_total-'+item_id+'" readonly></td>';
-                tbody += '<td><button id="btn-real-remove-'+item_id+'" class="btn btn-danger" onclick="removerItemReal(this.id);">remover</button></td>';
-                tbody += '</tr>';
-                $('#tbody-real-detalle').append(tbody);
-
-                $('#modal-real-items').modal('hide');
-            }
-        });
-    }
-
-    function removerItemReal(identificador_item){
-        identificador_item = identificador_item.replace('btn-real-remove-','');
-        let c = confirm('Cofirme esta operación');
-        if(c)
-            $('#tr-real-'+identificador_item).remove();
-
-        sumatoriaTotalReal();
-    }
 
     function calcularSubTotalReal(identificador){
         let valor_unitario = $('#'+identificador).val() != '0' ? $('#'+identificador).val() : 0;
@@ -573,7 +492,6 @@
             let codigo = $('#input-codigo').val();
             let fecha = $('#input-fecha').val();
             let titulo = $('#input-titulo').val();
-            let estado = $('#select-estado').val();
             let cliente = $('#select-cliente').val();
             let descripcion = $('#textarea-descripcion').val();
             //--------------------------------------------------------------------------------------------------------
@@ -619,7 +537,6 @@
                                 codigo: codigo,
                                 fecha: fecha,
                                 titulo: titulo,
-                                estado: estado,
                                 cliente: cliente,
                                 descripcion: descripcion,
                                 iva_historico: iva_historico,

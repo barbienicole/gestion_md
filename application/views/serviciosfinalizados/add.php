@@ -62,7 +62,16 @@
                     </div>
                     <div class="col-md-4">
                         <label>Servicio<font color="red">(*)</font></label>
-                        <input class="form-control" id="select-servicio" name="select-servicio">
+                        <select class="form-control" id="select-servicio" name="select-servicio">
+                        <option value="">Seleccione</option>
+                        <?php
+                        if(!empty($servicios)){
+                            foreach($servicios as $c){
+                                 echo '<option value="'.$c['id'].'">'.$c['nombre'].'  </option>';
+                             }
+                        }
+                         ?>
+                    </select>
                     </div>
                     <div class="col-md-4">
                         <label>Valor<font color="red">(*)</font></label>
@@ -190,19 +199,19 @@
     //----------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------
     function generarServicioFinalizado(){
-        let c = confirm('Confirme la creación de este Proyecto');
+        let c = confirm('Confirme la Finalización de este Servicio');
         if(c){
             let usuario = '<?php echo $this->session->userdata("usuario_id");?>';
             let istt = $('#input-istt').val();
             let ticket = $('#input-ticket').val();
             let fecha = $('#input-fecha').val();
-            let servicio = $('#input-servicio').val();
+            let servicio = $('#select-servicio').val();
             let cliente = $('#select-cliente').val();
-            let valor = $('#select-cliente').val();
+            let valor = $('#input-cliente').val();
             let descripcion = $('#textarea-descripcion').val();
-            let nota_venta = $('#select-nota_venta').val();
-            let orden_compra = $('#select-orden_compra').val();
-            let factura = $('#select-factura').val();
+            let nota_venta = $('#input-nota_venta').val();
+            let orden_compra = $('#input-orden_compra').val();
+            let factura = $('#input-factura').val();
 
             if(data.length > 0){
                 $.ajax({

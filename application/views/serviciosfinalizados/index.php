@@ -101,7 +101,6 @@
                         tbody += '<td class="text-right">'+response[i]['total']+'</td>';
                         tbody += '<td class="text-right">'+response[i]['total_real']+'</td>';
                         tbody += '<td class="text-right">'+response[i]['diferencia']+'</td>';
-                        tbody += '<td>'+response[i]['estado']+'</td>';
                         tbody += '<td><a href="<?php echo base_url();?>index.php/ServiciosFinalizadosController/view?id='+response[i]['id']+'" class="btn btn-info btn-sm" title="Ver cotización">ver</a> <a href="<?php echo base_url();?>index.php/ServiciosFinalizadosController/edit?id='+response[i]['id']+'" class="btn btn-warning btn-sm" title="Editar cotización">editar</a></td>';
                         tbody += '</tr>';
                     }
