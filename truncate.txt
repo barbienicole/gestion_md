@@ -1,0 +1,12 @@
+DELETE FROM cotizaciones;
+DELETE FROM cotizacion_material_presupuestado;
+DELETE FROM cotizacion_material_real;
+DELETE FROM detalle_cotizacion;
+DELETE FROM detalle_cotizacion_real;
+
+
+TRUNCATE cotizacion_material_presupuestado;
+TRUNCATE cotizacion_material_real;
+TRUNCATE detalle_cotizacion;
+TRUNCATE detalle_cotizacion_real;
+ALTER TABLE cotizaciones AUTO_INCREMENT = 1;
