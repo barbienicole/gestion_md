@@ -68,13 +68,11 @@ class MaterialesController extends CI_Controller {
 	public function addMaterial(){
 		$codigo = $this->input->post('input-codigo');
 		$nombre = $this->input->post('input-nombre');
-		$modelo = $this->input->post('input-modelo');
 		$valor = $this->input->post('input-valor');
 		$stockideal = $this->input->post('input-stockideal');
 		$stock = $this->input->post('input-stock');
 		$data = ['codigo' => $codigo,
 				 'nombre' => $nombre,
-				 'modelo' => $modelo,
 				 'valor' => $valor,
 				 'stockideal' => $stockideal,
 				 'stock' => $stock
@@ -87,13 +85,11 @@ class MaterialesController extends CI_Controller {
 		$id = trim($this->input->post('id', TRUE));
 		$codigo = trim($this->input->post('codigo', TRUE));
 		$nombre = trim($this->input->post('nombre', TRUE));
-		$modelo = trim($this->input->post('modelo', TRUE));
 		$valor = trim($this->input->post('valor', TRUE));
 		$stockideal = trim($this->input->post('stockideal', TRUE));
 		$stock = trim($this->input->post('stock', TRUE));
 		$data = ['codigo' => $codigo,
 			 	 'nombre' => $nombre,
-				 'modelo' => $modelo,
 				 'valor' => $valor,
 				 'stockideal' => $stockideal,
 				 'stock' => $stock

@@ -7,14 +7,14 @@ class Materiales extends CI_Model {
     }
     
     public function getMateriales(){
-        $this->db->select('id, codigo, nombre, modelo, valor, stockideal, stock');
+        $this->db->select('id, codigo, nombre, valor, stockideal, stock');
         $this->db->from('materiales');
         $this->db->order_by('nombre','asc');
         return $this->db->get()->result_array();
     }
 
     public function getMaterial($material_id){
-        $this->db->select('id, codigo, nombre, modelo, valor, stockideal, stock');
+        $this->db->select('id, codigo, nombre, valor, stockideal, stock');
         $this->db->from('materiales');
         $this->db->where('id', $material_id);
         $this->db->limit(1);

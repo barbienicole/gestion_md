@@ -34,8 +34,7 @@
                             <tr>
                                 <th width="5%">Id</th>
                                 <th width="10%">Código</th>
-                                <th width="20%">Nombre</th>
-                                <th width="20%">Modelo</th>
+                                <th width="40%">Nombre</th>
                                 <th width="10%">Valor</th>
                                 <th width="10%">Stock Ideal</th>
                                 <th width="10%">Stock</th>
@@ -51,7 +50,6 @@
                                 echo '<td>'.$material['id'].'</td>';
                                 echo '<td>'.$material['codigo'].'</td>';
                                 echo '<td>'.$material['nombre'].'</td>';
-                                echo '<td>'.$material['modelo'].'</td>';
                                 echo '<td>'.$material['valor'].'</td>';
                                 echo '<td>'.$material['stockideal'].'</td>';
                                 echo '<td><input min="0" style="width: 60%;" type="number" value="'.$material['stock'].'" name="input-stock" id="input-stock-'.$material['id'].'" /><button id="'.$material['id'].'" class="btn btn-sm btn-primary ml-1" onclick="updateStock(this.id);">Ok</button></td>';

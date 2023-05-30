@@ -32,8 +32,6 @@
                                 <input required class="form-control" name="input-codigo" id="input-codigo" placeholder="Ingrese Código">
                                 <br>
                                 <input required class="form-control" name="input-nombre" id="input-nombre" placeholder="Ingrese Nombre">
-                                </br>
-                                <input required class="form-control" name="input-modelo" id="input-modelo" placeholder="Ingrese Modelo">
                                 <br>
                                 <input required class="form-control" name="input-valor" id="input-valor" placeholder="Ingrese Valor">  
                                 </br>
