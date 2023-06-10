@@ -45,8 +45,8 @@
 
                 <div class="row">
                     <div class="col-md-4">
-                        <label>Usuario</label>
-                        <input readonly value="<?php echo !empty($cabecera[0]['usuario_nombre']) ? $cabecera[0]['usuario_nombre'] : 'N/A';?>" class="form-control" name="input-usuario" id="input-usuario" />
+                        <label>Título</label>
+                        <input readonly value="<?php echo !empty($cabecera[0]['titulo']) ? $cabecera[0]['titulo'] : 'N/A';?>" class="form-control" name="input-usuario" id="input-usuario" />
                     </div>
                     <div class="col-md-4">
                         <label>Código</label>
@@ -60,8 +60,8 @@
                 <br>
                 <div class="row">
                     <div class="col-md-4">
-                        <label>Título</label>
-                        <input disabled  value="<?php echo !empty($cabecera[0]['titulo']) ? $cabecera[0]['titulo'] : 'N/A';?>" class="form-control" name="input-titulo" id="input-titulo" />
+                        <label>Margen</label>
+                        <input disabled  value="<?php echo !empty($cabecera[0]['margen']) ? $cabecera[0]['margen'] : 'N/A';?>" class="form-control" name="input-titulo" id="input-titulo" />
                     </div>
                     <div class="col-md-4">
                         <label>Estado</label>
@@ -269,6 +269,8 @@
                                         <th>Código</th>
                                         <th>Nombre</th>
                                         <th>Cantidad</th>
+                                        <th>Valor Unitario</th>
+                                        <th>Sub Total</th>
                                         <!-- <th>Acciones</th> -->
                                     </tr>
                                 </thead>
@@ -280,11 +282,13 @@
                                             echo '<td>'.$cm['codigo'].'</td>';
                                             echo '<td>'.$cm['nombre'].'</td>';
                                             echo '<td>'.$cm['cantidad'].'</td>';
+                                            echo '<td>'.$cm['valor'].'</td>';
+                                            echo '<td>'.round($cm['cantidad'] * $cm['valor']).'</td>';
                                             echo '</tr>';
                                         }
                                     }
                                     else{
-                                        echo '<tr><td colspan="3" class="text-center">No hay registros.</td></tr>';
+                                        echo '<tr><td colspan="5" class="text-center">No hay registros.</td></tr>';
                                     }
                                     ?>
                                 </tbody>
@@ -292,6 +296,32 @@
                         </div>
                     </div>
                 </fieldset>			
+            </div>
+            <div class="col-md-12 mt-2">
+                <fieldset class="col-md-12">    	
+                    <legend>Resumen</legend>
+                    <div class="panel">
+                        <div class="panel-body">
+                            <table class="">
+                                <tr>
+                                    <td><strong>Neto:</strong></td>
+                                    <td id="td-m-pre-neto"><?php echo !empty($cabecera[0]['material_neto']) ? '$ '.number_format(floatval($cabecera[0]['material_neto']), 0, ',', '.') : '$0';?></td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>IVA:</strong></td>
+                                    <td id="td-m-pre-iva"><?php echo !empty($cabecera[0]['material_iva']) ? '$ '.number_format(floatval($cabecera[0]['material_iva']), 0, ',', '.') : '$0';?></td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Total:</strong></td>
+                                    <td id="td-m-pre-total"><?php echo !empty($cabecera[0]['material_total']) ? '$ '.number_format(floatval($cabecera[0]['material_total']), 0, ',', '.') : '$0';?></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    
+                </fieldset>
             </div>
         </div>
     </div>
@@ -311,6 +341,8 @@
                                         <th>Código</th>
                                         <th>Nombre</th>
                                         <th>Cantidad</th>
+                                        <th>Valor Unitario</th>
+                                        <th>Sub Total</th>
                                         <!-- <th>Acciones</th> -->
                                     </tr>
                                 </thead>
@@ -322,11 +354,13 @@
                                             echo '<td>'.$cm['codigo'].'</td>';
                                             echo '<td>'.$cm['nombre'].'</td>';
                                             echo '<td>'.$cm['cantidad'].'</td>';
+                                            echo '<td>'.$cm['valor'].'</td>';
+                                            echo '<td>'.round($cm['cantidad'] * $cm['valor']).'</td>';
                                             echo '</tr>';
                                         }
                                     }
                                     else{
-                                        echo '<tr><td colspan="3" class="text-center">No hay registros.</td></tr>';
+                                        echo '<tr><td colspan="5" class="text-center">No hay registros.</td></tr>';
                                     }
                                     ?>
                                 </tbody>
@@ -334,6 +368,32 @@
                         </div>
                     </div>
                 </fieldset>			
+            </div>
+            <div class="col-md-12 mt-2">
+                <fieldset class="col-md-12">    	
+                    <legend>Resumen</legend>
+                    <div class="panel">
+                        <div class="panel-body">
+                            <table class="">
+                                <tr>
+                                    <td><strong>Neto:</strong></td>
+                                    <td id="td-m-real-neto"><?php echo !empty($cabecera[0]['material_neto_real']) ? '$ '.number_format(floatval($cabecera[0]['material_neto_real']), 0, ',', '.') : '$0';?></td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>IVA:</strong></td>
+                                    <td id="td-m-real-iva"><?php echo !empty($cabecera[0]['material_iva_real']) ? '$ '.number_format(floatval($cabecera[0]['material_iva_real']), 0, ',', '.') : '$0';?></td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Total:</strong></td>
+                                    <td id="td-m-real-total"><?php echo !empty($cabecera[0]['material_total_real']) ? '$ '.number_format(floatval($cabecera[0]['material_total_real']), 0, ',', '.') : '$0';?></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    
+                </fieldset>
             </div>
         </div>
     </div>

@@ -44,10 +44,18 @@
             <div class="panel-body">
                 <p><font color="red">(*)</font> Datos Obligatorios</p>
                 <div class="row">
-                    <div class="col-md-4">
+                    
+                    <!-- <div class="col-md-4">
                         <label>Usuario</label>
-                        <input readonly value="<?php echo $this->session->userdata('usuario_nombre');?>" class="form-control" name="input-usuario" id="input-usuario" />
+                        <input readonly value="<?php //echo $this->session->userdata('usuario_nombre');?>" class="form-control" name="input-usuario" id="input-usuario" />
                     </div>
+                    -->
+
+                    <div class="col-md-4">
+                        <label>Título <font color="red">(*)</font></label>
+                        <input  value="" class="form-control" name="input-titulo" id="input-titulo" />
+                    </div>
+
                     <div class="col-md-4">
                         <label>Código <font color="red">(*)</font></label>
                         <input class="form-control" name="input-codigo" id="input-codigo" />
@@ -60,8 +68,8 @@
                 <br>
                 <div class="row">
                     <div class="col-md-4">
-                        <label>Título <font color="red">(*)</font></label>
-                        <input  value="" class="form-control" name="input-titulo" id="input-titulo" />
+                        <label>Margen <font color="red">(*)</font></label>
+                        <input  value="" class="form-control" name="input-margen" id="input-margen" />
                     </div>
                     <div class="col-md-4">
                         <label>Estado</label>
@@ -243,6 +251,8 @@
                                         <th>Código</th>
                                         <th>Nombre</th>
                                         <th>Cantidad</th>
+                                        <th>Valor Unitario</th>
+                                        <th>Sub Total</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -252,6 +262,32 @@
                         </div>
                     </div>
                 </fieldset>			
+            </div>
+            <div class="col-md-12 mt-2">
+                <fieldset class="col-md-12">    	
+                    <legend>Resumen</legend>
+                    <div class="panel">
+                        <div class="panel-body">
+                            <table class="">
+                                <tr>
+                                    <td><strong>Neto:</strong></td>
+                                    <td id="td-m_pre-neto">0</td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>IVA:</strong></td>
+                                    <td id="td-m_pre-iva">0</td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Total:</strong></td>
+                                    <td id="td-m_pre-total">0</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    
+                </fieldset>
             </div>
         </div>
     </div>
@@ -271,6 +307,8 @@
                                         <th>Código</th>
                                         <th>Nombre</th>
                                         <th>Cantidad</th>
+                                        <th>Valor Unitario</th>
+                                        <th>Sub Total</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -280,6 +318,32 @@
                         </div>
                     </div>
                 </fieldset>			
+            </div>
+            <div class="col-md-12 mt-2">
+                <fieldset class="col-md-12">    	
+                    <legend>Resumen</legend>
+                    <div class="panel">
+                        <div class="panel-body">
+                            <table class="">
+                                <tr>
+                                    <td><strong>Neto:</strong></td>
+                                    <td id="td-m-real-neto">0</td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>IVA:</strong></td>
+                                    <td id="td-m-real-iva">0</td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Total:</strong></td>
+                                    <td id="td-m-real-total">0</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    
+                </fieldset>
             </div>
         </div>
     </div>
@@ -408,6 +472,7 @@
                         <th>Código</th>
                         <th>Nombre</th>
                         <th>Cantidad</th>
+                        <th>Valor</th>
                         <th>Cargar</th>
                     </tr>
                 </thead>
@@ -421,13 +486,14 @@
                                 echo '<td>'.$material['codigo'].'</td>';
                                 echo '<td>'.$material['nombre'].'</td>';
                                 echo '<td><input value="0" class="form-control" type="number" name="input-material_pre_cantidad" id="input-material_pre-cantidad-'.$material['id'].'"></td>';
+                                echo '<td>'.$material['valor'].'</td>';
                                 echo '<td><button class="btn btn-primary" id="btn-'.$material['id'].'" onclick="cargarMaterialPre(this.id);">agregar</button></td>';
                                 echo '</tr>';
                             }
                         }
                         else{
                             //no vienen registros
-                            echo '<tr><td colspan="5">No existen registros.</td></tr>';
+                            echo '<tr><td colspan="6">No existen registros.</td></tr>';
                         }
                     ?>
                 </tbody>
@@ -457,6 +523,7 @@
                         <th>Código</th>
                         <th>Nombre</th>
                         <th>Cantidad</th>
+                        <th>Valor</th>
                         <th>Cargar</th>
                     </tr>
                 </thead>
@@ -470,13 +537,14 @@
                                 echo '<td>'.$material['codigo'].'</td>';
                                 echo '<td>'.$material['nombre'].'</td>';
                                 echo '<td><input value="0" class="form-control" type="number" name="input-material_real_cantidad" id="input-material_real-cantidad-'.$material['id'].'"></td>';
+                                echo '<td>'.$material['valor'].'</td>';
                                 echo '<td><button class="btn btn-primary" id="btn-'.$material['id'].'" onclick="cargarMaterialReal(this.id);">agregar</button></td>';
                                 echo '</tr>';
                             }
                         }
                         else{
                             //no vienen registros
-                            echo '<tr><td colspan="5">No existen registros.</td></tr>';
+                            echo '<tr><td colspan="6">No existen registros.</td></tr>';
                         }
                     ?>
                 </tbody>
@@ -501,6 +569,14 @@
     var neto_real = 0;
     var iva_real = 0;
     var total_real = 0;
+
+    var m_neto_pre = 0;
+    var m_iva_pre = 0;
+    var m_total_pre = 0;
+
+    var m_neto_real = 0;
+    var m_iva_real = 0;
+    var m_total_real = 0;
 
     $(document).ready( function () {
         $('#table-carga-items').DataTable({
@@ -698,6 +774,7 @@
             let estado = $('#select-estado').val();
             let cliente = $('#select-cliente').val();
             let descripcion = $('#textarea-descripcion').val();
+            let margen = $('#input-margen').val();
             //--------------------------------------------------------------------------------------------------------
             let dataPre = [];
             let dataReal = [];
@@ -736,8 +813,9 @@
                 let material_id = $(material_pre.rows[r]).attr('id');
                 material_id = material_id.replace('tr-material-pre-','');
                 let cantidad = $('#input-material-pre-cantidad-'+material_id).val();
+                let valor_unitario = $('#input-material-pre-valor_unitario-'+material_id).val();
 
-                let temp = [material_id, cantidad];
+                let temp = [material_id, cantidad, valor_unitario];
                 dataMaterialPre.push(temp);
                 
             }
@@ -747,8 +825,9 @@
                 let material_id = $(material_real.rows[r]).attr('id');
                 material_id = material_id.replace('tr-material-real-','');
                 let cantidad = $('#input-material-real-cantidad-'+material_id).val();
+                let valor_unitario = $('#input-material-real-valor_unitario-'+material_id).val();
 
-                let temp = [material_id, cantidad];
+                let temp = [material_id, cantidad, valor_unitario];
                 dataMaterialReal.push(temp);
             }
 
@@ -770,13 +849,21 @@
                                 estado: estado,
                                 cliente: cliente,
                                 descripcion: descripcion,
+                                margen: margen,
                                 iva_historico: iva_historico,
                                 neto_pre: neto_pre,
                                 iva_pre: iva_pre,
                                 total_pre: total_pre,
                                 neto_real: neto_real,
                                 iva_real: iva_real,
-                                total_real: total_real
+                                total_real: total_real,
+                                
+                                m_neto_pre: m_neto_pre,
+                                m_iva_pre: m_iva_pre,
+                                m_total_pre: m_total_pre,
+                                m_neto_real: m_neto_real,
+                                m_iva_real: m_iva_real,
+                                m_total_real: m_total_real
                             },
                     success: function(response){
                         if(parseInt(response['codigo']) == 1){
@@ -800,6 +887,8 @@
         let c = confirm('Cofirme esta operación');
         if(c)
             $('#tr-material-pre-'+material_id).remove();
+
+        sumatoriaTotalMaterialPre();
     }
 
     function cargarMaterialPre(material_id){
@@ -816,14 +905,50 @@
                 let tbody = '<tr id="tr-material-pre-'+material_id+'">';
                 tbody += '<td>'+response[0]['codigo']+'</td>';
                 tbody += '<td>'+response[0]['nombre']+'</td>';
-                tbody += '<td><input type="number" value="'+cantidad+'" class="form-control" name="input-material-pre-cantidad" id="input-material-pre-cantidad-'+material_id+'"></td>';
+                tbody += '<td><input onkeyup="calcularSubTotalMaterialPre(this.id);" type="number" value="'+cantidad+'" class="form-control" name="input-material-pre-cantidad" id="input-material-pre-cantidad-'+material_id+'"></td>';
+                //tbody += '<td>'+response[0]['valor']+'</td>';
+                //tbody += '<td>'+parseFloat(cantidad * parseInt(response[0]['valor']))+'</td>';
+                tbody += '<td><input class="form-control" value="'+response[0]['valor']+'" type="number" id="input-material-pre-valor_unitario-'+material_id+'" name="input-material-pre-valor_unitario" readonly/></td>';
+                tbody += '<td><input class="form-control" name="input-material-pre-sub_total" value="'+parseFloat(cantidad * parseInt(response[0]['valor']))+'" id="input-material-pre-sub_total-'+material_id+'" readonly></td>';
+                
                 tbody += '<td><button id="btn-material-pre-remove-'+material_id+'" class="btn btn-danger" onclick="removerMaterialPre(this.id);">remover</button></td>';
+                
+                
                 tbody += '</tr>';
                 $('#tbody-materiales_pre').append(tbody);
 
                 $('#modal-materiales-pre').modal('hide');
+                sumatoriaTotalMaterialPre();
             }
         });
+    }
+
+    function calcularSubTotalMaterialPre(identificador){
+        let cantidad = $('#'+identificador).val() != '0' ? $('#'+identificador).val() : 0;
+        material_id = identificador.replace('input-material-pre-cantidad-','');
+        let valor_unitario = $('#input-material-pre-valor_unitario-'+material_id).val();
+        let calculo = cantidad * valor_unitario;
+        $('#input-material-pre-sub_total-'+material_id).val(calculo);
+        sumatoriaTotalMaterialPre();
+    }
+
+    function sumatoriaTotalMaterialPre(){
+        let sub_totales = $('input[name="input-material-pre-sub_total"]');
+        let sumatoria = 0;
+        for(let i=0; i < sub_totales.length; i++){
+            sumatoria += parseInt($(sub_totales[i]).val());
+        }
+
+        let iva = Math.round(sumatoria * iva_historico);
+        let total = Math.round(sumatoria + iva);
+
+        m_neto_pre = sumatoria;
+        m_iva_pre = iva;
+        m_total_pre = total;
+
+        $('#td-m_pre-neto').html(new Intl.NumberFormat('es-CL', {currency: 'CLP', style: 'currency'}).format(sumatoria));
+        $('#td-m_pre-iva').html(new Intl.NumberFormat('es-CL', {currency: 'CLP', style: 'currency'}).format(iva));
+        $('#td-m_pre-total').html(new Intl.NumberFormat('es-CL', {currency: 'CLP', style: 'currency'}).format(total));
     }
     //----------------------------------------------------------------------------------------------------------
     //MATERIAL REAL
@@ -832,6 +957,8 @@
         let c = confirm('Cofirme esta operación');
         if(c)
             $('#tr-material-real-'+material_id).remove();
+
+        sumatoriaTotalMaterialReal();
     }
 
     function cargarMaterialReal(material_id){
@@ -848,13 +975,49 @@
                 let tbody = '<tr id="tr-material-real-'+material_id+'">';
                 tbody += '<td>'+response[0]['codigo']+'</td>';
                 tbody += '<td>'+response[0]['nombre']+'</td>';
+                /*
                 tbody += '<td><input type="number" value="'+cantidad+'" class="form-control" name="input-material-real-cantidad" id="input-material-real-cantidad-'+material_id+'"></td>';
+                tbody += '<td>'+response[0]['valor']+'</td>';
+                tbody += '<td>'+parseFloat(cantidad * parseInt(response[0]['valor']))+'</td>';
+                */
+                tbody += '<td><input onkeyup="calcularSubTotalMaterialReal(this.id);" type="number" value="'+cantidad+'" class="form-control" name="input-material-real-cantidad" id="input-material-real-cantidad-'+material_id+'"></td>';
+                tbody += '<td><input class="form-control" value="'+response[0]['valor']+'" type="number" id="input-material-real-valor_unitario-'+material_id+'" name="input-material-real-valor_unitario" readonly/></td>';
+                tbody += '<td><input class="form-control" name="input-material-real-sub_total" value="'+parseFloat(cantidad * parseInt(response[0]['valor']))+'" id="input-material-real-sub_total-'+material_id+'" readonly></td>';
                 tbody += '<td><button id="btn-material-real-remove-'+material_id+'" class="btn btn-danger" onclick="removerMaterialReal(this.id);">remover</button></td>';
                 tbody += '</tr>';
                 $('#tbody-materiales_real').append(tbody);
 
                 $('#modal-materiales-real').modal('hide');
+                sumatoriaTotalMaterialReal();
             }
         });
+    }
+
+    function calcularSubTotalMaterialReal(identificador){
+        let cantidad = $('#'+identificador).val() != '0' ? $('#'+identificador).val() : 0;
+        material_id = identificador.replace('input-material-real-cantidad-','');
+        let valor_unitario = $('#input-material-real-valor_unitario-'+material_id).val();
+        let calculo = cantidad * valor_unitario;
+        $('#input-material-real-sub_total-'+material_id).val(calculo);
+        sumatoriaTotalMaterialReal();
+    }
+
+    function sumatoriaTotalMaterialReal(){
+        let sub_totales = $('input[name="input-material-real-sub_total"]');
+        let sumatoria = 0;
+        for(let i=0; i < sub_totales.length; i++){
+            sumatoria += parseInt($(sub_totales[i]).val());
+        }
+
+        let iva = Math.round(sumatoria * iva_historico);
+        let total = Math.round(sumatoria + iva);
+
+        m_neto_real = sumatoria;
+        m_iva_real = iva;
+        m_total_real = total;
+
+        $('#td-m-real-neto').html(new Intl.NumberFormat('es-CL', {currency: 'CLP', style: 'currency'}).format(sumatoria));
+        $('#td-m-real-iva').html(new Intl.NumberFormat('es-CL', {currency: 'CLP', style: 'currency'}).format(iva));
+        $('#td-m-real-total').html(new Intl.NumberFormat('es-CL', {currency: 'CLP', style: 'currency'}).format(total));
     }
 </script>

@@ -94,6 +94,7 @@ class CotizacionesController extends CI_Controller {
 		$estado = 1;
 		$cliente = trim($this->input->post('cliente', TRUE));
 		$descripcion = trim($this->input->post('descripcion', TRUE));
+		$margen = trim($this->input->post('margen', TRUE));
 		$iva_historico = trim($this->input->post('iva_historico', TRUE));
 		$neto_pre = trim($this->input->post('neto_pre', TRUE));
 		$iva_pre = trim($this->input->post('iva_pre', TRUE));
@@ -102,8 +103,20 @@ class CotizacionesController extends CI_Controller {
 		$iva_real = trim($this->input->post('iva_real', TRUE));
 		$total_real = trim($this->input->post('total_real', TRUE));
 
+		$m_neto_pre = trim($this->input->post('m_neto_pre', TRUE));
+		$m_iva_pre = trim($this->input->post('m_iva_pre', TRUE));
+		$m_total_pre = trim($this->input->post('m_total_pre', TRUE));
+
+		$m_neto_real = trim($this->input->post('m_neto_real', TRUE));
+		$m_iva_real = trim($this->input->post('m_iva_real', TRUE));
+		$m_total_real = trim($this->input->post('m_total_real', TRUE));
+
+		$totales_presupuestado = $total_pre + $m_total_pre;
+		$totales_real = $total_real + $m_total_real;
+		$diferencia = $totales_presupuestado - $totales_real;
+
 		$response = [];
-		if(!empty($codigo) && !empty($fecha) && !empty($titulo) && !empty($cliente) && !empty($dataPre) && !empty($neto_pre)){
+		if(!empty($codigo) && !empty($fecha) && !empty($titulo) && !empty($cliente) && !empty($dataPre) && !empty($neto_pre) && !empty($margen)){
 			//guardar cotizacion
 			$dataCotizacion = 	[
 				'codigo' => $codigo,
@@ -114,6 +127,7 @@ class CotizacionesController extends CI_Controller {
 				'cotizaciones_estado_id' => $estado,
 				'clientes_id' => $cliente,
 				'descripcion' => $descripcion,
+				'margen' => $margen,
 				'iva_historico' => $iva_historico,
 				'neto' => $neto_pre,
 				'total' => $total_pre,
@@ -121,6 +135,18 @@ class CotizacionesController extends CI_Controller {
 				'neto_real' => $neto_real,
 				'iva_real' => $iva_real,
 				'total_real' => $total_real,
+
+				'material_neto' => $m_neto_pre,
+				'material_total' => $m_total_pre,
+				'material_iva'	=>	$m_iva_pre,
+				'material_neto_real' => $m_neto_real,
+				'material_iva_real' => $m_iva_real,
+				'material_total_real' => $m_total_real,
+
+				'totales_presupuestado' => $totales_presupuestado,
+				'totales_real' => $totales_real,
+				'diferencia' => $diferencia,
+
 				'usuarios_id' => $this->session->userdata("usuario_id")
 			];
 
@@ -157,7 +183,9 @@ class CotizacionesController extends CI_Controller {
 						$arr_temp = 	[
 											'cotizacion_id' => $cotizacion_id,
 											'material_id' => $dataMaterialPre[$i][0],
-											'cantidad' => $dataMaterialPre[$i][1]
+											'cantidad' => $dataMaterialPre[$i][1],
+											'n_linea' => ($i+1),
+											'valor'	=> $dataMaterialPre[$i][2]
 						];
 						$this->modelo->addMaterialPre($arr_temp);
 					}
@@ -168,7 +196,9 @@ class CotizacionesController extends CI_Controller {
 						$arr_temp = 	[
 											'cotizacion_id' => $cotizacion_id,
 											'material_id' => $dataMaterialReal[$i][0],
-											'cantidad' => $dataMaterialReal[$i][1]
+											'cantidad' => $dataMaterialReal[$i][1],
+											'n_linea' => ($i+1),
+											'valor'	=> $dataMaterialReal[$i][2]
 						];
 						$this->modelo->addMaterialReal($arr_temp);
 					}
@@ -204,12 +234,26 @@ class CotizacionesController extends CI_Controller {
 		$cliente = trim($this->input->post('cliente', TRUE));
 		$descripcion = trim($this->input->post('descripcion', TRUE));
 		$iva_historico = trim($this->input->post('iva_historico', TRUE));
+
 		$neto_pre = trim($this->input->post('neto_pre', TRUE));
 		$iva_pre = trim($this->input->post('iva_pre', TRUE));
 		$total_pre = trim($this->input->post('total_pre', TRUE));
 		$neto_real = trim($this->input->post('neto_real', TRUE));
 		$iva_real = trim($this->input->post('iva_real', TRUE));
 		$total_real = trim($this->input->post('total_real', TRUE));
+
+		$m_neto_pre = trim($this->input->post('m_neto_pre', TRUE));
+		$m_iva_pre = trim($this->input->post('m_iva_pre', TRUE));
+		$m_total_pre = trim($this->input->post('m_total_pre', TRUE));
+
+		$m_neto_real = trim($this->input->post('m_neto_real', TRUE));
+		$m_iva_real = trim($this->input->post('m_iva_real', TRUE));
+		$m_total_real = trim($this->input->post('m_total_real', TRUE));
+
+		$totales_presupuestado = $total_pre + $m_total_pre;
+		$totales_real = $total_real + $m_total_real;
+		$diferencia = $totales_presupuestado - $totales_real;
+
 
 		$response = [];
 		if(!empty($codigo) && !empty($fecha) && !empty($titulo) && !empty($cliente) && 
@@ -230,6 +274,18 @@ class CotizacionesController extends CI_Controller {
 									'neto_real' => $neto_real,
 									'iva_real' => $iva_real,
 									'total_real' => $total_real,
+
+									'material_neto' => $m_neto_pre,
+									'material_total' => $m_total_pre,
+									'material_iva'	=>	$m_iva_pre,
+									'material_neto_real' => $m_neto_real,
+									'material_iva_real' => $m_iva_real,
+									'material_total_real' => $m_total_real,
+
+									'totales_presupuestado' => $totales_presupuestado,
+									'totales_real' => $totales_real,
+									'diferencia' => $diferencia,
+
 									'usuarios_id' => $this->session->userdata("usuario_id")
 								];
 			
@@ -271,7 +327,9 @@ class CotizacionesController extends CI_Controller {
 					$arr_temp = 	[
 										'cotizacion_id' => $cotizacion_id,
 										'material_id' => $dataMaterialPre[$i][0],
-										'cantidad' => $dataMaterialPre[$i][1]
+										'cantidad' => $dataMaterialPre[$i][1],
+										'n_linea' => ($i+1),
+										'valor'	=> $dataMaterialPre[$i][2]
 					];
 					$this->modelo->addMaterialPre($arr_temp);
 				}
@@ -282,7 +340,9 @@ class CotizacionesController extends CI_Controller {
 					$arr_temp = 	[
 										'cotizacion_id' => $cotizacion_id,
 										'material_id' => $dataMaterialReal[$i][0],
-										'cantidad' => $dataMaterialReal[$i][1]
+										'cantidad' => $dataMaterialReal[$i][1],
+										'n_linea' => ($i+1),
+										'valor'	=> $dataMaterialReal[$i][2]
 					];
 					$this->modelo->addMaterialReal($arr_temp);
 				}
@@ -315,7 +375,7 @@ class CotizacionesController extends CI_Controller {
 		$crud->display_as('total','Total P.');
 		$crud->display_as('total_real','Total R.');
 		$crud->display_as('fecha_creacion','creado');
-		$crud->columns(['codigo','fecha','titulo','total','total_real', 'clientes_id', 'fecha_creacion']);
+		$crud->columns(['codigo','fecha','titulo', 'margen', 'totales_presupuestado','totales_real', 'diferencia','clientes_id', 'fecha_creacion']);
 		/*
 		$crud->set_relation('roles_id','roles','nombre');
 		$crud->display_as('roles_id','Rol');

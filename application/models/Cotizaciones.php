@@ -14,7 +14,10 @@ class Cotizaciones extends CI_Model {
     }
 
     public function obtenerCotizaciones($desde = null, $hasta = null, $cliente = null, $estado = null){
-        $this->db->select('c.id, c.codigo, c.fecha_creacion, c.titulo, cli.razonsocial as cliente, c.total, c.total_real, (c.total - c.total_real) as diferencia, ce.nombre as estado');
+        $this->db->select('c.id, c.codigo, c.fecha_creacion, c.titulo, 
+        cli.razonsocial as cliente, c.total, c.total_real, (c.total - c.total_real) as diferencia2, ce.nombre as estado, 
+        material_neto_real, material_iva_real, material_total_real, 
+        material_neto, material_iva, material_total, margen, totales_presupuestado, totales_real, diferencia');
         $this->db->from('cotizaciones as c');
         $this->db->join('cotizaciones_estado as ce', 'ce.id = c.cotizaciones_estado_id');
         $this->db->join('clientes as cli', 'cli.id = c.clientes_id');
@@ -57,7 +60,9 @@ class Cotizaciones extends CI_Model {
         $this->db->select('c.id, c.codigo, DATE(c.fecha_creacion) as fecha_creacion, c.titulo,
                             c.descripcion, c.neto as neto_pre, c.iva as iva_pre, c.iva_historico, c.total as total_pre, 
                             DATE(c.fecha_actualizacion) as fecha_actualizacion, u.nombre as usuario_nombre, cli.razonsocial, c.neto_real, c.iva_real,
-                            c.total_real, ce.nombre as estado, cli.id as cliente_id, ce.id as estado_id');
+                            c.total_real, ce.nombre as estado, cli.id as cliente_id, ce.id as estado_id, 
+                            material_neto_real, material_iva_real, material_total_real, 
+                            material_neto, material_iva, material_total, margen, totales_presupuestado, totales_real, diferencia');
         $this->db->from('cotizaciones as c');
         $this->db->join('cotizaciones_estado as ce', 'ce.id = c.cotizaciones_estado_id');
         $this->db->join('clientes as cli', 'cli.id = c.clientes_id');
@@ -129,7 +134,7 @@ class Cotizaciones extends CI_Model {
     }
 
     public function obtenerCotizacionMaterialPre($cotizacion_id){
-        $this->db->select('cm.cantidad, m.codigo, m.nombre, m.id as material_id');
+        $this->db->select('cm.cantidad, m.codigo, m.nombre, m.id as material_id, cm.n_linea as n_linea, cm.valor as valor');
         $this->db->from('cotizacion_material_presupuestado as cm');
         $this->db->join('materiales as m', 'm.id = cm.material_id');
         $this->db->where('cm.cotizacion_id', $cotizacion_id);
@@ -137,7 +142,7 @@ class Cotizaciones extends CI_Model {
     }
 
     public function obtenerCotizacionMaterialReal($cotizacion_id){
-        $this->db->select('cm.cantidad, m.codigo, m.nombre, m.id as material_id');
+        $this->db->select('cm.cantidad, m.codigo, m.nombre, m.id as material_id, cm.n_linea as n_linea, cm.valor as valor');
         $this->db->from('cotizacion_material_real as cm');
         $this->db->join('materiales as m', 'm.id = cm.material_id');
         $this->db->where('cm.cotizacion_id', $cotizacion_id);
@@ -175,7 +180,7 @@ class Cotizaciones extends CI_Model {
     }
 
     public function getMateriales(){
-        $this->db->select('id, codigo,  nombre');
+        $this->db->select('id, codigo,  nombre, valor');
         $this->db->from('materiales');
         $this->db->order_by('nombre','asc');
         return $this->db->get()->result_array();

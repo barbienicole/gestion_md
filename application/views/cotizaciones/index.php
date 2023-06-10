@@ -56,6 +56,7 @@
                     <th class="text-center">Fecha</th>
                     <th class="text-center">Título</th>
                     <th class="text-center">Cliente</th>
+                    <th class="text-center">Margen</th>
                     <th class="text-center">Presupuestado $</th>
                     <th class="text-center">Real $</th>
                     <th class="text-center">Diferencia $</th>
@@ -111,8 +112,9 @@
                         tbody += '<td>'+response[i]['fecha_creacion']+'</td>';
                         tbody += '<td>'+response[i]['titulo']+'</td>';
                         tbody += '<td>'+response[i]['cliente']+'</td>';
-                        tbody += '<td class="text-right">'+response[i]['total']+'</td>';
-                        tbody += '<td class="text-right">'+response[i]['total_real']+'</td>';
+                        tbody += '<td>'+(response[i]['margen'] != null ? response[i]['margen'] : 'N/A' )+'</td>';
+                        tbody += '<td class="text-right">'+response[i]['totales_presupuestado']+'</td>';
+                        tbody += '<td class="text-right">'+response[i]['totales_real']+'</td>';
                         tbody += '<td class="text-right">'+response[i]['diferencia']+'</td>';
                         tbody += '<td>'+response[i]['estado']+'</td>';
                         tbody += '<td><a href="<?php echo base_url();?>index.php/CotizacionesController/view?id='+response[i]['id']+'" class="btn btn-info btn-sm" title="Ver cotización">ver</a> <a href="<?php echo base_url();?>index.php/CotizacionesController/edit?id='+response[i]['id']+'" class="btn btn-warning btn-sm" title="Editar cotización">editar</a></td>';
@@ -130,7 +132,7 @@
                 $('#table-cotizaciones').DataTable({
                     columnDefs: [
                     {
-                        targets: [4,5,6],
+                        targets: [6,7,8],
                         render: $.fn.dataTable.render.number('.', ',', 0, '$','')
                     }
                     ],
