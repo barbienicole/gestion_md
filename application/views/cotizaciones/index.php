@@ -124,7 +124,7 @@
                         sum_diferencia = '<font color="red">'+new Intl.NumberFormat('es-CL', {currency: 'CLP', style: 'currency'}).format(sum_diferencia)+'</font>';
                     else if(sum_diferencia > 0)
                         sum_diferencia = '<font color="green">'+new Intl.NumberFormat('es-CL', {currency: 'CLP', style: 'currency'}).format(sum_diferencia)+'</font>';
-                    tfoot += '<tr><td colspan="5" class="text-center"><strong>Totales $</strong></td><td class="text-right">'+new Intl.NumberFormat('es-CL', {currency: 'CLP', style: 'currency'}).format(sum_presupuestado)+'</td><td class="text-right">'+new Intl.NumberFormat('es-CL', {currency: 'CLP', style: 'currency'}).format(sum_real)+'</td><td class="text-right">'+sum_diferencia+'</td><td colspan="2"></td></tr>';
+                    tfoot += '<tr><td colspan="6" class="text-center"><strong>Totales $</strong></td><td class="text-right">'+new Intl.NumberFormat('es-CL', {currency: 'CLP', style: 'currency'}).format(sum_presupuestado)+'</td><td class="text-right">'+new Intl.NumberFormat('es-CL', {currency: 'CLP', style: 'currency'}).format(sum_real)+'</td><td class="text-right">'+sum_diferencia+'</td><td colspan="2"></td></tr>';
                 }
 
                 $('#tbody-cotizaciones').html(tbody);
