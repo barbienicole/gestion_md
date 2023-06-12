@@ -614,21 +614,21 @@
 <script>
     var iva_historico = <?= $iva?>;
     
-    var neto_pre = 0;
-    var iva_pre = 0;
-    var total_pre = 0;
+    var neto_pre = '<?php echo !empty($cabecera[0]['neto_pre']) ? $cabecera[0]['neto_pre'] : 0;?>';
+    var iva_pre = '<?php echo !empty($cabecera[0]['iva_pre']) ? $cabecera[0]['iva_pre'] : 0;?>';
+    var total_pre = '<?php echo !empty($cabecera[0]['total_pre']) ? $cabecera[0]['total_pre'] : 0;?>';
 
-    var neto_real = 0;
-    var iva_real = 0;
-    var total_real = 0;
+    var neto_real = '<?php echo !empty($cabecera[0]['neto_real']) ? $cabecera[0]['neto_real'] : 0;?>';
+    var iva_real = '<?php echo !empty($cabecera[0]['iva_real']) ? $cabecera[0]['iva_real'] : 0;?>';
+    var total_real = '<?php echo !empty($cabecera[0]['total_real']) ? $cabecera[0]['total_real'] : 0;?>';
 
-    var m_neto_pre = 0;
-    var m_iva_pre = 0;
-    var m_total_pre = 0;
+    var m_neto_pre = '<?php echo !empty($cabecera[0]['material_neto']) ? $cabecera[0]['material_neto'] : 0;?>';
+    var m_iva_pre = '<?php echo !empty($cabecera[0]['material_iva']) ? $cabecera[0]['material_iva'] : 0;?>';
+    var m_total_pre = '<?php echo !empty($cabecera[0]['material_total']) ? $cabecera[0]['material_total'] : 0;?>';
 
-    var m_neto_real = 0;
-    var m_iva_real = 0;
-    var m_total_real = 0;
+    var m_neto_real = '<?php echo !empty($cabecera[0]['material_neto_real']) ? $cabecera[0]['material_neto_real'] : 0;?>';
+    var m_iva_real = '<?php echo !empty($cabecera[0]['material_iva_real']) ? $cabecera[0]['material_iva_real'] : 0;?>';
+    var m_total_real = <?php echo !empty($cabecera[0]['material_total_real']) ? $cabecera[0]['material_total_real'] : 0;?>;
 
     $(document).ready( function () {
         $('#table-carga-items').DataTable({
@@ -817,7 +817,7 @@
     }
     //----------------------------------------------------------------------------------------------------------
     function generarCotizacion(){
-        let c = confirm('Confirme la creación de este Proyecto');
+        let c = confirm('Confirme la edición de este Proyecto');
         if(c){
             let usuario = '<?php echo $this->session->userdata("usuario_id");?>';
             let codigo = $('#input-codigo').val();

@@ -203,11 +203,11 @@ CREATE TABLE `items` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `items` */
 
-insert  into `items`(`id`,`nombre`) values (1,'Hora hombre (hh)'),(2,'Materiales'),(3,'Colación'),(4,'Traslado'),(5,'Caja chica'),(6,'Compras menores');
+insert  into `items`(`id`,`nombre`) values (1,'Hora hombre (hh)'),(2,'Colación'),(3,'Traslado'),(4,'Caja chica'),(5,'Compras menores');
 
 /*Table structure for table `logs` */
 

@@ -233,6 +233,7 @@ class CotizacionesController extends CI_Controller {
 		$estado = trim($this->input->post('estado', TRUE));
 		$cliente = trim($this->input->post('cliente', TRUE));
 		$descripcion = trim($this->input->post('descripcion', TRUE));
+		$margen = trim($this->input->post('margen', TRUE));
 		$iva_historico = trim($this->input->post('iva_historico', TRUE));
 
 		$neto_pre = trim($this->input->post('neto_pre', TRUE));
@@ -256,8 +257,12 @@ class CotizacionesController extends CI_Controller {
 
 
 		$response = [];
+		/*
 		if(!empty($codigo) && !empty($fecha) && !empty($titulo) && !empty($cliente) && 
 			!empty($dataPre) && !empty($neto_pre)){
+				*/
+		if(!empty($codigo) && !empty($fecha) && !empty($titulo) && !empty($cliente) && 
+		!empty($dataPre) && !empty($neto_pre) && !empty($margen)){
 			//guardar cotizacion
 			$dataCotizacion = 	[
 									'codigo' => $codigo,
