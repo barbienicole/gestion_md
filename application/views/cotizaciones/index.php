@@ -102,8 +102,8 @@
 
                 if(response.length > 0){
                     for(let i=0; i < response.length; i++){
-                        sum_presupuestado += parseInt(response[i]['total']);
-                        sum_real += parseInt(response[i]['total_real']);
+                        sum_presupuestado += parseInt(response[i]['totales_presupuestado']);
+                        sum_real += parseInt(response[i]['totales_real']);
                         sum_diferencia += parseInt(response[i]['diferencia']);
 
                         tbody += '<tr>';
